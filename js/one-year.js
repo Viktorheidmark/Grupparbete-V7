@@ -1,37 +1,19 @@
-let years = (await dbQuery(
-  'SELECT DISTINCT year FROM dataWithMonths'
-)).map(x => x.year);
 
-let currentYear = addDropdown('År', years, 2024);
+addMdToPage("Intro")
 
-addMdToPage(`
-  ## Medeltemperaturer i Malmö ${currentYear}
-`);
+let county = await dbQuery("SELECT * FROM countyinfo")
+tableFromData({ data: county })
 
-let dataForChart = await dbQuery(
-  `SELECT monthNameShort, temperatureC FROM dataWithMonths WHERE year = '${currentYear}'`
-);
 
+
+// Draw a Google Charts
 drawGoogleChart({
-  type: 'LineChart',
-  data: makeChartFriendly(dataForChart, 'månad', '°C'),
+  type: 'ColumnChart',
+  data: makeChartFriendly(county, "lan", "folkmangd2024"),
   options: {
-    height: 500,
-    chartArea: { left: 50, right: 0 },
-    curveType: 'function',
-    pointSize: 5,
-    pointShape: 'circle',
-    vAxis: { format: '# °C' },
-    title: `Medeltemperatur per månad i Malmö ${currentYear} (°C)`
+    title: 'kolumn',
+    height: 800,
+    chartArea: { left: "10%" }
   }
 });
 
-// the same db query as before, but with the long month names
-let dataForTable = await dbQuery(
-  `SELECT monthName, temperatureC FROM dataWithMonths WHERE year = '${currentYear}'`
-);
-
-tableFromData({
-  data: dataForTable,
-  columnNames: ['Månad', 'Medeltemperatur (°C)']
-});
