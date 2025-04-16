@@ -1,0 +1,41 @@
+{
+	"name": "init-node-script",
+	"author": "Jeremy38100",
+	"displayName": "init-node-script",
+	"description": "Initialize a node script",
+	"version": "0.0.2",
+	"publisher": "Jeremy38100",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Jeremy38100/init-node-script"
+	},
+	"engines": {
+		"vscode": "^1.8.0"
+	},
+	"categories": [
+		"Snippets"
+	],
+	"contributes": {
+		"snippets": [
+			{
+				"language": "javascript,typescript",
+				"path": "./snippets.json"
+			}
+		]
+	},
+	"icon": "icon.png",
+	"__metadata": {
+		"id": "53e7fb8e-e23c-4580-9356-296b31ebcf94",
+		"publisherId": "d8db28dd-690b-4401-843e-45ab3ea00a4b",
+		"publisherDisplayName": "Jeremy38100",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"isPreReleaseVersion": false,
+		"hasPreReleaseVersion": false,
+		"installedTimestamp": 1742300703953,
+		"pinned": false,
+		"preRelease": false,
+		"source": "gallery",
+		"size": 538366
+	}
+}

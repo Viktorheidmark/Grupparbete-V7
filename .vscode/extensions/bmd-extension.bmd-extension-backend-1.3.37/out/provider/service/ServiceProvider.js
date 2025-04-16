@@ -1,0 +1,222 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const FsProvider_1 = require("../../FsProvider");
+const vscode = require("vscode");
+const util_1 = require("../../util");
+var ServiceAction;
+(function (ServiceAction) {
+    ServiceAction["GetLast30"] = "BMD: Get last 30";
+    ServiceAction["GetSum"] = "BMD: Get sum";
+    ServiceAction["GetManyAndCount"] = "BMD: Get many and count";
+})(ServiceAction = exports.ServiceAction || (exports.ServiceAction = {}));
+class ServiceActionProvider {
+    constructor() {
+        this.generateGetManyAndCount = (name) => {
+            const nameTextTypes = util_1.getFullTextType(name);
+            let template = `
+        // =====================GET MANY AND COUNT=====================
+        public async getManyAndCount({ page, limit, search }): Promise<[{{cap}}[], number]> {
+            let where = {{backtick}}{{camel}}.name LIKE '%{{dollar}}{search}%' AND {{camel}}.isDeleted = false{{backtick}}
+    
+            const [{{camel}}, total] = await {{cap}}.createQueryBuilder('{{camel}}')
+                .where(where)
+                .skip((page - 1) * limit)
+                .take(limit)
+                .orderBy('{{camel}}.id', 'DESC')
+                .getManyAndCount()
+    
+            return [{{camel}}, total]
+        }
+        `;
+            template = template.replace(/{{upper}}/g, nameTextTypes.upperCase);
+            template = template.replace(/{{camel}}/g, nameTextTypes.camelCase);
+            template = template.replace(/{{cap}}/g, nameTextTypes.classifyCase);
+            template = template.replace(/{{dollar}}/g, '$');
+            template = template.replace(/{{backtick}}/g, '`');
+            return template;
+        };
+        this.generateGetLast30 = (name) => {
+            const nameTextTypes = util_1.getFullTextType(name);
+            let template = `
+        // =====================GET LAST 30 {{upper}}=====================
+        async get{{cap}}Last30(from: Date = null, to: Date = null) {
+            const { start, end } = getFromToDate(from, to)
+
+            const {{camel}} = await {{cap}}.find({
+                where: {
+                    dateCreated: Between(start, end),
+                },
+                order: { dateCreated: "ASC" },
+            })
+
+            const {{camel}}GroupByDay = {}
+            {{camel}}.map(order => {
+                const date = convertIntToDDMMYY(order.dateCreated)
+                if (!{{camel}}GroupByDay[date]) {
+                    {{camel}}GroupByDay[date] = 0
+                }
+                {{camel}}GroupByDay[date] += 1
+            })
+
+            const reports = []
+            for (const date in {{camel}}GroupByDay) {
+                reports.push({
+                    date,
+                    total: {{camel}}GroupByDay[date],
+                })
+            }
+
+            return reports
+        }
+        `;
+            template = template.replace(/{{upper}}/g, nameTextTypes.upperCase);
+            template = template.replace(/{{camel}}/g, nameTextTypes.camelCase);
+            template = template.replace(/{{cap}}/g, nameTextTypes.classifyCase);
+            template = template.replace(/{{dollar}}/g, '$');
+            template = template.replace(/{{backtick}}/g, '`');
+            return template;
+        };
+        this.generateGetSum = (name) => __awaiter(this, void 0, void 0, function* () {
+            const properties = this.getPropertiesEntity(name);
+            const nameTextTypes = util_1.getFullTextType(name);
+            const result = yield vscode.window.showQuickPick(properties, {
+                placeHolder: 'Sum by: ', ignoreFocusOut: true
+            });
+            if (!result)
+                return;
+            let template = `
+                // =====================GET SUM {{upper}}=====================
+                async getSum{{cap}}(): Promise<number> {
+                    const { sum } = await {{cap}}
+                        .createQueryBuilder('{{camel}}')
+                        .select("sum({{camel}}.${result})", 'sum')
+                        .getRawOne()
+                    return sum
+                }
+                `;
+            template = template.replace(/{{upper}}/g, nameTextTypes.upperCase);
+            template = template.replace(/{{camel}}/g, nameTextTypes.camelCase);
+            template = template.replace(/{{cap}}/g, nameTextTypes.classifyCase);
+            return template;
+        });
+    }
+    provideCodeActions(document, range, context) {
+        if (!this.isServiceClass(document, range))
+            return;
+        const insertGetLast30 = this.createServiceFunc(document, range, ServiceAction.GetLast30);
+        const insertGetSum = this.createServiceFunc(document, range, ServiceAction.GetSum);
+        const insertGetManyAndCount = this.createServiceFunc(document, range, ServiceAction.GetManyAndCount);
+        return [
+            insertGetManyAndCount,
+            insertGetLast30,
+            insertGetSum
+        ];
+    }
+    isServiceClass(document, range) {
+        const start = range.start;
+        const line = document.lineAt(start.line);
+        return line.text.includes('Service') && line.text.includes('class');
+    }
+    createServiceFunc(document, range, typeFunc) {
+        const service = new vscode.CodeAction(typeFunc, vscode.CodeActionKind.QuickFix);
+        service.command = {
+            command: typeFunc,
+            title: 'Get list with pagination.',
+            tooltip: 'Get list with pagination.',
+            arguments: [document]
+        };
+        switch (typeFunc) {
+            case ServiceAction.GetLast30:
+                service.command = {
+                    command: typeFunc,
+                    title: 'Get last 30.',
+                    tooltip: 'Get last 30.',
+                    arguments: [document]
+                };
+                break;
+            case ServiceAction.GetSum:
+                service.command = {
+                    command: typeFunc,
+                    title: 'Get sum.',
+                    tooltip: 'Get sum.',
+                    arguments: [document]
+                };
+                break;
+            case ServiceAction.GetManyAndCount:
+                service.command = {
+                    command: typeFunc,
+                    title: 'Get many and count.',
+                    tooltip: 'Get many and count.',
+                    arguments: [document]
+                };
+                break;
+            default:
+                break;
+        }
+        return service;
+    }
+    insertServiceFunc(typeFunc, document) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const edit = new vscode.WorkspaceEdit();
+            let entity = 'Entity';
+            for (let index = 0; index < document.lineCount; index++) {
+                const line = document.lineAt(index);
+                if (line.text.includes('Service')) {
+                    let words = line.text.split(' ');
+                    words = words.filter(word => word.includes('Service'));
+                    words = words.map(word => word = word.replace('Service', ''));
+                    entity = words[0] || 'Entity';
+                }
+                if (line.text.includes('END FILE')) {
+                    switch (typeFunc) {
+                        case ServiceAction.GetLast30:
+                            edit.insert(document.uri, new vscode.Position(index - 1, 0), this.generateGetLast30(entity));
+                            break;
+                        case ServiceAction.GetSum:
+                            edit.insert(document.uri, new vscode.Position(index - 1, 0), yield this.generateGetSum(entity));
+                            break;
+                        case ServiceAction.GetManyAndCount:
+                            edit.insert(document.uri, new vscode.Position(index - 1, 0), this.generateGetManyAndCount(entity));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            vscode.workspace.applyEdit(edit);
+        });
+    }
+    getPropertiesEntity(name) {
+        const lines = FsProvider_1.FSProvider.getLinesDocumentInFile(`src/entity/${name}.ts`);
+        if (!lines.length)
+            return;
+        const properties = [];
+        for (let index = 0; index < lines.length; index++) {
+            const line = lines[index];
+            if (line.includes('@Column')) {
+                let lineProperty = lines[index + 2];
+                lineProperty = lineProperty.replace(':', '').replace(';', '');
+                const words = lineProperty.split(' ').filter(Boolean);
+                if (words.length > 1 && words[1] == 'number')
+                    properties.push(words[0]);
+                else
+                    continue;
+            }
+        }
+        return properties;
+    }
+}
+exports.ServiceActionProvider = ServiceActionProvider;
+ServiceActionProvider.providedCodeActionKinds = [
+    vscode.CodeActionKind.QuickFix
+];
+//# sourceMappingURL=ServiceProvider.js.map

@@ -1,0 +1,23 @@
+2024-10-04 20:02:25,591: WARNING	werkzeug:	Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+2024-10-04 20:16:54,831: WARNING	werkzeug:	Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+2024-10-04 20:18:32,444: ERROR	pgadmin:	Could not connect to server(#1) - 'PostgreSQL 16'.
+Error: connection failed: connection to server at "127.0.0.1", port 5544 failed: could not receive data from server: Connection refused
+2024-10-04 20:18:56,340: ERROR	pgadmin:	Could not connect to server(#1) - 'PostgreSQL 16'.
+Error: connection failed: connection to server at "127.0.0.1", port 5544 failed: could not receive data from server: Connection refused
+2024-10-04 20:24:58,385: ERROR	pgadmin:	Could not connect to server(#1) - 'PostgreSQL 16'.
+Error: connection failed: connection to server at "127.0.0.1", port 5544 failed: could not receive data from server: Connection refused
+2024-10-04 20:25:25,574: ERROR	pgadmin:	Could not connect to server(#2) - 'PostgreSQL 17'.
+Error: connection failed: connection to server at "127.0.0.1", port 5544 failed: could not receive data from server: Connection refused
+2024-10-04 20:26:25,223: WARNING	werkzeug:	Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+2024-10-04 20:26:46,813: ERROR	pgadmin:	Could not connect to server(#1) - 'PostgreSQL 16'.
+Error: connection failed: connection to server at "127.0.0.1", port 5544 failed: could not receive data from server: Connection refused
+2024-10-04 20:47:13,847: WARNING	werkzeug:	Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+2024-10-04 20:47:42,161: ERROR	pgadmin:	Could not connect to server(#1) - 'PostgreSQL 16'.
+Error: connection failed: connection to server at "127.0.0.1", port 5544 failed: could not receive data from server: Connection refused
+2024-10-04 20:48:38,152: ERROR	pgadmin:	Could not connect to server(#1) - 'PostgreSQL 16'.
+Error: connection failed: connection to server at "127.0.0.1", port 5544 failed: could not receive data from server: Connection refused
+2024-10-04 20:49:46,686: ERROR	pgadmin:	Could not connect to server(#1) - 'PostgreSQL 16'.
+Error: connection failed: connection to server at "127.0.0.1", port 5544 failed: could not receive data from server: Connection refused
+2024-10-04 20:50:15,308: ERROR	pgadmin:	Could not connect to server(#1) - 'PostgreSQL 16'.
+Error: connection failed: connection to server at "127.0.0.1", port 5544 failed: could not receive data from server: Connection refused
+2024-10-04 21:01:21,283: WARNING	werkzeug:	Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.

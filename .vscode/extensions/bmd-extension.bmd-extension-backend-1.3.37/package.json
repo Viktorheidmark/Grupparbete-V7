@@ -1,0 +1,535 @@
+{
+	"name": "bmd-extension-backend",
+	"publisher": "bmd-extension",
+	"icon": "logo.png",
+	"displayName": "backend",
+	"description": "backend",
+	"repository": {
+		"url": ""
+	},
+	"version": "1.3.37",
+	"engines": {
+		"vscode": "^1.41.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"snippets": [
+			{
+				"language": "typescript",
+				"path": "./snippets.json"
+			},
+			{
+				"language": "typescriptreact",
+				"path": "./snippets-tsr.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "bmdextension.addProject",
+				"title": "BMD: Add project",
+				"icon": {
+					"light": "media/light/add.svg",
+					"dark": "media/dark/add.svg"
+				}
+			},
+			{
+				"command": "bmdextension.init",
+				"title": "BMD: Init Project",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.createControllerResource",
+				"title": "BMD: New Controller Resource",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.createController",
+				"title": "BMD: New Controller",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.createService",
+				"title": "BMD: New Service",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.createEntity",
+				"title": "BMD: New Entity",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.createEntityRequest",
+				"title": "BMD: New Entity Request",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.contentDefine",
+				"title": "BMD: Add Module Content Define",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.configuration",
+				"title": "BMD: Add Module Configuration",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.deployStaging",
+				"title": "BMD: Deploy STAGING",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.deployProduct",
+				"title": "BMD: Deploy PRODUCT",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.openDocs",
+				"title": "BMD: Open Documents",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.getListPagination",
+				"title": "BMD: Get list pagination.",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.getListAll",
+				"title": "BMD: Get list all.",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.createItem",
+				"title": "BMD: Create new item by entity.",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.updateItem",
+				"title": "BMD: Update item.",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.createItemEntityRequest",
+				"title": "Create new item by entity request.",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.deleteItemByRemove",
+				"title": "Delete item by remove.",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.deleteItemByBlock",
+				"title": "Delete item by block.",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.upload",
+				"title": "Upload.",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.uploadResize",
+				"title": "Upload Resize.",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.get",
+				"title": "Get Method",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.post",
+				"title": "Post Method.",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.insertPrivateService",
+				"title": "BMD: Insert private Service",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.addProperty",
+				"title": "BMD: Add property",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.oneToMany",
+				"title": "BMD: Relation OneToMany",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.manyToOne",
+				"title": "BMD: Relation ManyToOne",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.manyToMany",
+				"title": "BMD: Relation ManyToMany",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.oneToOne",
+				"title": "BMD: Relation OneToOne",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			},
+			{
+				"command": "bmdextension.exportInterface",
+				"title": "BMD: Export Interface",
+				"icon": {
+					"light": "media/light/exe.svg",
+					"dark": "media/dark/exe.svg"
+				}
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "bmdextension.createControllerResource",
+					"group": "bmd@1"
+				},
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "bmdextension.createController",
+					"group": "bmd@2"
+				},
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "bmdextension.createService",
+					"group": "bmd@2"
+				},
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "bmdextension.createEntity",
+					"group": "bmd@2"
+				},
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "bmdextension.createEntityRequest",
+					"group": "bmd@2"
+				}
+			],
+			"view/title": [
+				{
+					"group": "navigation",
+					"command": "bmdextension.addProject"
+				}
+			],
+			"view/item/context": [
+				{
+					"when": "viewItem == bmdextension.init",
+					"group": "inline",
+					"command": "bmdextension.init"
+				},
+				{
+					"when": "viewItem == bmdextension.createControllerResource",
+					"group": "inline",
+					"command": "bmdextension.createControllerResource"
+				},
+				{
+					"when": "viewItem == bmdextension.createController",
+					"group": "inline",
+					"command": "bmdextension.createController"
+				},
+				{
+					"when": "viewItem == bmdextension.createService",
+					"group": "inline",
+					"command": "bmdextension.createService"
+				},
+				{
+					"when": "viewItem == bmdextension.createEntity",
+					"group": "inline",
+					"command": "bmdextension.createEntity"
+				},
+				{
+					"when": "viewItem == bmdextension.createEntityRequest",
+					"group": "inline",
+					"command": "bmdextension.createEntityRequest"
+				},
+				{
+					"when": "viewItem == bmdextension.contentDefine",
+					"group": "inline",
+					"command": "bmdextension.contentDefine"
+				},
+				{
+					"when": "viewItem == bmdextension.configuration",
+					"group": "inline",
+					"command": "bmdextension.configuration"
+				},
+				{
+					"when": "viewItem == bmdextension.deployProduct",
+					"group": "inline",
+					"command": "bmdextension.deployProduct"
+				},
+				{
+					"when": "viewItem == bmdextension.openDocs",
+					"group": "inline",
+					"command": "bmdextension.openDocs"
+				},
+				{
+					"when": "viewItem == bmdextension.deployStaging",
+					"group": "inline",
+					"command": "bmdextension.deployStaging"
+				},
+				{
+					"when": "viewItem == bmdextension.getListPagination",
+					"group": "inline",
+					"command": "bmdextension.getListPagination"
+				},
+				{
+					"when": "viewItem == bmdextension.getListAll",
+					"group": "inline",
+					"command": "bmdextension.getListAll"
+				},
+				{
+					"when": "viewItem == bmdextension.createItem",
+					"group": "inline",
+					"command": "bmdextension.createItem"
+				},
+				{
+					"when": "viewItem == bmdextension.updateItem",
+					"group": "inline",
+					"command": "bmdextension.updateItem"
+				},
+				{
+					"when": "viewItem == bmdextension.createItemEntityRequest",
+					"group": "inline",
+					"command": "bmdextension.createItemEntityRequest"
+				},
+				{
+					"when": "viewItem == bmdextension.deleteItemByRemove",
+					"group": "inline",
+					"command": "bmdextension.deleteItemByRemove"
+				},
+				{
+					"when": "viewItem == bmdextension.deleteItemByBlock",
+					"group": "inline",
+					"command": "bmdextension.deleteItemByBlock"
+				},
+				{
+					"when": "viewItem == bmdextension.upload",
+					"group": "inline",
+					"command": "bmdextension.upload"
+				},
+				{
+					"when": "viewItem == bmdextension.uploadResize",
+					"group": "inline",
+					"command": "bmdextension.uploadResize"
+				},
+				{
+					"when": "viewItem == bmdextension.get",
+					"group": "inline",
+					"command": "bmdextension.get"
+				},
+				{
+					"when": "viewItem == bmdextension.post",
+					"group": "inline",
+					"command": "bmdextension.post"
+				},
+				{
+					"when": "viewItem == bmdextension.insertPrivateService",
+					"group": "inline",
+					"command": "bmdextension.insertPrivateService"
+				},
+				{
+					"when": "viewItem == bmdextension.addProperty",
+					"group": "inline",
+					"command": "bmdextension.addProperty"
+				},
+				{
+					"when": "viewItem == bmdextension.oneToMany",
+					"group": "inline",
+					"command": "bmdextension.oneToMany"
+				},
+				{
+					"when": "viewItem == bmdextension.manyToOne",
+					"group": "inline",
+					"command": "bmdextension.manyToOne"
+				},
+				{
+					"when": "viewItem == bmdextension.manyToMany",
+					"group": "inline",
+					"command": "bmdextension.manyToMany"
+				},
+				{
+					"when": "viewItem == bmdextension.oneToOne",
+					"group": "inline",
+					"command": "bmdextension.oneToOne"
+				},
+				{
+					"when": "viewItem == bmdextension.exportInterface",
+					"group": "inline",
+					"command": "bmdextension.exportInterface"
+				}
+			]
+		},
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "bmdPackage",
+					"title": "BMD Package",
+					"icon": "media/dark/logo.svg"
+				}
+			]
+		},
+		"views": {
+			"explorer": [
+				{
+					"id": "bmdextension1",
+					"name": "BMD Command"
+				}
+			],
+			"bmdPackage": [
+				{
+					"id": "bmdextension2",
+					"name": "BMD Command"
+				},
+				{
+					"id": "bmdprojects",
+					"name": "BMD Projects"
+				}
+			]
+		},
+		"configuration": {
+			"title": "BMD EXTENSION",
+			"properties": {
+				"bmdextension.apiPassword": {
+					"type": "string",
+					"default": "",
+					"description": "Password to update or delete api resources"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./ && npm run copy:assets",
+		"pretest": "npm run compile",
+		"test": "node ./out/test/runTest.js",
+		"copy:assets": "rm -rf ./out/assets/* && cp -rv src/assets/. out/assets/.",
+		"publish": "vsce publish patch"
+	},
+	"devDependencies": {
+		"@types/fs-extra": "^8.0.1",
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.41.0",
+		"glob": "^7.1.5",
+		"mocha": "^6.2.2",
+		"tslint": "^5.20.0",
+		"typescript": "^3.6.4",
+		"vscode-test": "^1.2.2"
+	},
+	"dependencies": {
+		"axios": "^0.19.0",
+		"clipboardy": "^2.3.0",
+		"copy-to-clipboard": "^3.3.1",
+		"fs-extra": "^8.1.0"
+	},
+	"__metadata": {
+		"id": "5018f144-133c-45eb-b94c-2644ef9a1b2d",
+		"publisherId": "828ed67a-9c2b-4114-8fc0-d7f9cea4f03e",
+		"publisherDisplayName": "bmd-extension",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"isPreReleaseVersion": false,
+		"hasPreReleaseVersion": false,
+		"installedTimestamp": 1742462712489,
+		"pinned": false,
+		"preRelease": false,
+		"source": "gallery",
+		"size": 2884155
+	}
+}

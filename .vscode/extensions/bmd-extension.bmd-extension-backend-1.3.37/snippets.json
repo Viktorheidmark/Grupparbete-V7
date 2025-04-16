@@ -1,0 +1,215 @@
+{
+    "type of entity": {
+        "prefix": "et",
+        "body": [
+            "export enum ${TM_FILENAME_BASE}Type {",
+            "$2 = '$3'",
+            "}"
+        ],
+        "description": "Export enum type"
+    },
+    "status of entity": {
+        "prefix": "es",
+        "body": [
+            "export enum ${TM_FILENAME_BASE}Status {",
+            "Pending = 'PENDING',",
+            "Complete = 'COMPLETE'",
+            "}"
+        ],
+        "description": "Export enum status"
+    },
+    "body param id": {
+        "prefix": "bid",
+        "body": [
+            "@BodyParams('$1Id') $1Id: number,"
+        ],
+        "description": "Body params Id field"
+    },
+    "body param number": {
+        "prefix": "bn",
+        "body": [
+            "@BodyParams('$1') $1: number,"
+        ],
+        "description": "Body params Id field"
+    },
+    "body param string": {
+        "prefix": "bs",
+        "body": [
+            "@BodyParams('$1') $1: string,"
+        ],
+        "description": "Body params Id field"
+    },
+    "body param boolean": {
+        "prefix": "bb",
+        "body": [
+            "@BodyParams('$1') $1: boolean,"
+        ],
+        "description": "Body params Id field"
+    },
+    "body params": {
+        "prefix": "bids",
+        "body": [
+            "@BodyParams('$1Ids', Number) $1Ids: number[],"
+        ],
+        "description": "Body params Ids field"
+    },
+    "query param": {
+        "prefix": "qid",
+        "body": [
+            "@QueryParams('$1Id') $1Id: number,"
+        ],
+        "description": "Query params Id field"
+    },
+    "path param": {
+        "prefix": "pid",
+        "body": [
+            "@PathParams('$1Id') $1Id: number,"
+        ],
+        "description": "Path params Id field"
+    },
+    "query param number": {
+        "prefix": "qn",
+        "body": [
+            "@QueryParams('$1') $1: number,"
+        ],
+        "description": "Query params Id field"
+    },
+    "query param string": {
+        "prefix": "qs",
+        "body": [
+            "@QueryParams('$1') $1: string,"
+        ],
+        "description": "Query params Id field"
+    },
+    "query param boolean": {
+        "prefix": "qb",
+        "body": [
+            "@QueryParams('$1') $1: boolean,"
+        ],
+        "description": "Query params Id field"
+    },
+    "condition id": {
+        "prefix": "ifid",
+        "body": [
+            "if ($1Id) {",
+            "\twhere += ` AND $1.id = ${$1Id}`",
+            "}"
+        ],
+        "description": "If id exist and find 1 for query builder"
+    },
+    "condition id_find_one": {
+        "prefix": "iff1",
+        "body": [
+            "if (${1}Id) {",
+            "\tconst ${1} = await ${1/(.*)/${1:/capitalize}/}.findOneOrThrowId(${1}Id,null, '')",
+            "\t${2}.${1} = ${1}",
+            "}"
+        ],
+        "description": "If exist and find one"
+    },
+    "id_find_one": {
+        "prefix": "f1",
+        "body": [
+            "const ${1} = await ${1/(.*)/${1:/capitalize}/}.findOneOrThrowId(${1}Id,null, '')"
+        ],
+        "description": "Find one"
+    },
+    "id_find_in": {
+        "prefix": "fin",
+        "body": [
+            "const ${1}s = await ${1/(.*)/${1:/capitalize}/}.createQueryBuilder('${1}')",
+            ".where(`${1}.id IN (:...${1}Ids)`, { ${1}Ids })",
+            ".getMany()"
+        ],
+        "description": "Find in"
+    },
+    "where in": {
+        "prefix": "win",
+        "body": [
+            ".where(`$2id IN (:...$1)`, { $1 })"
+        ],
+        "description": "Where in"
+    },
+    "ass": {
+        "prefix": "assign",
+        "body": [
+            "public async assign${1/(.*)/${1:/capitalize}/}(${1}Id: number) {",
+            "\tconst ${1} = await ${1/(.*)/${1:/capitalize}/}.findOneOrThrowId(${1}Id, null, '')",
+            "\tthis.${1} = ${1}",
+            "}"
+        ],
+        "description": "Assign to entity"
+    },
+    "ifassign": {
+        "prefix": "ifassign",
+        "body": [
+            "if (${1}Id) await ${2}.assign${1/(.*)/${1:/capitalize}/}(${1}Id)"
+        ],
+        "description": "Assign to entity"
+    },
+    "geneCode": {
+        "prefix": "geneCode",
+        "body": [
+            "async generateCode() {",
+            "\tconst { start, end } = getThisMonthInterval()",
+            "\tconst count = await ${1/(.*)/${1:/capitalize}/}.createQueryBuilder('${1}')",
+            "\t\t.where(`${1}.createdAt BETWEEN \\${start} AND \\${end}`)",
+            "\t\t.getCount()",
+            "",
+            "\tthis.code = `\\${code}\\${getCurrentDateMMYY()}/\\${leftPad(count + 1, 4)}`",
+            "}"
+        ],
+        "description": "Generate code"
+    },
+    "gmac": {
+        "prefix": "gmac",
+        "body": [
+            "async getManyAndCount({ search, page, limit }): Promise<{ ${1}s: ${1/(.*)/${1:/capitalize}/}[], total: number }> {",
+            "\tlet where = `CONCAT(${1}.code, ' ') LIKE '%\\${search}%' AND ${1}.isDeleted = false`",
+            "",
+            "\tconst [${1}s, total] = await ${1/(.*)/${1:/capitalize}/}.createQueryBuilder('${1}')",
+            "\t\t.where(where)",
+            "\t\t.skip((page - 1) * limit)",
+            "\t\t.take(limit)",
+            "\t\t.orderBy('${1}.id', 'DESC')",
+            "\t\t.getManyAndCount()",
+            "",
+            "\treturn {${1}s, total}",
+            "}"
+        ],
+        "description": "Get many and count"
+    },
+    "fromTo": {
+        "prefix": "fromTo",
+        "body": [
+            "const { start, end } = getIntervalFromToDate(from, to)"
+        ],
+        "description": "Convert from, to into start, end"
+    },
+    "updateStatus": {
+        "prefix": "upS",
+        "body": [
+            "public async updateStatus(status: ${TM_FILENAME_BASE}Status) {",
+            "this.status = status",
+            "await this.save()",
+            "}"
+        ],
+        "description": "Function update status"
+    },
+    "importJimp": {
+        "prefix": "jimp",
+        "body": [
+            "import Jimp from 'jimp'"
+        ],
+        "description": "Import package jimp"
+    },
+    "pageLimitSearch": {
+        "prefix": "pls",
+        "body": [
+            "@QueryParams('page') page: number = 1,",
+            "@QueryParams('limit') limit: number = 0,",
+            "@QueryParams('search') search: string = '',"
+        ],
+        "description": "Add query page, limit, search"
+    }
+}

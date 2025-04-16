@@ -1,0 +1,15 @@
+// IMPORT LIBRARY
+import { Service } from "@tsed/common";
+
+
+// IMPORT CUSTOM
+import { {{classify}} } from "../entity/{{classify}}";
+
+@Service()
+export class {{classify}}Service {
+
+    public async function() {
+
+    }
+
+} //END FILE

@@ -1,0 +1,24 @@
+{
+    "FL": {
+        "prefix": "fl",
+        "body": [
+            "<FlatList",
+            "data={${data}}",
+            "renderItem={({ item }) => <HistoryListItem data={item} />}",
+            "keyExtractor={(item, index) => index.toString()}",
+            "showsHorizontalScrollIndicator={false}",
+            "showsVerticalScrollIndicator={false}",
+            "refreshing={${refreshing}}",
+            "onEndReachedThreshold={0.4}",
+            "onEndReached={${onLoadMore}}",
+            "refreshControl={",
+            "  <RefreshControl",
+            "    refreshing={this.state.isRefreshing}",
+            "    onRefresh={this.onRefresh}",
+            "  />",
+            "}",
+            "/>"
+        ],
+        "description": "Log output to console"
+    }
+}

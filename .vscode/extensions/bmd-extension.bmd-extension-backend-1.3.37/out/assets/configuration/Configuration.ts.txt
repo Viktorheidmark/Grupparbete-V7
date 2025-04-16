@@ -1,0 +1,37 @@
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { addPrefix } from "../util/helper"
+import CoreEntity from '../core/entity/CoreEntity';
+import { Property } from "@tsed/common";
+
+export enum ConfigurationParams {
+    MinPrice = 'MIN_PRICE',
+}
+
+@Entity(addPrefix("config"))
+export class Configuration extends CoreEntity {
+    constructor() {
+        super()
+    }
+
+    // PROPERTIES
+
+    @Column()
+    @Property()
+    param: string
+
+    @Column()
+    @Property()
+    value: string;
+
+    @Column({ default: '' })
+    @Property()
+    note: string
+
+
+    // RELATIONS
+
+
+    // METHODS
+
+
+} // END FILE

@@ -1,0 +1,93 @@
+2024-09-29 17:10:13,922: WARNING	werkzeug:	Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+2024-09-29 17:25:24,493: WARNING	werkzeug:	Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+2024-09-29 17:35:19,176: WARNING	werkzeug:	Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+2024-09-29 20:08:06,176: WARNING	werkzeug:	Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+2024-09-29 20:29:23,796: ERROR	pgadmin:	Failed to execute query (execute_dict) for the server #1- CONN:153740 (Query-id: 7749813):
+Error Message:relation "lägenhet" does not exist
+LINE 1: INSERT INTO "lägenhet" (objektid)
+                    ^
+QUERY:  INSERT INTO "lägenhet" (objektid)
+   VALUES (NEW.objektid)
+CONTEXT:  PL/pgSQL function sazuki.objekt_id() line 3 at SQL statement
+2024-09-29 20:31:25,953: ERROR	pgadmin:	Failed to execute query (execute_dict) for the server #1- CONN:153740 (Query-id: 5442954):
+Error Message:relation "lägenhet" does not exist
+LINE 1: INSERT INTO "lägenhet" (objektid)
+                    ^
+QUERY:  INSERT INTO "lägenhet" (objektid)
+   VALUES (NEW.objektid)
+CONTEXT:  PL/pgSQL function sazuki.objekt_id() line 3 at SQL statement
+2024-09-29 20:33:46,503: ERROR	pgadmin:	Failed to execute query (execute_scalar) for the server #1 - DB:postgres (Query-id: 88999):
+Error Message:trigger objekt_id on table sazuki.objekt depends on function sazuki.objekt_id()cannot drop function sazuki.objekt_id() because other objects depend on it
+2024-09-29 20:34:00,683: ERROR	pgadmin:	Failed to execute query (execute_scalar) for the server #1 - DB:postgres (Query-id: 5587777):
+Error Message:trigger objekt_id on table sazuki.objekt depends on function sazuki.objekt_id()cannot drop function sazuki.objekt_id() because other objects depend on it
+2024-09-29 20:55:02,292: WARNING	werkzeug:	Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+2024-09-29 20:57:05,139: ERROR	pgadmin:	Failed to execute query (execute_scalar) for the server #1 - DB:postgres (Query-id: 3978216):
+Error Message:trigger objekt_id on table sazuki.objekt depends on function sazuki.objekt_id()cannot drop function sazuki.objekt_id() because other objects depend on it
+2024-09-29 20:57:47,383: ERROR	pgadmin:	Failed to execute query (execute_scalar) for the server #1 - DB:postgres (Query-id: 3508720):
+Error Message:syntax error at or near "create"
+LINE 6: create trigger objektid
+        ^
+2024-09-29 20:58:01,854: ERROR	pgadmin:	Failed to execute query (execute_scalar) for the server #1 - DB:postgres (Query-id: 1979422):
+Error Message:syntax error at or near "create"
+LINE 5: AS $BODY$create trigger objektid
+                 ^
+2024-09-29 21:00:22,408: ERROR	pgadmin:	Failed to execute query (execute_scalar) for the server #1 - DB:postgres (Query-id: 6151608):
+Error Message:syntax error at or near "CREATE"
+LINE 5: AS $BODY$CREATE OR REPLACE FUNCTION objektid()
+                 ^
+2024-09-29 21:01:05,909: ERROR	pgadmin:	Failed to execute query (execute_scalar) for the server #1 - DB:postgres (Query-id: 1069439):
+Error Message:syntax error at or near "CREATE"
+LINE 5: AS $BODY$CREATE OR REPLACE FUNCTION objektid()
+                 ^
+2024-09-29 21:04:23,442: ERROR	pgadmin:	Failed to execute query (execute_scalar) for the server #1 - DB:postgres (Query-id: 8880017):
+Error Message:syntax error at or near "CREATE"
+LINE 5: AS $BODY$CREATE OR REPLACE FUNCTION objektid()
+                 ^
+2024-09-29 21:06:14,198: ERROR	pgadmin:	Failed to execute query (execute_scalar) for the server #1 - DB:postgres (Query-id: 4591559):
+Error Message:syntax error at or near "CREATE"
+LINE 5: AS $BODY$CREATE OR REPLACE FUNCTION objektid()
+                 ^
+2024-09-29 21:06:52,789: ERROR	pgadmin:	Failed to execute query (execute_scalar) for the server #1 - DB:postgres (Query-id: 8072700):
+Error Message:syntax error at or near "CREATE"
+LINE 5: AS $BODY$CREATE OR REPLACE FUNCTION objektid()
+                 ^
+2024-09-29 21:07:57,992: ERROR	pgadmin:	Failed to execute query (execute_scalar) for the server #1 - DB:postgres (Query-id: 3361343):
+Error Message:syntax error at or near "CREATE"
+LINE 5: AS $BODY$CREATE OR REPLACE FUNCTION objektid()
+                 ^
+2024-09-29 21:08:06,396: ERROR	pgadmin:	Failed to execute query (execute_scalar) for the server #1 - DB:postgres (Query-id: 5357338):
+Error Message:syntax error at or near "CREATE"
+LINE 5: AS $BODY$CREATE OR REPLACE FUNCTION objektid()
+                 ^
+2024-09-29 21:46:57,104: WARNING	werkzeug:	Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+2024-09-29 21:59:35,151: ERROR	pgadmin:	Failed to execute query (execute_dict) for the server #1- CONN:8572767 (Query-id: 2133306):
+Error Message:relation "lägenhet" does not exist
+LINE 1: INSERT INTO lägenhet (objektid) VALUES (NEW.objektid)
+                    ^
+QUERY:  INSERT INTO lägenhet (objektid) VALUES (NEW.objektid)
+CONTEXT:  PL/pgSQL function sazuki.objektid() line 2 at SQL statement
+2024-09-29 22:00:50,854: ERROR	pgadmin:	Failed to execute query (execute_dict) for the server #1- CONN:8572767 (Query-id: 1735277):
+Error Message:relation "lägenhet" does not exist
+LINE 1: INSERT INTO lägenhet (objektid) VALUES (NEW.objektid)
+                    ^
+QUERY:  INSERT INTO lägenhet (objektid) VALUES (NEW.objektid)
+CONTEXT:  PL/pgSQL function sazuki.objektid() line 2 at SQL statement
+2024-09-29 22:01:05,758: ERROR	pgadmin:	Failed to execute query (execute_dict) for the server #1- CONN:8572767 (Query-id: 6296423):
+Error Message:relation "lägenhet" does not exist
+LINE 1: INSERT INTO lägenhet (objektid) VALUES (NEW.objektid)
+                    ^
+QUERY:  INSERT INTO lägenhet (objektid) VALUES (NEW.objektid)
+CONTEXT:  PL/pgSQL function sazuki.objektid() line 2 at SQL statement
+2024-09-29 22:01:19,831: ERROR	pgadmin:	Failed to execute query (execute_dict) for the server #1- CONN:8572767 (Query-id: 2628054):
+Error Message:relation "lägenhet" does not exist
+LINE 1: INSERT INTO lägenhet (objektid) VALUES (NEW.objektid)
+                    ^
+QUERY:  INSERT INTO lägenhet (objektid) VALUES (NEW.objektid)
+CONTEXT:  PL/pgSQL function sazuki.objektid() line 2 at SQL statement
+2024-09-29 22:07:22,701: WARNING	werkzeug:	Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+2024-09-29 22:08:54,551: ERROR	pgadmin:	Failed to execute query (execute_dict) for the server #1- CONN:9606940 (Query-id: 6942702):
+Error Message:relation "lägenhet" does not exist
+LINE 1: INSERT INTO lägenhet (objektid) VALUES (NEW.objektid)
+                    ^
+QUERY:  INSERT INTO lägenhet (objektid) VALUES (NEW.objektid)
+CONTEXT:  PL/pgSQL function sazuki.objektid() line 2 at SQL statement

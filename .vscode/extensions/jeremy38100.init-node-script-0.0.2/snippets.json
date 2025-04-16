@@ -1,0 +1,14 @@
+{
+	"Print to console": {
+		"scope": "javascript,typescript",
+		"prefix": "init-node-script",
+		"body": [
+			"#!/usr/bin/env node",
+			"",
+			"(async () => {",
+			"  console.log('Hello world!')",
+			"})();"
+		],
+		"description": "Initialize a node script, use 'chmod +x script.js'"
+	}
+}

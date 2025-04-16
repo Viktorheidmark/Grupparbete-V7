@@ -1,0 +1,18 @@
+// IMPORT LIBRARY
+import { Property } from "@tsed/common";
+
+// IMPORT CUSTOM
+import { {{classify}} } from '../entity/{{classify}}';
+
+export class {{classifyRaw}} {
+    // Transform to draw entity
+    to{{classify}}(): {{classify}} {
+        const {{camel}} = new {{classify}}()
+
+
+        return {{camel}}
+    }
+
+    // PROPERTIES
+
+} // END FILE

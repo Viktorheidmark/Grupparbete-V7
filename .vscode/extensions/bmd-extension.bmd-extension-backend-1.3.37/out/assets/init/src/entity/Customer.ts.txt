@@ -1,0 +1,68 @@
+// IMPORT LIBRARY
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from "typeorm";
+import { Property } from "@tsed/common";
+
+// IMPORT CUSTOM
+import { addPrefix } from "../util/helper"
+import CoreEntity from '../core/entity/CoreEntity';
+
+export enum GenderType {
+    Male = 'MALE',
+    Female = 'FEMALE'
+}
+
+@Entity(addPrefix("customer"))
+export class Customer extends CoreEntity {
+    constructor() {
+        super()
+    }
+
+    // PROPERTIES
+
+    @Column()
+    @Property()
+    phone: string
+
+    @Column()
+    @Property()
+    name: string;
+
+    @Column({ default: '' })
+    @Property()
+    address: string
+
+    @Column()
+    @Property()
+    password: string
+
+    @Column()
+    @Property()
+    email: string
+
+    @Column({ default: GenderType.Male })
+    @Property()
+    gender: string
+
+    @Column({ nullable: true })
+    @Property()
+    avatar: string;
+
+    @Column({ nullable: true })
+    @Property()
+    expoToken: string;
+
+    @Column({ default: false })
+    @Property()
+    isBlock: boolean
+
+    @Column({ default: false, select: false })
+    @Property()
+    isDeleted: boolean
+
+    // RELATIONS
+
+
+    // METHODS
+
+
+} // END FILE
