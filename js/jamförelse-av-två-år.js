@@ -1,46 +1,29 @@
-let years = (await dbQuery(
-  'SELECT DISTINCT year FROM dataWithMonths'
-)).map(x => x.year);
+let dataForChart = await dbQuery(`
+  SELECT lan, ${col1} AS folkmangd1, ${col2} AS folkmangd2 FROM dinTabell
+`);
 
-let year1 = addDropdown('År 1', years, 2018);
-let year2 = addDropdown('År 2', years, 2024);
+let year1 = addDropdown('År 1', ['2020', '2024'], '2020');
+let year2 = addDropdown('År 2', ['2020', '2024'], '2024');
 
 addMdToPage(`
-  ## InvånarePerKvm i Skåne län, jämförelse mellan år ${year1} och år ${year2}
+  ## Folkmängd per län – jämförelse mellan år ${year1} och år ${year2}
 `);
 
-// in order to get the two years to compare
-// we perform a join between two subselects
-let dataForChart = await dbQuery(`
-  SELECT monthName1 AS monthName, temp1, temp2 FROM
-    (SELECT monthNameShort AS monthName1, temperatureC AS temp1 FROM dataWithMonths WHERE year = '${year1}') AS t1,
-    (SELECT monthNameShort AS monthName2, temperatureC AS temp2 FROM dataWithMonths WHERE year = '${year2}') AS t2
-  WHERE t1.monthName1 = t2.monthName2
-`);
+// Konstruera kolumnnamn dynamiskt
+let col1 = `folkmangd${year1}`;
+let col2 = `folkmangd${year2}`;
 
+// Rita diagram
 drawGoogleChart({
-  type: 'LineChart',
-  data: makeChartFriendly(dataForChart, 'månad', `°C ${year1}`, `°C ${year2}`),
+  type: 'ColumnChart',
+  data: makeChartFriendly(dataForChart, 'lan', `Folkmängd ${year1}`, `Folkmängd ${year2}`),
   options: {
     height: 500,
-    chartArea: { left: 50, right: 0 },
-    curveType: 'function',
-    pointSize: 5,
-    pointShape: 'circle',
-    vAxis: { format: '# °C' },
-    title: `Medeltemperatur per månad i Malmö, jämförelse mellan år ${year1} och ${year2} (°C)`
+    chartArea: { left: 100, right: 0 },
+    bar: { groupWidth: '60%' },
+    hAxis: { title: 'Län' },
+    vAxis: { title: 'Folkmängd', format: '#,###' },
+    legend: { position: 'top' },
+    title: `Folkmängd per län, jämförelse mellan ${year1} och ${year2}`
   }
-});
-
-// the same db query as before, but with the long month names
-let dataForTable = await dbQuery(`
-  SELECT monthName1 AS monthName, temp1, temp2 FROM
-    (SELECT monthName AS monthName1, temperatureC AS temp1 FROM dataWithMonths WHERE year = '${year1}') AS t1,
-    (SELECT monthName AS monthName2, temperatureC AS temp2 FROM dataWithMonths WHERE year = '${year2}') AS t2
-  WHERE t1.monthName1 = t2.monthName2
-`);
-
-tableFromData({
-  data: dataForTable,
-  columnNames: ['Månad', `Medeltemperatur (°C) ${year1}`, `Medeltemperatur (°C) ${year2}`]
 });
