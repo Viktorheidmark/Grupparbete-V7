@@ -1,7 +1,7 @@
 
 addMdToPage("Intro")
 
-let county = await dbQuery("SELECT * FROM countyinfo")
+let county = await dbQuery("SELECT lan, folkmangd2024 FROM countyinfo")
 tableFromData({ data: county })
 
 
@@ -16,4 +16,3 @@ drawGoogleChart({
     chartArea: { left: "10%" }
   }
 });
-
