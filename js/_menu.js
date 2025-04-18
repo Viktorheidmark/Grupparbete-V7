@@ -1,4 +1,5 @@
-createMenu('Statistics Template JS', [
+createMenu('SQLITE UNDERSÖKNING', [
   { name: 'Nytt i version 7', script: 'new-in-v7.js' },
-  { name: 'Visa ett år', script: 'intro.js' }
+  { name: 'Counties', script: 'counties.js' },
+  { name: 'valstatistik', script: 'valstatistik.js'}
 ]);
