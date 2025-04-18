@@ -1,0 +1,683 @@
+﻿Riksdagsval - antal personröster efter region, parti, kön och valår;;;;
+;;;;
+;;;2018;2022
+00 Riket;Moderaterna;män;187042;163631
+;;kvinnor;79449;66231
+;Centerpartiet;män;48109;26301
+;;kvinnor;97661;67104
+;Liberalerna;män;44215;29777
+;;kvinnor;27237;20868
+;Kristdemokraterna;män;37638;22271
+;;kvinnor;85186;85915
+;Miljöpartiet;män;21891;21963
+;;kvinnor;39872;36696
+;Socialdemokraterna;män;189868;136558
+;;kvinnor;172386;194928
+;Vänsterpartiet;män;68908;33607
+;;kvinnor;59731;79510
+;Sverigedemokraterna;män;357518;406417
+;;kvinnor;9919;23426
+;övriga partier;män;18352;34393
+;;kvinnor;13579;8240
+;totalt;män;973541;874918
+;;kvinnor;585020;582918
+VR1 Stockholms kommuns valkrets;Moderaterna;män;31896;25704
+;;kvinnor;3944;1976
+;Centerpartiet;män;1282;1018
+;;kvinnor;16757;11572
+;Liberalerna;män;8805;5522
+;;kvinnor;2899;2966
+;Kristdemokraterna;män;1958;802
+;;kvinnor;6630;4346
+;Miljöpartiet;män;2309;6622
+;;kvinnor;7750;4389
+;Socialdemokraterna;män;19005;13022
+;;kvinnor;12463;11135
+;Vänsterpartiet;män;21277;5249
+;;kvinnor;5601;19232
+;Sverigedemokraterna;män;15384;16424
+;;kvinnor;739;1738
+;övriga partier;män;2138;5329
+;;kvinnor;2317;1110
+;totalt;män;104054;79692
+;;kvinnor;59100;58464
+VR2 Stockholms läns valkrets;Moderaterna;män;52272;43182
+;;kvinnor;4135;4182
+;Centerpartiet;män;1442;1221
+;;kvinnor;19796;13490
+;Liberalerna;män;10332;7156
+;;kvinnor;2563;2552
+;Kristdemokraterna;män;6204;2762
+;;kvinnor;13249;11080
+;Miljöpartiet;män;3706;1077
+;;kvinnor;5555;6104
+;Socialdemokraterna;män;14144;5423
+;;kvinnor;19984;49835
+;Vänsterpartiet;män;14614;3101
+;;kvinnor;3784;15405
+;Sverigedemokraterna;män;36275;40280
+;;kvinnor;1302;2971
+;övriga partier;män;2484;5644
+;;kvinnor;1524;1163
+;totalt;män;141473;109846
+;;kvinnor;71892;106782
+VR3 Uppsala läns valkrets;Moderaterna;män;2514;2799
+;;kvinnor;4308;3711
+;Centerpartiet;män;1166;842
+;;kvinnor;3194;2242
+;Liberalerna;män;977;607
+;;kvinnor;2258;1471
+;Kristdemokraterna;män;1724;1666
+;;kvinnor;4104;3370
+;Miljöpartiet;män;1056;1385
+;;kvinnor;1959;1542
+;Socialdemokraterna;män;7538;5980
+;;kvinnor;4779;3812
+;Vänsterpartiet;män;1605;1261
+;;kvinnor;3069;2957
+;Sverigedemokraterna;män;11146;12616
+;;kvinnor;636;911
+;övriga partier;män;888;1329
+;;kvinnor;670;315
+;totalt;män;28614;28485
+;;kvinnor;24977;20331
+VR4 Södermanlands läns valkrets;Moderaterna;män;9065;8231
+;;kvinnor;958;1409
+;Centerpartiet;män;742;540
+;;kvinnor;1649;1146
+;Liberalerna;män;851;410
+;;kvinnor;410;565
+;Kristdemokraterna;män;467;652
+;;kvinnor;2134;2243
+;Miljöpartiet;män;668;731
+;;kvinnor;549;432
+;Socialdemokraterna;män;5620;3983
+;;kvinnor;4566;6047
+;Vänsterpartiet;män;811;688
+;;kvinnor;1774;1598
+;Sverigedemokraterna;män;11479;13707
+;;kvinnor;202;733
+;övriga partier;män;459;850
+;;kvinnor;245;216
+;totalt;män;30162;29792
+;;kvinnor;12487;14389
+VR5 Östergötlands läns valkrets;Moderaterna;män;6616;7700
+;;kvinnor;2485;1704
+;Centerpartiet;män;3820;1639
+;;kvinnor;1515;1808
+;Liberalerna;män;666;601
+;;kvinnor;2191;1199
+;Kristdemokraterna;män;1798;1734
+;;kvinnor;4331;3953
+;Miljöpartiet;män;347;619
+;;kvinnor;2077;2069
+;Socialdemokraterna;män;7436;5985
+;;kvinnor;7104;6857
+;Vänsterpartiet;män;1345;1014
+;;kvinnor;2705;3057
+;Sverigedemokraterna;män;15560;19055
+;;kvinnor;505;1118
+;övriga partier;män;895;1026
+;;kvinnor;550;337
+;totalt;män;38483;39373
+;;kvinnor;23463;22102
+VR6 Jönköpings läns valkrets;Moderaterna;män;6140;6528
+;;kvinnor;3136;1676
+;Centerpartiet;män;945;659
+;;kvinnor;7659;4304
+;Liberalerna;män;714;917
+;;kvinnor;1353;587
+;Kristdemokraterna;män;4854;1720
+;;kvinnor;6478;5958
+;Miljöpartiet;män;805;372
+;;kvinnor;1217;1010
+;Socialdemokraterna;män;6211;5225
+;;kvinnor;8885;7282
+;Vänsterpartiet;män;771;623
+;;kvinnor;1923;1537
+;Sverigedemokraterna;män;16565;19033
+;;kvinnor;558;921
+;övriga partier;män;592;842
+;;kvinnor;267;214
+;totalt;män;37597;35919
+;;kvinnor;31476;23489
+VR7 Kronobergs läns valkrets;Moderaterna;män;2291;6332
+;;kvinnor;3246;1064
+;Centerpartiet;män;3418;933
+;;kvinnor;809;712
+;Liberalerna;män;563;333
+;;kvinnor;207;276
+;Kristdemokraterna;män;643;555
+;;kvinnor;2469;2153
+;Miljöpartiet;män;512;367
+;;kvinnor;489;439
+;Socialdemokraterna;män;5929;4424
+;;kvinnor;3178;4096
+;Vänsterpartiet;män;1074;702
+;;kvinnor;993;1035
+;Sverigedemokraterna;män;8711;10350
+;;kvinnor;172;460
+;övriga partier;män;301;515
+;;kvinnor;110;113
+;totalt;män;23442;24511
+;;kvinnor;11673;10348
+VR8 Kalmar läns valkrets;Moderaterna;män;4480;1953
+;;kvinnor;983;1985
+;Centerpartiet;män;2061;788
+;;kvinnor;1624;1357
+;Liberalerna;män;800;232
+;;kvinnor;405;432
+;Kristdemokraterna;män;934;781
+;;kvinnor;2691;2842
+;Miljöpartiet;män;410;192
+;;kvinnor;373;795
+;Socialdemokraterna;män;3652;2204
+;;kvinnor;7463;8201
+;Vänsterpartiet;män;1080;819
+;;kvinnor;1022;734
+;Sverigedemokraterna;män;11276;12477
+;;kvinnor;206;544
+;övriga partier;män;383;545
+;;kvinnor;203;166
+;totalt;män;25076;19991
+;;kvinnor;14970;17056
+VR9 Gotlands läns valkrets;Moderaterna;män;1770;1765
+;;kvinnor;296;154
+;Centerpartiet;män;1525;1441
+;;kvinnor;731;264
+;Liberalerna;män;291;53
+;;kvinnor;83;130
+;Kristdemokraterna;män;30;18
+;;kvinnor;458;488
+;Miljöpartiet;män;81;242
+;;kvinnor;367;245
+;Socialdemokraterna;män;718;462
+;;kvinnor;1787;2230
+;Vänsterpartiet;män;185;264
+;;kvinnor;765;350
+;Sverigedemokraterna;män;1818;2322
+;;kvinnor;58;142
+;övriga partier;män;80;163
+;;kvinnor;196;42
+;totalt;män;6498;6730
+;;kvinnor;4741;4045
+VR10 Blekinge läns valkrets;Moderaterna;män;958;846
+;;kvinnor;3006;3590
+;Centerpartiet;män;851;635
+;;kvinnor;584;407
+;Liberalerna;män;418;335
+;;kvinnor;445;223
+;Kristdemokraterna;män;162;220
+;;kvinnor;1530;1522
+;Miljöpartiet;män;134;75
+;;kvinnor;420;417
+;Socialdemokraterna;män;3122;2491
+;;kvinnor;4196;4461
+;Vänsterpartiet;män;358;303
+;;kvinnor;766;698
+;Sverigedemokraterna;män;9223;10196
+;;kvinnor;189;366
+;övriga partier;män;245;302
+;;kvinnor;124;105
+;totalt;män;15471;15403
+;;kvinnor;11260;11789
+VR11 Malmö kommuns valkrets;Moderaterna;män;4532;2248
+;;kvinnor;1658;3074
+;Centerpartiet;män;471;535
+;;kvinnor;3217;2420
+;Liberalerna;män;969;434
+;;kvinnor;784;811
+;Kristdemokraterna;män;317;236
+;;kvinnor;1449;1300
+;Miljöpartiet;män;1080;1543
+;;kvinnor;933;1198
+;Socialdemokraterna;män;9922;6821
+;;kvinnor;4697;4222
+;Vänsterpartiet;män;2641;3664
+;;kvinnor;2944;2676
+;Sverigedemokraterna;män;9007;8747
+;;kvinnor;248;460
+;övriga partier;män;652;2730
+;;kvinnor;715;602
+;totalt;män;29591;26958
+;;kvinnor;16645;16763
+VR12 Skåne läns västra valkrets;Moderaterna;män;2358;2047
+;;kvinnor;3940;3533
+;Centerpartiet;män;1173;826
+;;kvinnor;912;809
+;Liberalerna;män;1237;751
+;;kvinnor;589;597
+;Kristdemokraterna;män;262;252
+;;kvinnor;2380;2513
+;Miljöpartiet;män;726;662
+;;kvinnor;624;534
+;Socialdemokraterna;män;6613;6247
+;;kvinnor;5213;4072
+;Vänsterpartiet;män;605;414
+;;kvinnor;1416;1688
+;Sverigedemokraterna;män;16361;17895
+;;kvinnor;540;1030
+;övriga partier;män;506;1311
+;;kvinnor;406;309
+;totalt;män;29841;30405
+;;kvinnor;16020;15085
+VR12G Fyrstadskretsen;Moderaterna;män;0;0
+;;kvinnor;0;0
+;Centerpartiet;män;0;0
+;;kvinnor;0;0
+;Liberalerna;män;0;0
+;;kvinnor;0;0
+;Kristdemokraterna;män;0;0
+;;kvinnor;0;0
+;Miljöpartiet;män;0;0
+;;kvinnor;0;0
+;Socialdemokraterna;män;0;0
+;;kvinnor;0;0
+;Vänsterpartiet;män;0;0
+;;kvinnor;0;0
+;Sverigedemokraterna;män;0;0
+;;kvinnor;0;0
+;övriga partier;män;0;0
+;;kvinnor;0;0
+;totalt;män;0;0
+;;kvinnor;0;0
+VR13 Skåne läns södra valkrets;Moderaterna;män;4360;3925
+;;kvinnor;7111;4577
+;Centerpartiet;män;1144;655
+;;kvinnor;2310;1696
+;Liberalerna;män;1395;1655
+;;kvinnor;1009;692
+;Kristdemokraterna;män;460;370
+;;kvinnor;2840;3062
+;Miljöpartiet;män;744;592
+;;kvinnor;1663;1377
+;Socialdemokraterna;män;5458;4764
+;;kvinnor;3374;3768
+;Vänsterpartiet;män;661;1061
+;;kvinnor;1815;1485
+;Sverigedemokraterna;män;16924;17358
+;;kvinnor;305;1189
+;övriga partier;män;720;930
+;;kvinnor;621;252
+;totalt;män;31866;31310
+;;kvinnor;21048;18098
+VR13G Malmöhus läns valkrets;Moderaterna;män;0;0
+;;kvinnor;0;0
+;Centerpartiet;män;0;0
+;;kvinnor;0;0
+;Liberalerna;män;0;0
+;;kvinnor;0;0
+;Kristdemokraterna;män;0;0
+;;kvinnor;0;0
+;Miljöpartiet;män;0;0
+;;kvinnor;0;0
+;Socialdemokraterna;män;0;0
+;;kvinnor;0;0
+;Vänsterpartiet;män;0;0
+;;kvinnor;0;0
+;Sverigedemokraterna;män;0;0
+;;kvinnor;0;0
+;övriga partier;män;0;0
+;;kvinnor;0;0
+;totalt;män;0;0
+;;kvinnor;0;0
+VR14 Skåne läns norra och östra valkrets;Moderaterna;män;5414;3632
+;;kvinnor;2714;2518
+;Centerpartiet;män;1209;788
+;;kvinnor;2116;1124
+;Liberalerna;män;921;496
+;;kvinnor;571;528
+;Kristdemokraterna;män;802;732
+;;kvinnor;2885;3253
+;Miljöpartiet;män;970;277
+;;kvinnor;407;727
+;Socialdemokraterna;män;3007;2268
+;;kvinnor;5765;5150
+;Vänsterpartiet;män;330;837
+;;kvinnor;1094;975
+;Sverigedemokraterna;män;19367;21846
+;;kvinnor;312;843
+;övriga partier;män;474;772
+;;kvinnor;300;200
+;totalt;män;32494;31648
+;;kvinnor;16164;15318
+VR15 Hallands läns valkrets;Moderaterna;män;5660;3436
+;;kvinnor;2844;3013
+;Centerpartiet;män;2756;1567
+;;kvinnor;2600;1661
+;Liberalerna;män;888;438
+;;kvinnor;1021;1057
+;Kristdemokraterna;män;1086;336
+;;kvinnor;1106;3133
+;Miljöpartiet;män;754;435
+;;kvinnor;690;813
+;Socialdemokraterna;män;6653;4323
+;;kvinnor;4725;5804
+;Vänsterpartiet;män;945;731
+;;kvinnor;1008;1166
+;Sverigedemokraterna;män;12498;14609
+;;kvinnor;407;1075
+;övriga partier;män;549;687
+;;kvinnor;314;177
+;totalt;män;31789;26562
+;;kvinnor;14715;17899
+VR16 Göteborgs kommuns valkrets;Moderaterna;män;6362;3495
+;;kvinnor;3760;4873
+;Centerpartiet;män;1279;586
+;;kvinnor;7141;4542
+;Liberalerna;män;3485;2193
+;;kvinnor;1129;1203
+;Kristdemokraterna;män;1801;897
+;;kvinnor;4026;3283
+;Miljöpartiet;män;817;830
+;;kvinnor;4669;4430
+;Socialdemokraterna;män;6335;6838
+;;kvinnor;11828;7785
+;Vänsterpartiet;män;2821;3306
+;;kvinnor;7950;5978
+;Sverigedemokraterna;män;13459;13982
+;;kvinnor;460;1091
+;övriga partier;män;1232;3625
+;;kvinnor;1360;596
+;totalt;män;37591;35752
+;;kvinnor;42323;33781
+VR17 Västra Götalands läns västra valkrets;Moderaterna;män;2579;2618
+;;kvinnor;5141;3794
+;Centerpartiet;män;1117;1012
+;;kvinnor;2187;1389
+;Liberalerna;män;915;577
+;;kvinnor;1999;1194
+;Kristdemokraterna;män;1854;1174
+;;kvinnor;3607;3282
+;Miljöpartiet;män;491;334
+;;kvinnor;1446;1431
+;Socialdemokraterna;män;4740;3874
+;;kvinnor;4025;4227
+;Vänsterpartiet;män;606;612
+;;kvinnor;2176;1984
+;Sverigedemokraterna;män;12637;14925
+;;kvinnor;517;1097
+;övriga partier;män;591;856
+;;kvinnor;413;275
+;totalt;män;25530;25982
+;;kvinnor;21511;18673
+VR18 Västra Götalands läns norra valkrets;Moderaterna;män;3263;2774
+;;kvinnor;1920;1754
+;Centerpartiet;män;2092;949
+;;kvinnor;987;926
+;Liberalerna;män;1262;354
+;;kvinnor;415;391
+;Kristdemokraterna;män;608;700
+;;kvinnor;2628;2376
+;Miljöpartiet;män;657;140
+;;kvinnor;887;853
+;Socialdemokraterna;män;4057;3320
+;;kvinnor;5879;4729
+;Vänsterpartiet;män;810;552
+;;kvinnor;1359;1466
+;Sverigedemokraterna;män;12151;13650
+;;kvinnor;194;658
+;övriga partier;män;469;628
+;;kvinnor;286;190
+;totalt;män;25369;23067
+;;kvinnor;14555;13343
+VR19 Västra Götalands läns södra valkrets;Moderaterna;män;2090;3120
+;;kvinnor;2816;1271
+;Centerpartiet;män;1604;1000
+;;kvinnor;1246;896
+;Liberalerna;män;490;511
+;;kvinnor;1134;391
+;Kristdemokraterna;män;798;478
+;;kvinnor;2191;2321
+;Miljöpartiet;män;316;319
+;;kvinnor;518;527
+;Socialdemokraterna;män;3742;3708
+;;kvinnor;3468;3422
+;Vänsterpartiet;män;363;236
+;;kvinnor;2020;1612
+;Sverigedemokraterna;män;8409;10165
+;;kvinnor;384;527
+;övriga partier;män;385;654
+;;kvinnor;191;229
+;totalt;män;18197;20191
+;;kvinnor;13968;11196
+VR20 Västra Götalands läns östra valkrets;Moderaterna;män;5297;4916
+;;kvinnor;3781;2270
+;Centerpartiet;män;1712;601
+;;kvinnor;2908;1927
+;Liberalerna;män;1003;638
+;;kvinnor;697;374
+;Kristdemokraterna;män;874;739
+;;kvinnor;4134;3335
+;Miljöpartiet;män;460;407
+;;kvinnor;649;485
+;Socialdemokraterna;män;5812;4766
+;;kvinnor;6339;5466
+;Vänsterpartiet;män;926;565
+;;kvinnor;1264;1213
+;Sverigedemokraterna;män;12757;14650
+;;kvinnor;200;634
+;övriga partier;män;519;555
+;;kvinnor;303;176
+;totalt;män;29360;27837
+;;kvinnor;20275;15880
+VR21 Värmlands läns valkrets;Moderaterna;män;4110;3239
+;;kvinnor;1373;1857
+;Centerpartiet;män;2610;1338
+;;kvinnor;1357;864
+;Liberalerna;män;1005;789
+;;kvinnor;573;318
+;Kristdemokraterna;män;1010;1056
+;;kvinnor;2382;2327
+;Miljöpartiet;män;542;600
+;;kvinnor;758;629
+;Socialdemokraterna;män;8165;5124
+;;kvinnor;3672;4192
+;Vänsterpartiet;män;1263;936
+;;kvinnor;1100;1048
+;Sverigedemokraterna;män;10842;13183
+;;kvinnor;189;521
+;övriga partier;män;439;463
+;;kvinnor;321;135
+;totalt;män;29986;26728
+;;kvinnor;11725;11891
+VR22 Örebro läns valkrets;Moderaterna;män;1752;1984
+;;kvinnor;4101;3592
+;Centerpartiet;män;845;664
+;;kvinnor;2235;1440
+;Liberalerna;män;1200;1714
+;;kvinnor;740;275
+;Kristdemokraterna;män;1914;1056
+;;kvinnor;3435;2533
+;Miljöpartiet;män;686;299
+;;kvinnor;872;822
+;Socialdemokraterna;män;3859;3592
+;;kvinnor;8899;5791
+;Vänsterpartiet;män;871;1032
+;;kvinnor;2254;1614
+;Sverigedemokraterna;män;11487;13372
+;;kvinnor;220;577
+;övriga partier;män;526;927
+;;kvinnor;359;256
+;totalt;män;23140;24640
+;;kvinnor;23115;16900
+VR23 Västmanlands läns valkrets;Moderaterna;män;1974;3565
+;;kvinnor;3896;1700
+;Centerpartiet;män;1226;818
+;;kvinnor;1650;1082
+;Liberalerna;män;1736;1096
+;;kvinnor;592;394
+;Kristdemokraterna;män;1713;496
+;;kvinnor;545;2196
+;Miljöpartiet;män;443;354
+;;kvinnor;488;532
+;Socialdemokraterna;män;5078;3783
+;;kvinnor;5615;5260
+;Vänsterpartiet;män;1062;978
+;;kvinnor;2002;2185
+;Sverigedemokraterna;män;11151;12773
+;;kvinnor;399;798
+;övriga partier;män;462;714
+;;kvinnor;208;165
+;totalt;män;24845;24577
+;;kvinnor;15395;14312
+VR24 Dalarnas läns valkrets;Moderaterna;män;4822;4231
+;;kvinnor;1391;976
+;Centerpartiet;män;1862;626
+;;kvinnor;2432;1697
+;Liberalerna;män;475;328
+;;kvinnor;753;475
+;Kristdemokraterna;män;1800;824
+;;kvinnor;521;2781
+;Miljöpartiet;män;630;592
+;;kvinnor;1015;659
+;Socialdemokraterna;män;7969;7153
+;;kvinnor;3827;3598
+;Vänsterpartiet;män;1860;787
+;;kvinnor;1285;1191
+;Sverigedemokraterna;män;13350;14810
+;;kvinnor;192;765
+;övriga partier;män;531;751
+;;kvinnor;324;208
+;totalt;män;33299;30102
+;;kvinnor;11740;12350
+VR25 Gävleborgs läns valkrets;Moderaterna;män;3625;3446
+;;kvinnor;669;1207
+;Centerpartiet;män;1837;1423
+;;kvinnor;1547;717
+;Liberalerna;män;735;448
+;;kvinnor;303;214
+;Kristdemokraterna;män;468;321
+;;kvinnor;2251;2449
+;Miljöpartiet;män;385;480
+;;kvinnor;656;488
+;Socialdemokraterna;män;4802;5019
+;;kvinnor;4539;3066
+;Vänsterpartiet;män;477;1323
+;;kvinnor;2684;886
+;Sverigedemokraterna;män;11360;13072
+;;kvinnor;265;681
+;övriga partier;män;311;590
+;;kvinnor;179;137
+;totalt;män;24000;26122
+;;kvinnor;13093;9845
+VR26 Västernorrlands läns valkrets;Moderaterna;män;2901;2406
+;;kvinnor;860;1216
+;Centerpartiet;män;2766;1360
+;;kvinnor;1165;1100
+;Liberalerna;män;361;180
+;;kvinnor;572;451
+;Kristdemokraterna;män;618;332
+;;kvinnor;968;2334
+;Miljöpartiet;män;258;241
+;;kvinnor;743;967
+;Socialdemokraterna;män;12040;3764
+;;kvinnor;2088;5607
+;Vänsterpartiet;män;812;537
+;;kvinnor;1494;1281
+;Sverigedemokraterna;män;8076;10345
+;;kvinnor;145;457
+;övriga partier;män;376;438
+;;kvinnor;247;132
+;totalt;män;28208;19603
+;;kvinnor;8282;13545
+VR27 Jämtlands läns valkrets;Moderaterna;män;984;989
+;;kvinnor;2179;1705
+;Centerpartiet;män;3221;801
+;;kvinnor;1818;1635
+;Liberalerna;män;451;217
+;;kvinnor;111;201
+;Kristdemokraterna;män;499;389
+;;kvinnor;981;1177
+;Miljöpartiet;män;323;478
+;;kvinnor;432;672
+;Socialdemokraterna;män;3796;2799
+;;kvinnor;2903;3656
+;Vänsterpartiet;män;723;310
+;;kvinnor;645;667
+;Sverigedemokraterna;män;4412;5769
+;;kvinnor;135;300
+;övriga partier;män;240;259
+;;kvinnor;131;96
+;totalt;män;14649;12011
+;;kvinnor;9335;10109
+VR28 Västerbottens läns valkrets;Moderaterna;män;4096;3714
+;;kvinnor;1369;1257
+;Centerpartiet;män;1013;304
+;;kvinnor;3787;2813
+;Liberalerna;män;618;454
+;;kvinnor;1122;493
+;Kristdemokraterna;män;849;397
+;;kvinnor;2423;2327
+;Miljöpartiet;män;660;607
+;;kvinnor;1285;1474
+;Socialdemokraterna;män;5836;5245
+;;kvinnor;5568;5166
+;Vänsterpartiet;män;6998;1032
+;;kvinnor;764;2468
+;Sverigedemokraterna;män;6794;8114
+;;kvinnor;115;471
+;övriga partier;män;416;503
+;;kvinnor;514;176
+;totalt;män;27280;20370
+;;kvinnor;16947;16645
+VR29 Norrbottens läns valkrets;Moderaterna;män;2861;2806
+;;kvinnor;1429;593
+;Centerpartiet;män;920;732
+;;kvinnor;1728;1064
+;Liberalerna;män;652;338
+;;kvinnor;309;408
+;Kristdemokraterna;män;1131;576
+;;kvinnor;360;1978
+;Miljöpartiet;män;921;1091
+;;kvinnor;381;636
+;Socialdemokraterna;män;8609;3951
+;;kvinnor;5557;5991
+;Vänsterpartiet;män;1014;670
+;;kvinnor;2055;1324
+;Sverigedemokraterna;män;9039;10692
+;;kvinnor;125;348
+;övriga partier;män;489;455
+;;kvinnor;181;148
+;totalt;män;25636;21311
+;;kvinnor;12125;12490
+;;;;
+;;;;
+Senaste uppdatering:;;;;
+20230227 08:00;;;;
+;;;;
+Källa:;;;;
+SCB;;;;
+;;;;
+Kontaktperson:;;;;
+Jonas Olofsson, SCB;;;;
+ +46 010-479 47 18;;;;
+jonas.olofsson@scb.se;;;;
+;;;;
+Leonora Uddhammar, SCB;;;;
+ +46 010-479 41 44;;;;
+leonora.uddhammar@scb.se;;;;
+;;;;
+;;;;
+;;;;
+;;;;
+Sort:;;;;
+antal personröster;;;;
+;;;;
+Datatyp:;;;;
+Stock;;;;
+;;;;
+Referenstid:;;;;
+Valår;;;;
+;;;;
+;;;;
+;;;;
+;;;;
+;;;;
+Officiell statistik;;;;
+;;;;
+Databas:;;;;
+Statistikdatabasen ;;;;
+;;;;
+Intern referenskod:;;;;
+ME0104AV;;;;
