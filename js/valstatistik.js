@@ -1,5 +1,3 @@
 
-addMdToPage("Intro")
-
-let bajen = await dbQuery("SELECT * FROM roster")
+let bajen = await dbQuery("SELECT * FROM rostning")
 tableFromData({ data: bajen })
