@@ -1,3 +1,6 @@
 
-let bajen = await dbQuery("SELECT * FROM rostning")
-tableFromData({ data: bajen})
+let data = await dbQuery("SELECT * FROM rostning"); // eller vad du använder
+
+console.log("Data till tableFromData:", data);
+
+tableFromData({ data });
