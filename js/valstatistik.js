@@ -1,7 +1,4 @@
+dbQuery.use('valdata');
+let valdata = await dbQuery('SELECT * FROM valresultat');
 
-let data = await dbQuery("SELECT * FROM rostning")
-
-
-
-
-tableFromData({ data });
+tableFromData({ data: valdata });
