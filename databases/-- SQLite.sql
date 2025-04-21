@@ -1,3 +1,7 @@
--- SQLite
-SELECT * from countyInfo
-where lan = "Skåne län";
+
+SELECT * FROM "Val-2028-2022" LIMIT 10;
+
+
+SELECT Parti, SUM("Valår_2018") AS Röster_2018, SUM("Valår_2022") AS Röster_2022
+FROM "Val-2028-2022"
+GROUP BY Parti;
