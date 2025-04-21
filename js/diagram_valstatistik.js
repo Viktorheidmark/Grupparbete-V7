@@ -20,11 +20,29 @@ for (let row of data2022) {
   }
 }
 
+// Färgkoder för partier
+const partifarger = {
+  'Socialdemokraterna': '#EE2020',
+  'Moderaterna': '#1D74BB',
+  'Sverigedemokraterna': '#DDDD00',
+  'Centerpartiet': '#009933',
+  'Vänsterpartiet': '#AF0000',
+  'Kristdemokraterna': '#003F7D',
+  'Liberalerna': '#6AB2E7',
+  'Miljöpartiet': '#83CF39'
+};
+
+// Skapa data-array för Google Chart med style-kolumn
+let chartData = [['Parti', 'Förändring', { role: 'style' }]];
+changes.forEach(row => {
+  let color = partifarger[row.Parti] || '#888888';
+  chartData.push([row.Parti, row.Förändring, `color: ${color}`]);
+});
 
 // Steg 4: Rita diagrammet
 drawGoogleChart({
   type: 'ColumnChart',
-  data: makeChartFriendly(changes, 'Parti'),
+  data: chartData,
   options: {
     height: 500,
     width: 1250,

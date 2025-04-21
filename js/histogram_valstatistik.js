@@ -4,7 +4,7 @@ dbQuery.use('valdata');
 let valdata = (await dbQuery('SELECT DISTINCT Ar FROM valresultat')).map(x => x.Ar);
 
 // Dropdown för år
-let currentage = addDropdown('Ar', valdata);  // OBS: fixade Ar -> valdata
+let currentage = addDropdown('Ar', valdata);
 
 addMdToPage(`
   ## Röster per parti (${currentage})
@@ -15,10 +15,28 @@ let dataForChart = await dbQuery(
   `SELECT Parti, Roster FROM valresultat WHERE Ar = '${currentage}'`
 );
 
-// Rita stapeldiagram
+// Färgkoder för partier
+const partifarger = {
+  'Socialdemokraterna': '#EE2020',
+  'Moderaterna': '#1D74BB',
+  'Sverigedemokraterna': '#DDDD00',
+  'Centerpartiet': '#009933',
+  'Vänsterpartiet': '#AF0000',
+  'Kristdemokraterna': '#003F7D',
+  'Liberalerna': '#6AB2E7',
+  'Miljöpartiet': '#83CF39'
+};
+
+// Skapa ny array i formatet: ['Parti', 'Röster', { role: 'style' }]
+let chartData = [['Parti', 'Röster', { role: 'style' }]];
+dataForChart.forEach(row => {
+  let color = partifarger[row.Parti] || '#888888';
+  chartData.push([row.Parti, row.Roster, `color: ${color}`]);
+});
+
 drawGoogleChart({
-  type: 'ColumnChart', // bättre än histogram för detta
-  data: makeChartFriendly(dataForChart, 'Parti'),
+  type: 'ColumnChart',
+  data: chartData,
   options: {
     height: 500,
     width: 1250,
