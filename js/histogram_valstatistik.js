@@ -4,7 +4,7 @@ dbQuery.use('valdata');
 let valdata = (await dbQuery('SELECT DISTINCT Ar FROM valresultat')).map(x => x.Ar);
 
 // Dropdown för år
-let currentage = addDropdown('Ar', valdata);
+let currentage = addDropdown('År', valdata);
 
 addMdToPage(`
   ## Röster per parti (${currentage})

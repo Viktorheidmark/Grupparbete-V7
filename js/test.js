@@ -28,8 +28,7 @@ if (!Array.isArray(dataForChart)) {
     'Miljöpartiet': '#83CF39'
   };
 
-  // Ändra chartData-formatet till stöd för färg: ['Parti', 'Män', { role: 'style' }, 'Kvinnor', { role: 'style' }]
-  let chartData = [['Parti', 'Män', { role: 'style' }, 'Kvinnor', { role: 'style' }]];
+  let chartData = [['Parti', 'Män', 'Kvinnor']];
   let partisamling = {};
 
   dataForChart.forEach(row => {
@@ -47,13 +46,10 @@ if (!Array.isArray(dataForChart)) {
   });
 
   Object.keys(partisamling).forEach(parti => {
-    const färg = partifarger[parti] || '#888888';
     chartData.push([
       parti,
       partisamling[parti].man,
-      `color: ${färg}`,
-      partisamling[parti].kvinnor,
-      `color: ${färg}`
+      partisamling[parti].kvinnor
     ]);
   });
 
@@ -65,7 +61,7 @@ if (!Array.isArray(dataForChart)) {
       width: 1250,
       hAxis: { title: 'Parti' },
       vAxis: { title: 'Antal röster' },
-      legend: 'none',
+      legend: { position: 'top' },
       bar: { groupWidth: '70%' },
       isStacked: false
     }
