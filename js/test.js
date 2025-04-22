@@ -14,7 +14,7 @@ let dataForChart = await dbQuery(`
 `);
 
 if (!Array.isArray(dataForChart)) {
-  addMdToPage("❌ Kunde inte hämta datan korrekt. Kontrollera att tabellen 'valresultat' finns och innehåller kolumnerna 'parti', 'kon' och '${currentage}'.");
+  addMdToPage("Kunde inte hämta datan korrekt. Kontrollera att tabellen 'valresultat' finns och innehåller kolumnerna 'parti', 'kon' och '${currentage}'.");
   console.log("dataForChart är inte en array:", dataForChart);
 } else {
   const partifarger = {
