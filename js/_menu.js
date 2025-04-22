@@ -8,7 +8,7 @@ createMenu('SQLITE UNDERSÖKNING', [
   { name: 'diagram_valstatiskik', script: 'diagram_valstatistik.js' },
   { name: 'diagram_2_valstatiskik', script: 'diagram_2_valstatistik.js' },
   { name: 'diagram_3_valstatiskik', script: 'diagram_3_valstatistik.js' },
-  { name: 'test', script: 'test.js'}
+  { name: 'test', script: 'test.js' }
 
 
 ]);
