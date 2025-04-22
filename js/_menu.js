@@ -4,7 +4,7 @@ createMenu('Statistics Template JS', [
   { name: "Trender", script: "trends.js" },
   {
     name: "Röster per kommun", sub: [
-      { name: " Hur okmmuner roster i 2018", script: "kommun-roster-2018.js" },
+      { name: " Hur kmmuner roster i 2018", script: "kommun-roster-2018.js" },
       { name: "Jämförelse av två år", script: "jamforelse-av-tva-ar.js" },
       { name: 'test', script: 'test.js' },
     ]
