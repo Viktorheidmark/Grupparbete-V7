@@ -1,54 +1,27 @@
 dbQuery.use('kommun-info-mongodb');
 
-//inkomstdata per kommun 
-let income = await dbQuery.collection('incomeByKommun').find({}).limit(70);
+
+let year1 = addDropdown('År 1', ['2018', '2019', '2020', '2021', '2022', '2023',],);
+
+// Hämta inkomstdata per kommun (topp 25)
+let income = await dbQuery.collection('incomeByKommun').find({}).limit(25);
 console.log('income from mongodb', income);
 
+// Sortera efter högst medelinkomst 2022
+income.sort((a, b) => (b.medelInkomst2022 || 0) - (a.medelInkomst2022 || 0));
 
-let year1 = addDropdown('År 1', ['2018', '2019', '2020', '2021', '2022', '2023', '2024'],);
-let col1 = `Kommun'${year1}`;
-
-
-
-//sorterar efter medelinkomst för det valda året
-function sortByIncomeYear(income, year) {
-
-  let incomeColumn = `medelInkomst${year}`;
-
-
-  income.sort((a, b) => (b[incomeColumn] || 0) - (a[incomeColumn] || 0));
-}
-
-
-let year = '2021'; // Exempel på valt år
-sortByIncomeYear(income, year);
-
-let years = ['2018', '2019', '2020', '2021', '2022'];
-
-
-years.forEach(year => {
-  console.log(`Sortering för år ${year}:`);
-  sortByIncomeYear(income, year);
-  console.log(income);
-});
-
-
-
-//Google Chart
-let chartData = [['Kommun', 'Medelinkomst 2020,',]];
+// Skapa data för Google Chart
+let chartData = [['Kommun', 'Medelinkomst 2022']];
 income.forEach(row => {
   chartData.push([row.kommun, parseFloat(row.medelInkomst2022) || 0]);
 });
 
-
-
-
-//histogrammet
+// Rita histogrammet
 drawGoogleChart({
   type: 'ColumnChart',
   data: chartData,
   options: {
-    title: "Medelinkomst per kommun (2020, topp 70)",
+    title: "Medelinkomst per kommun (2022, topp 25)",
     height: 600,
     width: 1000,
     chartArea: { left: "15%", top: "10%" },
