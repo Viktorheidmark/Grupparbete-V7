@@ -22,7 +22,30 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.7/marked.min.js"></script>
   <script src="/js/libs/_legacy.js"></script>
   <script type="module" src="/js/libs/_all-globalized.js"></script>
-  <script src="/js/compare-two-years.js"></script>
 </body>
 
 </html>
+<!-- Kommunväljare -->
+<div class="mb-4">
+  <label for="kommunSelector" class="form-label">Välj kommun:</label>
+  <select id="kommunSelector" class="form-select">
+    <option selected disabled>-- Välj kommun --</option>
+    <optgroup label="Stora kommuner">
+      <option value="Stockholm">Stockholm</option>
+      <option value="Göteborg">Göteborg</option>
+      <option value="Malmö">Malmö</option>
+      <option value="Helsingborg">Helsingborg</option>
+      <option value="Umeå">Umeå</option>
+    </optgroup>
+    <optgroup label="Små kommuner">
+      <option value="Ystad">Ystad</option>
+      <option value="Landskrona">Landskrona</option>
+      <option value="Piteå">Piteå</option>
+      <option value="Karlskrona">Karlskrona</option>
+      <option value="Skellefteå">Skellefteå</option>
+    </optgroup>
+  </select>
+</div>
+
+<!-- Resultat visas här -->
+<div id="resultat-container"></div>

@@ -1,5 +1,5 @@
-// Ladda Google Charts (en gång)
-google.charts.load('current', { packages: ['corechart'], language: 'sv' });
+// Ladda Google Charts
+google.charts.load('current', { packages: ['corechart'] });
 
 async function dbQuery(query, dbName = "neo4j", parameters = {}) {
     const res = await fetch("/api/dbquery", {
@@ -16,17 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     select.addEventListener("change", async function () {
         const kommun = this.value;
-
         const query = `
-          MATCH (p:Partiresultat)
-          WHERE p.roster2018 IS NOT NULL AND p.kommun = $kommun
-          RETURN p.parti AS parti, p.roster2018 AS roster
-          ORDER BY p.roster2018 DESC
-        `;
+      MATCH (p:Partiresultat)
+      WHERE p.roster2018 IS NOT NULL AND p.kommun = $kommun
+      RETURN p.parti AS parti, p.roster2018 AS roster
+      ORDER BY p.roster2018 DESC
+    `;
 
         try {
             const data = await dbQuery(query, "neo4j", { kommun });
-
             if (data.error) throw new Error(data.error);
 
             const rows = data.result || data.data || [];
@@ -34,23 +32,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 container.innerHTML = "<p class='text-warning'>Inga resultat hittades för denna kommun.</p>";
                 return;
             }
-            console.log("Hämtad data:", data);
 
-
-            // Bygg tabellen och plats för diagrammet
+            // Bygg tabell
             const tabellHTML = `
-                <h3 class="mt-4">Röster per parti – ${kommun}</h3>
-                <table class="table table-bordered table-striped">
-                    <thead><tr><th>Parti</th><th>Antal röster (2018)</th></tr></thead>
-                    <tbody>
-                        ${rows.map(row => `<tr><td>${row.parti}</td><td>${row.roster}</td></tr>`).join("")}
-                    </tbody>
-                </table>
-                <div id="chart_div" style="height:600px;"></div>
-            `;
+        <h3 class="mt-4">Röster per parti – ${kommun}</h3>
+        <table class="table table-bordered table-striped">
+          <thead><tr><th>Parti</th><th>Antal röster</th></tr></thead>
+          <tbody>
+            ${rows.map(row => `<tr><td>${row.parti}</td><td>${row.roster}</td></tr>`).join("")}
+          </tbody>
+        </table>
+        <div id="chart_div"></div>
+      `;
             container.innerHTML = tabellHTML;
 
-            // Ladda Google Chart efter att tabellen är ritad
             google.charts.setOnLoadCallback(() => drawChart(rows, kommun));
         } catch (err) {
             console.error(err);
@@ -59,20 +54,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Funktion för att rita Google Chart
 function drawChart(dataRows, kommun) {
     const chartData = new google.visualization.DataTable();
     chartData.addColumn('string', 'Parti');
-    chartData.addColumn('number', 'Antal röster');
+    chartData.addColumn('number', 'Röster');
 
     dataRows.forEach(row => {
         chartData.addRow([row.parti, parseInt(row.roster)]);
     });
 
     const options = {
-        title: `Röster per parti – ${kommun} (2018)`,
-        height: 600,
-        chartArea: { left: '20%', top: '10%', width: '70%', height: '80%' },
+        title: `Röster per parti – ${kommun}`,
         legend: { position: 'none' },
         hAxis: { title: 'Antal röster' },
         vAxis: { title: 'Parti' },

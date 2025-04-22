@@ -1,3 +1,3 @@
-MATCH (n)
-RETURN n
-LIMIT 10
+MATCH (n:Partiresultat)
+RETURN n.kommun AS kommun, n.parti AS parti, n.roster2018 AS roster2018, n.roster2022 AS roster2022
+LIMIT 500
