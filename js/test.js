@@ -20,10 +20,11 @@ function sortByIncomeYear(income, year) {
 }
 
 
-let year = '2020'; // Exempel på valt år
+let year = '2021'; // Exempel på valt år
 sortByIncomeYear(income, year);
 
 let years = ['2018', '2019', '2020', '2021', '2022'];
+
 
 years.forEach(year => {
   console.log(`Sortering för år ${year}:`);
@@ -38,6 +39,9 @@ let chartData = [['Kommun', 'Medelinkomst 2020,',]];
 income.forEach(row => {
   chartData.push([row.kommun, parseFloat(row.medelInkomst2022) || 0]);
 });
+
+
+
 
 //histogrammet
 drawGoogleChart({
