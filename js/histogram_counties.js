@@ -1,11 +1,12 @@
+addMdToPage("# Här är ett histogram över antalet personer som bor i olika län ")
 
-addMdToPage("Intro")
+
 
 let county = await dbQuery("SELECT lan, folkmangd2024 FROM countyinfo")
 
 county.sort((a, b) => b.folkmangd2024 - a.folkmangd2024);
 
-tableFromData({ data: county });
+
 
 
 // Draw a Google Charts

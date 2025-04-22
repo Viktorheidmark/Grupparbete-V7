@@ -1,3 +1,7 @@
+
+addMdToPage("# Här är ett histogram över röster till dem olika partierna med en dropdown på år 2018 noch 2022 ")
+
+
 dbQuery.use('valdata');
 
 // Hämta tillgängliga år
