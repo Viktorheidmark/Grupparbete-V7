@@ -2,7 +2,7 @@ import dbInfoOk, { displayDbNotOkText } from "./dbInfoOk.js";
 
 addMdToPage(`
   ## Kom igång!
-  Den här övningen syftar till att arbeta med data från flera olika källor.
+  Den här övningen syftar till att du ska lära dig arbeta med data från flera olika källor.
 `);
 
 if (!dbInfoOk) {
@@ -11,8 +11,8 @@ if (!dbInfoOk) {
 else {
   addMdToPage(`
   ### Starthjälp
-  * För start med övningen visar vi nedan data från 4 olika databaser (varav två olika collections hämtade från MongoDB). Detta är datan du har tillgång till.
-  * Du kan också se hur datan ser ut i tabeller nedan.
+  * För att ge dig starthjälp med övningen visar vi nedan data från 4 olika databaser (varav två olika collections hämtade från MongoDB). Detta är datan du har tillgång till.
+  * När du tittat lite på datan (och kanske även på koden som hämtar den) kan du [läsa instruktionerna för övningen](#ovningsinstruktioner)!
   `);
 
   addMdToPage(`
