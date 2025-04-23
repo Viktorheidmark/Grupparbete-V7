@@ -1,7 +1,7 @@
 dbQuery.use('undersokning_2018');
 
 // Lista över partier i 2018-data
-const partier2018 = ['S', 'M', 'V', 'SD', 'C', 'KD', 'L', 'MP', 'FI', 'ÖVR'];
+const partier2018 = ['S', 'M', 'V', 'SD', 'C', 'KD', 'L', 'MP', 'FI', 'OVRT'];
 let selectedParti = addDropdown('Parti', partier2018);
 
 // Hämta röster för valt parti från 2018-tabellen
