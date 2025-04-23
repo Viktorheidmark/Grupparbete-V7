@@ -24,7 +24,9 @@ createMenu('SQLITE UNDERSÖKNING', [
       { name: 'Tabell_2018', script: 'tabell_2018.js' },
       { name: 'Tabell_2022', script: 'tabell_2022.js'},
       { name: 'Histogram överpartier med dropdown år 2022', script: 'test2.js' },
-      { name: 'Histogram överpartier med dropdown år 2018', script: 'histogram_2018.js'}
+      { name: 'Histogram överpartier med dropdown år 2018', script: 'histogram_2018.js' },
+      { name: 'Histogram överpartier med dropdown år 2018_2022', script: 'histogram_2018_2022.js'}
+
 
   ]},
  
