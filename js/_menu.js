@@ -12,6 +12,4 @@ createMenu('SQLITE UNDERSÖKNING', [
   { name: 'test2', script: 'test2.js' },
   { name: 'test3', script: 'test3.js' },
 
-
-
 ]);
