@@ -1,16 +1,16 @@
-dbQuery.use('undersokning_2022');
+dbQuery.use('undersokning_2018');
 
-// Lista över partier som finns i tabellen
-const partier = ['S', 'M', 'V', 'SD', 'C', 'KD', 'L', 'MP', 'OVRT'];
-let selectedParti = addDropdown('Parti', partier);
+// Lista över partier i 2018-data
+const partier2018 = ['S', 'M', 'V', 'SD', 'C', 'KD', 'L', 'MP', 'FI', 'ÖVR'];
+let selectedParti = addDropdown('Parti', partier2018);
 
-// Hämta alla röster för valt parti från tabellen
+// Hämta röster för valt parti från 2018-tabellen
 let data = await dbQuery(`
   SELECT Omrade, ${selectedParti} AS roster
-  FROM roster_2022
+  FROM roster_2018
 `);
 
-console.log("data from roster_2022 for", selectedParti, ":", data);
+console.log("data från roster_2018 för", selectedParti, ":", data);
 
 // Skapa chartData: ['Kommun', 'Röster']
 let chartData = [['Omrade', 'Röster']];
@@ -18,12 +18,12 @@ let chartData = [['Omrade', 'Röster']];
   chartData.push([row.Omrade, parseInt(row.roster) || 0]);
 });
 
-// Rita stapeldiagram med Google Charts
+// Rita stapeldiagram
 drawGoogleChart({
   type: 'ColumnChart',
   data: chartData,
   options: {
-    title: `Röster för ${selectedParti} per kommun (2022)`,
+    title: `Röster för ${selectedParti} per kommun (2018)`,
     height: 600,
     width: 1200,
     isStacked: false,
