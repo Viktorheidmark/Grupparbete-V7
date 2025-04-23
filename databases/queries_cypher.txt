@@ -1,3 +1,4 @@
-MATCH (n:Partiresultat)
-RETURN n.kommun AS kommun, n.parti AS parti, n.roster2018 AS roster2018, n.roster2022 AS roster2022
-LIMIT 500
+MATCH (p:Partiresultat)
+      WHERE p.roster2018 IS NOT NULL AND p.kommun IS NOT NULL
+      RETURN p.parti AS parti, p.roster2018 AS roster, p.kommun AS Kommun
+      ORDER BY p.roster2018 DESC
