@@ -1,5 +1,4 @@
-dbQuery.use('kommun-info-mongodb');
-let income = await dbQuery.collection('incomeByKommun').find({}).limit(25);
-console.log('income from mongodb', income);
+dbQuery.use('counties-sqlite');
+let countyInfo = await dbQuery('SELECT * FROM riksdag');
 
 tableFromData({ data: income })
