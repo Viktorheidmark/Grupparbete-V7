@@ -1,63 +1,6 @@
 // Ladda Google Charts (en gång)
 google.charts.load('current', { packages: ['corechart'], language: 'sv' });
-
-async function dbQuery(query, dbName = "neo4j", parameters = {}) {
-    const res = await fetch("/api/dbquery", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query, dbName, parameters })
-    });
-    return await res.json();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    const select = document.getElementById("kommunSelector");
-    const container = document.getElementById("resultat-container");
-
-    select.addEventListener("change", async function () {
-        const kommun = this.value;
-
-        const query = `
-          MATCH (p:Partiresultat)
-          WHERE p.roster2018 IS NOT NULL AND p.kommun = $kommun
-          RETURN p.parti AS parti, p.roster2018 AS roster
-          ORDER BY p.roster2018 DESC
-        `;
-
-        try {
-            const data = await dbQuery(query, "neo4j", { kommun });
-
-            if (data.error) throw new Error(data.error);
-
-            const rows = data.result || data.data || [];
-            if (rows.length === 0) {
-                container.innerHTML = "<p class='text-warning'>Inga resultat hittades för denna kommun.</p>";
-                return;
-            }
-            console.log("Hämtad data:", data);
-
-
-            // Bygg tabellen och plats för diagrammet
-            const tabellHTML = `
-                <h3 class="mt-4">Röster per parti – ${kommun}</h3>
-                <table class="table table-bordered table-striped">
-                    <thead><tr><th>Parti</th><th>Antal röster (2018)</th></tr></thead>
-                    <tbody>
-                        ${rows.map(row => `<tr><td>${row.parti}</td><td>${row.roster}</td></tr>`).join("")}
-                    </tbody>
-                </table>
-                <div id="chart_div" style="height:600px;"></div>
-            `;
-            container.innerHTML = tabellHTML;
-
-            // Ladda Google Chart efter att tabellen är ritad
-            google.charts.setOnLoadCallback(() => drawChart(rows, kommun));
-        } catch (err) {
-            console.error(err);
-            container.innerHTML = `<p class="text-danger">Fel: ${err.message}</p>`;
-        }
-    });
-});
+google.charts.setOnLoadCallback(init);
 
 // Funktion för att rita Google Chart
 function drawChart(dataRows, kommun) {
