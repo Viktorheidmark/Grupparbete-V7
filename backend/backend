@@ -1,0 +1,9 @@
+<script>start("/Users/viktorheidmark/Desktop/VSCODE_V8/backend/");</script>
+<script>onHasParentDirectory();</script>
+<script>addRow("showDocs","showDocs",1,256,"256 B",1745482836,"24/04/2025, 10:20:36");</script>
+<script>addRow(".DS_Store",".DS_Store",0,6148,"6.0 kB",1745482777,"24/04/2025, 10:19:37");</script>
+<script>addRow("app.js","app.js",0,3690,"3.6 kB",1745481836,"24/04/2025, 10:03:56");</script>
+<script>addRow("backend","backend",0,0,"0 B",1745483107,"24/04/2025, 10:25:07");</script>
+<script>addRow("dbRouter.js","dbRouter.js",0,4706,"4.6 kB",1745481836,"24/04/2025, 10:03:56");</script>
+<script>addRow("example-databases-in-use.json","example-databases-in-use.json",0,210,"210 B",1745481836,"24/04/2025, 10:03:56");</script>
+<script>addRow("sstatparts.js","sstatparts.js",0,1900,"1.9 kB",1745481836,"24/04/2025, 10:03:56");</script>
