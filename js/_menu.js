@@ -27,7 +27,8 @@ createMenu('SQLITE UNDERSÖKNING', [
       { name: 'piechart andel', script: 'piechart_andel.js' },
       { name: 'histogram med kommuner och årval', script: 'histogram_kommuner_arval.js' },
       { name: 'totala röster', script: 'totala_roster.js' },
-      { name: 't-test', script: 't-test.js' }
+      { name: 't-test', script: 't-test.js' },
+      { name: 'arbetsloshet', script: 'arbetsloshet.js'}
 
 
   ]},
