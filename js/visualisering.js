@@ -9,25 +9,32 @@ async function fetchAndVisualizeData() {
         return;
     }
 
-    // Skapa en Google DataTable
-    let chartData = new google.visualization.DataTable();
-    chartData.addColumn('string', 'Kommun');
-    chartData.addColumn('number', 'Röster 2018');
+    console.log("Här ser vi komuner", electionResults)
 
-    // Lägg till data från Neo4j
-    electionResults.forEach(result => {
-        const { kommun, roster2018 } = result;
-        if (kommun && roster2018) {
-            chartData.addRow([kommun, roster2018]);
-        } else {
-            console.warn('Ogiltig data hittades i electionResults:', result);
-        }
-    });
+
+    // Kommunlista att inkludera
+    const selectedCommunes = [
+        'Göteborg', 'Malmö', 'Stockholm', 'Umeå', 'Helsingborg',
+        'Ystad', 'Landskrona', 'Piteå', 'Karlskrona', 'Skellefteå'
+    ];
+
+    // Filtrera data för endast de valda kommunerna
+    let filteredResults = electionResults.filter(({ kommun }) =>
+        selectedCommunes.includes(kommun)
+    );
+
+    console.log("Filtrerade kommuner", filteredResults);
+
+
+
+    // Skapa en Google DataTable
+
+    let chartData = filteredResults.map(({ kommun, roster2018 }) => ({ kommun, roster2018 }));
 
     // Rita diagrammet
     drawGoogleChart({
         type: 'ColumnChart',
-        data: chartData,
+        data: makeChartFriendly(chartData),
         options: {
             title: 'Röster i kommuner (2018)',
             height: 500,

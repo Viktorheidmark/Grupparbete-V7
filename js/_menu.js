@@ -4,8 +4,6 @@ createMenu('Statistics Template JS', [
   { name: "Trender", script: "trends.js" },
   {
     name: 'Hur vi byger upp en sida', sub: [
-      { name: 'Exempel på hur vi bygger upp en sida', script: 'instruktion.js' },
-      { name: 'Data bas info', script: 'dbinfoOK.js' },
       { name: 'Terster', script: 'testerna.js' },
     ],
   },
@@ -15,7 +13,8 @@ createMenu('Statistics Template JS', [
       { name: "Jämförelse av två år", script: "jamforelse-av-tva-ar.js" },
       { name: " Hur kmmuner roster i 2018", script: "kommun-roster-2018.js" },
       { name: " Visualisering av komuner", script: "visualisering.js" },
-      { name: 'test', script: 'test.js' },
+      { name: "T Test", script: "tow-sample-t-test.js" },
+      { name: 'test', script: 'test.js' }, { name: 'Del', script: 'del.js' }
     ]
   }
 ]);

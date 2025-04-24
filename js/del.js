@@ -11,69 +11,41 @@ let grupperadElectionResultsForWork = {};
 
 // Vi grupperar valresultaten efter kommuner och skapar en lista med vinnande partier för varje kommun.
 for (let item of electionResultsForWork) {
-  const { kommun, parti, roster2018, roster2022 } = item;
-  if (!grupperadElectionResultsForWork[kommun]) {
-    grupperadElectionResultsForWork[kommun] = [];
-  }
-  grupperadElectionResultsForWork[kommun].push({ parti, roster2018, roster2022 });
+    const { kommun, parti, roster2018, roster2022 } = item;
+    if (!grupperadElectionResultsForWork[kommun]) {
+        grupperadElectionResultsForWork[kommun] = [];
+    }
+    grupperadElectionResultsForWork[kommun].push({ parti, roster2018, roster2022 });
 }
 
 // Nu skapar vi en sammanställning av valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018
 let sammanstallning = Object.entries(grupperadElectionResultsForWork).map(([kommun, list]) => {
-  let vinnare2018 = list.reduce((max, curr) => curr.roster2018 > max.roster2018 ? curr : max);
-  let vinnare2022 = list.reduce((max, curr) => curr.roster2022 > max.roster2022 ? curr : max);
+    let vinnare2018 = list.reduce((max, curr) => curr.roster2018 > max.roster2018 ? curr : max);
+    let vinnare2022 = list.reduce((max, curr) => curr.roster2022 > max.roster2022 ? curr : max);
 
-  // Vi kontrollerar om vinnande parti har ändrats mellan 2018 och 2022
-  const byttParti = vinnare2018.parti !== vinnare2022.parti;
+    // Vi kontrollerar om vinnande parti har ändrats mellan 2018 och 2022
+    const byttParti = vinnare2018.parti !== vinnare2022.parti;
 
-  return {
-    kommun,
-    vinnare2018: vinnare2018.parti,
-    roster2018: vinnare2018.roster2018,
-    vinnare2022: vinnare2022.parti,
-    roster2022: vinnare2022.roster2022,
-    byte: byttParti ? "!!! Ja!!!" : "-"
-  };
+    return {
+        kommun,
+        vinnare2018: vinnare2018.parti,
+        roster2018: vinnare2018.roster2018,
+        vinnare2022: vinnare2022.parti,
+        roster2022: vinnare2022.roster2022,
+        byte: byttParti ? "!!! Ja!!!" : "-"
+    };
 });
 
 // Kommuner där vinnande parti har ändrats (2018 → 2022)
 let kommunerMedByte = sammanstallning
-  .filter(r => r.byte === "!!! Ja!!!")
-  .map(r => r.kommun);
+    .filter(r => r.byte === "!!! Ja!!!")
+    .map(r => r.kommun);
 
 // Kommuner där samma parti vann både 2018 och 2022
 let stabilaKommuner = sammanstallning
-  .filter(r => r.byte === "-")
-  .map(r => r.kommun);
+    .filter(r => r.byte === "-")
+    .map(r => r.kommun);
 
-
-
-
-// nu vi skapar en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022
-addMdToPage("### Vinnande parti per kommun - med byte mellan 2018 och 2022");
-
-addToPage(`
-  <h3>Antal kommuner med partibyte (2018–2022):</h3>
-  <p style="font-size: 1.2em; font-weight: bold; color: darkred;">
-    ${kommunerMedByte.length} kommuner
-  </p>
-`);
-
-
-// Detta är en del av koden som används för att skapa en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022.
-tableFromData({
-  data: sammanstallning.map(row => {
-    const highlight = row.byte === " Ja";
-    return {
-      kommun: row.kommun,
-      vinnare2018: row.vinnare2018,
-      roster2018: row.roster2018,
-      vinnare2022: row.vinnare2022,
-      roster2022: row.roster2022,
-      byte: row.byte
-    };
-  })
-});
 
 
 
@@ -88,20 +60,20 @@ let chosenParti = addDropdown('Välj parti', partier);
 
 // Nu skapar vi en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022
 let antalKommunerMedVinst = sammanstallning.filter(row =>
-  (year == 2018 && row.vinnare2018 === chosenParti) ||
-  (year == 2022 && row.vinnare2022 === chosenParti)
+    (year == 2018 && row.vinnare2018 === chosenParti) ||
+    (year == 2022 && row.vinnare2022 === chosenParti)
 ).length;
 
 // Vi låter användaren välja ett parti och år för att se hur många kommuner som har vunnit med det partiet
 let totalVotes = s.sum(
-  electionResultsForWork.map(x => year === 2018 ? +x.roster2018 : +x.roster2022)
+    electionResultsForWork.map(x => year === 2018 ? +x.roster2018 : +x.roster2022)
 );
 
 //  Vi beräknar rösterna för det valda partiet och året
 let partyVotes = s.sum(
-  electionResultsForWork
-    .filter(x => x.parti === chosenParti)
-    .map(x => year === 2018 ? +x.roster2018 : +x.roster2022)
+    electionResultsForWork
+        .filter(x => x.parti === chosenParti)
+        .map(x => year === 2018 ? +x.roster2018 : +x.roster2022)
 );
 
 // Vi beräknar andelen röster för det valda partiet och året
@@ -130,18 +102,20 @@ addToPage(`
 
 // Vi skapar en cirkeldiagram för att visa andelen röster för det valda partiet och året
 drawGoogleChart({
-  type: 'PieChart',
-  elementId: 'pieChartContainer',
-  data: [
-    ['Parti', 'Röster'],
-    [chosenParti, partyVotes],
-    ['Övriga', totalVotes - partyVotes]
-  ],
-  options: {
-    title: `Andel av röster, år ${year}`,
-    height: 300,
-    pieHole: 0.4
-  }
+    type: 'PieChart',
+    elementId: 'pieChartContainer',
+    colors: ['#e6f542', '#42f5e9'],
+    data: [
+        ['Parti', 'Röster'],
+        [chosenParti, partyVotes],
+        ['Övriga', totalVotes - partyVotes]
+    ],
+    options: {
+        title: `Andel av röster, år ${year}`,
+        height: 300,
+        pieHole: 0.4
+    },
+
 });
 
 
@@ -152,37 +126,37 @@ drawGoogleChart({
 let procentData = [];
 
 for (let kommun in grupperadElectionResultsForWork) {
-  let lista = grupperadElectionResultsForWork[kommun];
+    let lista = grupperadElectionResultsForWork[kommun];
 
-  let total = s.sum(lista.map(r => +r[`roster${year}`]));
-  let partiRad = lista.find(r => r.parti === chosenParti);
-  if (!partiRad) continue;
+    let total = s.sum(lista.map(r => +r[`roster${year}`]));
+    let partiRad = lista.find(r => r.parti === chosenParti);
+    if (!partiRad) continue;
 
-  let partiroster = +partiRad[`roster${year}`];
-  let procent = (partiroster / total) * 100;
+    let partiroster = +partiRad[`roster${year}`];
+    let procent = (partiroster / total) * 100;
 
-  procentData.push({
-    kommun,
-    procent: +procent.toFixed(2)
-  });
+    procentData.push({
+        kommun,
+        procent: +procent.toFixed(2)
+    });
 }
 addMdToPage(`Totalt antal kommuner i analysen: **${procentData.length}**`);
 
 
 
 drawGoogleChart({
-  type: 'Histogram',
-  data: [
-    ['Procent röster'],
-    ...procentData.map(x => [x.procent])
-  ],
-  options: {
-    title: `Andel röster för ${chosenParti} i varje kommun (${year})`,
-    height: 400,
-    histogram: { bucketSize: 2 },
-    hAxis: { title: 'Procent röster' },
-    vAxis: { title: 'Antal kommuner' }
-  }
+    type: 'Histogram',
+    data: [
+        ['Procent röster'],
+        ...procentData.map(x => [x.procent])
+    ],
+    options: {
+        title: `Andel röster för ${chosenParti} i varje kommun (${year})`,
+        height: 400,
+        histogram: { bucketSize: 2 },
+        hAxis: { title: 'Procent röster' },
+        vAxis: { title: 'Antal kommuner' }
+    }
 });
 
 let median = s.median(procentData.map(x => x.procent));
@@ -204,8 +178,8 @@ addMdToPage(`
 ###Shapiro-Wilk normalitetstest
 - p-värde: **${result.p.toFixed(4)}**
 - ${result.p < 0.05
-    ? "Fördelningen verkar inte vara normalfördelad"
-    : "Fördelningen verkar vara normalfördelad"}
+        ? "Fördelningen verkar inte vara normalfördelad"
+        : "Fördelningen verkar vara normalfördelad"}
 `);
 
 
@@ -217,30 +191,30 @@ let income = await dbQuery.collection('incomeByKommun').find({});
 console.log('income from mongodb', income);
 
 let incomeDataForTable = income.map(x => ({
-  kommun: x.kommun,
-  kön: x.kon,
-  medelInkomst2018: x.medelInkomst2018,
-  medianInkomst2022: x.medianInkomst2022
+    kommun: x.kommun,
+    kön: x.kon,
+    medelInkomst2018: x.medelInkomst2018,
+    medianInkomst2022: x.medianInkomst2022
 }));
 
 
 let korrelationData = procentData.map(p => {
-  let row = incomeDataForTable.find(i => i.kommun === p.kommun && i.kön === 'totalt');
-  return row ? { kommun: p.kommun, procent: p.procent, inkomst: row.medelInkomst2022 } : null;
+    let row = incomeDataForTable.find(i => i.kommun === p.kommun && i.kön === 'totalt');
+    return row ? { kommun: p.kommun, procent: p.procent, inkomst: row.medelInkomst2022 } : null;
 }).filter(x => x);
 
 
 let r = s.sampleCorrelation(
-  korrelationData.map(x => x.inkomst),
-  korrelationData.map(x => x.procent)
+    korrelationData.map(x => x.inkomst),
+    korrelationData.map(x => x.procent)
 );
 
 addMdToPage(`
 ### Enkel korrelation mellan inkomst och röstandel för ${chosenParti}
 - Pearson r: **${r.toFixed(3)}**
 - ${Math.abs(r) > 0.4
-    ? "Det verkar finnas ett samband"
-    : "Svagt eller inget tydligt samband"}
+        ? "Det verkar finnas ett samband"
+        : "Svagt eller inget tydligt samband"}
 `);
 
 
@@ -254,20 +228,20 @@ let hogerPartier = ['Moderaterna', 'Kristdemokraterna', 'Liberalerna', 'Sveriged
 
 // 
 let totalVanster2018 = electionResultsForWork
-  .filter(x => vansterPartier.includes(x.parti))
-  .reduce((sum, x) => sum + (+x.roster2018), 0);
+    .filter(x => vansterPartier.includes(x.parti))
+    .reduce((sum, x) => sum + (+x.roster2018), 0);
 
 let totalVanster2022 = electionResultsForWork
-  .filter(x => vansterPartier.includes(x.parti))
-  .reduce((sum, x) => sum + (+x.roster2022), 0);
+    .filter(x => vansterPartier.includes(x.parti))
+    .reduce((sum, x) => sum + (+x.roster2022), 0);
 
 let totalHoger2018 = electionResultsForWork
-  .filter(x => hogerPartier.includes(x.parti))
-  .reduce((sum, x) => sum + (+x.roster2018), 0);
+    .filter(x => hogerPartier.includes(x.parti))
+    .reduce((sum, x) => sum + (+x.roster2018), 0);
 
 let totalHoger2022 = electionResultsForWork
-  .filter(x => hogerPartier.includes(x.parti))
-  .reduce((sum, x) => sum + (+x.roster2022), 0);
+    .filter(x => hogerPartier.includes(x.parti))
+    .reduce((sum, x) => sum + (+x.roster2022), 0);
 
 // 
 let total2018 = totalVanster2018 + totalHoger2018;
@@ -293,8 +267,8 @@ addMdToPage(`
 
 // 
 let blockData = [
-  { år: '2018', Vänster: totalVanster2018, Höger: totalHoger2018 },
-  { år: '2022', Vänster: totalVanster2022, Höger: totalHoger2022 }
+    { år: '2018', Vänster: totalVanster2018, Höger: totalHoger2018 },
+    { år: '2022', Vänster: totalVanster2022, Höger: totalHoger2022 }
 ];
 
 //
@@ -302,22 +276,23 @@ addMdToPage(`### Röstfördelning per block (hela landet)`);
 
 // 
 drawGoogleChart({
-  type: 'ColumnChart',
-  data: makeChartFriendly(blockData, 'år', 'Vänster', 'Höger'),
-  options: {
-    title: 'Vänster- och högerblockets röster i hela landet (2018 vs 2022)',
-    height: 500,
-    legend: { position: 'top' },
-    hAxis: {
-      title: 'År',
-      slantedText: true
+    type: 'ColumnChart',
+    data: makeChartFriendly(blockData, 'år', 'Vänster', 'Höger'),
+    options: {
+        title: 'Vänster- och högerblockets röster i hela landet (2018 vs 2022)',
+        height: 500,
+        legend: { position: 'top' },
+        hAxis: {
+            title: 'År',
+            slantedText: true
+        },
+        vAxis: {
+            title: 'Antal röster',
+            format: '#'
+        },
+        chartArea: { left: 80, width: '80%' }
     },
-    vAxis: {
-      title: 'Antal röster',
-      format: '#'
-    },
-    chartArea: { left: 80, width: '80%' }
-  }
+
 });
 
 
@@ -330,44 +305,44 @@ let geoData = await dbQuery('SELECT * FROM geoData');
 // 
 let kommunTillLan = {};
 for (let row of geoData) {
-  kommunTillLan[row.municipality] = row.county;
+    kommunTillLan[row.municipality] = row.county;
 }
 
 // kommuner med län från geoData
 let lanByteRaknare = {};
 
 for (let kommun of kommunerMedByte) {
-  let geoRad = geoData.find(x => x.municipality === kommun);
-  if (!geoRad) continue;
+    let geoRad = geoData.find(x => x.municipality === kommun);
+    if (!geoRad) continue;
 
-  let lan = geoRad.county;
-  if (!lanByteRaknare[lan]) {
-    lanByteRaknare[lan] = 0;
-  }
-  lanByteRaknare[lan]++;
+    let lan = geoRad.county;
+    if (!lanByteRaknare[lan]) {
+        lanByteRaknare[lan] = 0;
+    }
+    lanByteRaknare[lan]++;
 }
 
 // 
 let lanByteLista = Object.entries(lanByteRaknare)
-  .map(([lan, antal]) => ({ Län: lan, 'Antal byten': antal }))
-  .sort((a, b) => b['Antal byten'] - a['Antal byten']);
+    .map(([lan, antal]) => ({ Län: lan, 'Antal byten': antal }))
+    .sort((a, b) => b['Antal byten'] - a['Antal byten']);
 
 
 addMdToPage(`### Län där vinnande parti byttes i kommuner (2018–2022)`);
 
 tableFromData({
-  data: lanByteLista
+    data: lanByteLista
 });
 
 
 drawGoogleChart({
-  type: 'ColumnChart',
-  data: [['Län', 'Antal byten'], ...lanByteLista.map(x => [x.Län, x['Antal byten']])],
-  options: {
-    title: 'Kommuner med partibyte per län (2018–2022)',
-    height: 600,
-    chartArea: { left: 100 },
-    legend: { position: 'none' },
-    hAxis: { slantedText: true, slantedTextAngle: 45 }
-  }
+    type: 'ColumnChart',
+    data: [['Län', 'Antal byten'], ...lanByteLista.map(x => [x.Län, x['Antal byten']])],
+    options: {
+        title: 'Kommuner med partibyte per län (2018–2022)',
+        height: 600,
+        chartArea: { left: 100 },
+        legend: { position: 'none' },
+        hAxis: { slantedText: true, slantedTextAngle: 45 },
+    }
 });

@@ -1,80 +1,41 @@
-addMdToPage(`
-  ### Valresultat från riksdagsvalen 2018 och 2022 uppdelade efter kommuner
-  (Endast för Göteborg, Malmö, Stockholm, Umeå, Helsingborg, Ystad, Landskrona, Piteå, Karlskrona och Skellefteå.)
-`);
 
+
+// === DEL 2: Fördjupad analys per valt parti och år ===
+
+// Vi jämför valresultat mellan 2018 och 2022 för att se om det har skett några förändringar i kommunerna.
 dbQuery.use('riksdagsval-neo4j');
-let electionResults = await dbQuery(`
-  MATCH (n:Partiresultat)
-  WHERE n.kommun IN ['Göteborg', 'Malmö', 'Stockholm', 'Umeå', 'Helsingborg', 'Ystad', 'Landskrona', 'Piteå', 'Karlskrona', 'Skellefteå']
-  RETURN n LIMIT 500
+
+// Detta är en del av koden som används för att hämta och visualisera valresultat från riksdagsvalen 2018 och 2022.
+let electionResultsForWork = await dbQuery('MATCH (n:Partiresultat) RETURN n Limit 100');
+
+
+
+// Detta gruppar valresultaten efter kommuner och skapar en lista med vinnande partier för varje kommun.
+let grupperadElectionResultsForWork = {};
+
+let years = [2018, 2022];
+let partier = [...new Set(electionResultsForWork.map(x => x.parti))].sort();
+
+let year = addDropdown('Välj år', years, 2022);
+let chosenParti = addDropdown('Välj parti', partier);
+
+let antalKommunerMedVinst = sammanstallning.filter(row =>
+  (year == 2018 && row.vinnare2018 === chosenParti) ||
+  (year == 2022 && row.vinnare2022 === chosenParti)
+).length;
+
+let totalVotes = s.sum(electionResultsForWork.map(x => year === 2018 ? +x.roster2018 : +x.roster2022));
+let partyVotes = s.sum(electionResultsForWork.filter(x => x.parti === chosenParti).map(x => year === 2018 ? +x.roster2018 : +x.roster2022));
+let percent = ((partyVotes / totalVotes) * 100).toFixed(1);
+
+addToPage(`
+  <div style="display: flex; justify-content: space-between; gap: 30px; align-items: flex-start;">
+    <div style="flex: 1;">
+      <h3>${chosenParti}, år ${year}</h3>
+      <p>Partiet <strong>${chosenParti}</strong> vann i <strong>${antalKommunerMedVinst}</strong> kommuner.</p>
+      <p>Totalt antal röster: <strong>${partyVotes.toLocaleString('sv-SE')}</strong></p>
+      <p>Andel av alla röster: <strong>${percent}%</strong></p>
+    </div>
+    <div id="pieChartContainer" style="flex: 1;"></div>
+  </div>
 `);
-
-
-// Skapa dropdown för valår (2018 eller 2022)
-let yearDropdown = addDropdown('Välj år', ['2018', '2022'], '2018');
-
-// Skapa dropdown för kommuner
-let communeDropdown = addDropdown('Välj kommun',
-  ['Göteborg', 'Malmö', 'Stockholm', 'Umeå', 'Helsingborg', 'Ystad', 'Landskrona', 'Piteå', 'Karlskrona', 'Skellefteå'],
-  'Göteborg'
-);
-
-// Definiera stora och små kommuner
-let largeCommunes = ['Göteborg', 'Malmö', 'Stockholm', 'Umeå', 'Helsingborg'];
-let smallCommunes = ['Ystad', 'Landskrona', 'Piteå', 'Karlskrona', 'Skellefteå'];
-
-// Lägger till en rubrik för att beskriva röster per parti
-addMdToPage(`
-  ## Röster per parti (${yearDropdown.value} - ${communeDropdown.value})
-`);
-
-// Filtrera electionResults baserat på det valda året och kommunen
-let filteredResults = electionResults.filter(item =>
-  item.kommun === communeDropdown.value && item.year === yearDropdown.value
-);
-
-// Dela upp och visa resultaten för stora kommuner
-let largeCommunesResults = filteredResults.filter(item => largeCommunes.includes(item.kommun));
-tableFromData({
-  data: largeCommunesResults.map(({ ids, kommun, roster2018, roster2022, parti, labels }) => ({
-    ids: ids.identity,
-    kommun,
-    roster2018,
-    roster2022,
-    parti,
-    labels
-  }))
-});
-
-// Dela upp och visa resultaten för små kommuner
-let smallCommunesResults = filteredResults.filter(item => smallCommunes.includes(item.kommun));
-tableFromData({
-  data: smallCommunesResults.map(({ ids, kommun, roster2018, roster2022, parti, labels }) => ({
-    ids: ids.identity,
-    kommun,
-    roster2018,
-    roster2022,
-    parti,
-    labels
-  }))
-});
-
-console.log('electionResults from neo4j', electionResults);
-
-console.log('Filtered results:', filteredResults);
-console.log('Large communes results:', largeCommunesResults);
-console.log('Small communes results:', smallCommunesResults);
-
-drawGoogleChart({
-  type: 'ColumnChart',
-  data: chartDataStoraKommuner,
-  options: {
-    title: 'Röster i stora kommuner (2018)',
-    height: 500,
-    width: 1000,
-    hAxis: { title: 'Kommun' },
-    vAxis: { title: 'Antal röster' },
-    legend: { position: 'none' }
-  }
-});

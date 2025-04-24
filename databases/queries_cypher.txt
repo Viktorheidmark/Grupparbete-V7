@@ -1,4 +1,1 @@
-MATCH (p:Partiresultat)
-      WHERE p.roster2018 IS NOT NULL AND p.kommun IS NOT NULL
-      RETURN p.parti AS parti, p.roster2018 AS roster, p.kommun AS Kommun
-      ORDER BY p.roster2018 DESC
+MATCH (n:Partiresultat) RETURN n ORDER BY n.roster2018 DESC
