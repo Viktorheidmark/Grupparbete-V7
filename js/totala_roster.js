@@ -1,48 +1,75 @@
-// Hämta data för 2018
-dbQuery.use('undersokning_2018');
-let data2018 = await dbQuery('SELECT M,C,L,KD,S,V,MP,SD FROM roster_2018');
+addMdToPage("# Histogram över röster till olika partier (välj år)");
 
-// Summera totalen för 2018
-let total2018 = 0;
-(data2018.rows || data2018).forEach(row => {
-  for (let key of ['S', 'M', 'V', 'SD', 'C', 'KD', 'L', 'MP']) {
-    total2018 += parseInt(row[key]) || 0;
+// Definiera tillgängliga år direkt
+let valdata = ['2018', '2022'];
+
+// Skapa dropdown för att välja år
+let valtAr = addDropdown('År', valdata);
+
+addMdToPage(`## Röster per parti (${valtAr})`);
+
+// Hämta och summera data från rätt tabell beroende på valt år
+async function fetchAndUpdateChart(year) {
+  let data;
+
+  if (year === '2018') {
+    dbQuery.use('undersokning_2018');
+    data = await dbQuery('SELECT M, C, L, KD, S, V, MP, SD FROM roster_2018');
+  } else if (year === '2022') {
+    dbQuery.use('undersokning_2022');
+    data = await dbQuery('SELECT M, C, L, KD, S, V, MP, SD FROM roster_2022');
   }
-});
 
-// Hämta data för 2022
-dbQuery.use('undersokning_2022');
-let data2022 = await dbQuery('SELECT S,C,KD,L,MP,M,SD,V FROM roster_2022');
+  // Färger för partier
+  const partifarger = {
+    'M': '#1D74BB',        // Moderaterna
+    'C': '#009933',        // Centerpartiet
+    'L': '#6AB2E7',        // Liberalerna
+    'KD': '#003F7D',       // Kristdemokraterna
+    'S': '#EE2020',        // Socialdemokraterna
+    'V': '#AF0000',        // Vänsterpartiet
+    'MP': '#83CF39',       // Miljöpartiet
+    'SD': '#DDDD00'        // Sverigedemokraterna
+  };
 
-// Summera totalen för 2022
-let total2022 = 0;
-(data2022.rows || data2022).forEach(row => {
-  for (let key of ['S', 'M', 'V', 'SD', 'C', 'KD', 'L', 'MP']) {
-    total2022 += parseInt(row[key]) || 0;
+  // Summera röster per parti
+  let totals = {
+    M: 0, C: 0, L: 0, KD: 0, S: 0, V: 0, MP: 0, SD: 0
+  };
+
+  data.forEach(row => {
+    for (let parti in totals) {
+      totals[parti] += parseInt(row[parti]) || 0;
+    }
+  });
+
+  // Skapa chartdata
+  let chartData = [['Parti', 'Röster', { role: 'style' }]];
+  for (let parti in totals) {
+    let farg = partifarger[parti] || '#888888';
+    chartData.push([parti, totals[parti], `color: ${farg}`]);
   }
-});
 
-// Bygg data till Gauge-diagrammet
-let chartData = [
-  ['År', 'Totala röster'],
-  ['2018', total2018],
-  ['2022', total2022]
-];
+  // Rita diagram
+  drawGoogleChart({
+    type: 'ColumnChart',
+    data: chartData,
+    options: {
+      height: 500,
+      width: 1250,
+      hAxis: { title: 'Parti' },
+      vAxis: { title: 'Antal röster' },
+      legend: 'none',
+      bar: { groupWidth: '90%' }
+    }
+  });
+}
 
-// Rita Gauge-diagram
-drawGoogleChart({
-  type: 'Gauge',
-  data: chartData,
-  options: {
-    title: 'Totalt antal röster per valår',
-    width: 500,
-    height: 250,
-    redFrom: 0,
-    redTo: Math.max(total2018, total2022) * 0.5,
-    yellowFrom: Math.max(total2018, total2022) * 0.5,
-    yellowTo: Math.max(total2018, total2022) * 0.85,
-    greenFrom: Math.max(total2018, total2022) * 0.85,
-    greenTo: Math.max(total2018, total2022),
-    minorTicks: 5
-  }
+// Initiala rendering av diagram för det valda året
+fetchAndUpdateChart(valtAr);
+
+// Eventlistener för att uppdatera diagrammet vid årval
+document.getElementById('yearSelect').addEventListener('change', e => {
+  let selectedYear = e.target.value;
+  fetchAndUpdateChart(selectedYear);
 });
