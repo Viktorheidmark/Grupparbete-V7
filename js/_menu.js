@@ -26,7 +26,8 @@ createMenu('SQLITE UNDERSÖKNING', [
       { name: 'Histogram överpartier med dropdown år 2018_2022', script: 'histogram_2018_2022.js' },
       { name: 'piechart andel', script: 'piechart_andel.js' },
       { name: 'histogram med kommuner och årval', script: 'histogram_kommuner_arval.js' },
-      { name: 'totala röster', script: 'totala_roster.js'}
+      { name: 'totala röster', script: 'totala_roster.js' },
+      { name: 't-test', script: 't-test.js' }
 
 
   ]},
