@@ -31,7 +31,7 @@ async function fetchAndVisualizeData() {
 
     let chartData = filteredResults.map(({ kommun, roster2018 }) => ({ kommun, roster2018 }));
 
-    // Rita diagrammet
+    // Rita stapeldiagram
     drawGoogleChart({
         type: 'ColumnChart',
         data: makeChartFriendly(chartData),
@@ -41,10 +41,24 @@ async function fetchAndVisualizeData() {
             width: 1000,
             hAxis: { title: 'Kommun' },
             vAxis: { title: 'Antal röster' },
-            legend: { position: 'none' }
+            legend: { position: 'none' },
+            colors: ['#f59942']
+        }
+    });
+
+
+    // Rita pajdiagram
+    drawGoogleChart({
+        type: 'PieChart',
+        data: makeChartFriendly(chartData),
+        options: {
+            title: 'Röster i kommuner (2018)',
+            height: 500,
+            width: 1000,
+            legend: { position: 'right' },
+            colors: ['#f59942', '#42f5e0']
         }
     });
 }
-
 // Kör funktionen
 fetchAndVisualizeData();

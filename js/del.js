@@ -25,7 +25,7 @@ let sammanstallning = Object.entries(grupperadElectionResultsForWork).map(([komm
 
     // Vi kontrollerar om vinnande parti har ändrats mellan 2018 och 2022
     const byttParti = vinnare2018.parti !== vinnare2022.parti;
-
+    // Här skapar vi en sammanställning av valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022  
     return {
         kommun,
         vinnare2018: vinnare2018.parti,
@@ -118,10 +118,6 @@ drawGoogleChart({
 
 });
 
-
-
-
-
 // Vi skapar en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022
 let procentData = [];
 
@@ -140,10 +136,11 @@ for (let kommun in grupperadElectionResultsForWork) {
         procent: +procent.toFixed(2)
     });
 }
+// Vi skapar en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022
 addMdToPage(`Totalt antal kommuner i analysen: **${procentData.length}**`);
 
 
-
+// me d hjälp av Google Charts skapar vi ett histogram för att visa andelen röster för det valda partiet och året
 drawGoogleChart({
     type: 'Histogram',
     data: [
@@ -158,11 +155,11 @@ drawGoogleChart({
         vAxis: { title: 'Antal kommuner' }
     }
 });
-
+// nu låter vi användaren välja ett parti och år för att se hur många kommuner som har vunnit med det partiet
 let median = s.median(procentData.map(x => x.procent));
 let max = s.max(procentData.map(x => x.procent));
 let min = s.min(procentData.map(x => x.procent));
-
+// nu 
 addMdToPage(`
 ### Statistik: ${chosenParti} (${year})
 - Medianandel per kommun: **${median.toFixed(1)}%**
