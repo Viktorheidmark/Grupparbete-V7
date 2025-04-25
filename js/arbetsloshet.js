@@ -1,3 +1,5 @@
-let result = await dbQuery("SELECT * FROM arbetsloshet LIMIT 10");
-console.log(result);  // Lägg till denna för att debugga resultatet
-tableFromData({ data: result });
+dbQuery.use("arbetsloshet")
+
+let county = await dbQuery("SELECT * FROM arbetsloshet")
+
+tableFromData({ data: county })
