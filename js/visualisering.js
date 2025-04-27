@@ -11,6 +11,22 @@ async function fetchAndVisualizeData() {
 
     console.log("Här ser vi komuner", electionResults)
 
+    let allCommmunNames = [...new Set(electionResults.map(({ kommun }) => kommun))];
+    console.log("Här ser vi alla kommuner", allCommmunNames);
+
+    let votesPerCommun = allCommmunNames.map(kommun => ({
+        kommun,
+        votes2018_V: electionResults.find(x => x.parti === 'Vänsterpartiet' && x.kommun === kommun).roster2018,
+        votes2018_S: electionResults.find(x => x.parti === 'Arbetarepartiet-Socialdemokraterna' && x.kommun === kommun).roster2018,
+        votes2018_MP: electionResults.find(x => x.parti === 'Miljöpartiet de gröna' && x.kommun === kommun).roster2018,
+        votes2018_C: electionResults.find(x => x.parti === 'Centerpartiet' && x.kommun === kommun).roster2018,
+        votes2018_L: electionResults.find(x => x.parti === 'Liberalerna ' && x.kommun === kommun).roster2018,
+        votes2018_KD: electionResults.find(x => x.parti === 'Kristdemokraterna' && x.kommun === kommun).roster2018,
+        votes2018_M: electionResults.find(x => x.parti === 'Moderaterna' && x.kommun === kommun).roster2018,
+        votes2018_SD: electionResults.find(x => x.parti === 'Sverigedemokraterna' && x.kommun === kommun).roster2018
+    }));
+    console.log("votesperCommun", votesPerCommun);
+
 
     // Kommunlista att inkludera
     const selectedCommunes = [
@@ -19,7 +35,7 @@ async function fetchAndVisualizeData() {
     ];
 
     // Filtrera data för endast de valda kommunerna
-    let filteredResults = electionResults.filter(({ kommun }) =>
+    let filteredResults = votesPerCommun.filter(({ kommun }) =>
         selectedCommunes.includes(kommun)
     );
 
@@ -34,7 +50,7 @@ async function fetchAndVisualizeData() {
     // Rita stapeldiagram
     drawGoogleChart({
         type: 'ColumnChart',
-        data: makeChartFriendly(chartData),
+        data: makeChartFriendly(filteredResults),
         options: {
             title: 'Röster i kommuner (2018)',
             height: 500,
@@ -42,7 +58,7 @@ async function fetchAndVisualizeData() {
             hAxis: { title: 'Kommun' },
             vAxis: { title: 'Antal röster' },
             legend: { position: 'none' },
-            colors: ['#f59942']
+            //colors: ['#f59942']
         }
     });
 
@@ -50,7 +66,7 @@ async function fetchAndVisualizeData() {
     // Rita pajdiagram
     drawGoogleChart({
         type: 'PieChart',
-        data: makeChartFriendly(chartData),
+        data: makeChartFriendly(filteredResults),
         options: {
             title: 'Röster i kommuner (2018)',
             height: 500,
