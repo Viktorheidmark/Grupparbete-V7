@@ -1,34 +1,46 @@
-// filepath: c:\Users\Book\Grupparbete-V7\Grupparbete-V7\js\compare-two-years.js
-let year1 = 2018;
-let year2 = 2024;
+let years = (await dbQuery(
+  'SELECT DISTINCT year FROM dataWithMonths'
+)).map(x => x.year);
 
-// Example data for comparison
-let dataYear1 = 500; // Replace with actual data
-let dataYear2 = 700; // Replace with actual data
+let year1 = addDropdown('År 1', years, 1964);
+let year2 = addDropdown('År 2', years, 2024);
 
-// Load the Google Charts library
-google.charts.load('current', { packages: ['corechart'] });
+addMdToPage(`
+  ## Medeltemperaturer i Malmö, jämförelse mellan år ${year1} och år ${year2}
+`);
 
-// Draw the chart after the library is loaded
-google.charts.setOnLoadCallback(drawChart);
+// in order to get the two years to compare
+// we perform a join between two subselects
+let dataForChart = await dbQuery(`
+  SELECT monthName1 AS monthName, temp1, temp2 FROM
+    (SELECT monthNameShort AS monthName1, temperatureC AS temp1 FROM dataWithMonths WHERE year = '${year1}') AS t1,
+    (SELECT monthNameShort AS monthName2, temperatureC AS temp2 FROM dataWithMonths WHERE year = '${year2}') AS t2
+  WHERE t1.monthName1 = t2.monthName2
+`);
 
-function drawChart() {
-  // Prepare the data for the chart
-  let data = google.visualization.arrayToDataTable([
-    ['Year', 'Value'],
-    [year1.toString(), dataYear1],
-    [year2.toString(), dataYear2]
-  ]);
+drawGoogleChart({
+  type: 'LineChart',
+  data: makeChartFriendly(dataForChart, 'månad', `°C ${year1}`, `°C ${year2}`),
+  options: {
+    height: 500,
+    chartArea: { left: 50, right: 0 },
+    curveType: 'function',
+    pointSize: 5,
+    pointShape: 'circle',
+    vAxis: { format: '# °C' },
+    title: `Medeltemperatur per månad i Malmö, jämförelse mellan år ${year1} och ${year2} (°C)`
+  }
+});
 
-  // Set chart options
-  let options = {
-    title: 'Comparison of Two Years',
-    hAxis: { title: 'Year' },
-    vAxis: { title: 'Value' },
-    legend: 'none'
-  };
+// the same db query as before, but with the long month names
+let dataForTable = await dbQuery(`
+  SELECT monthName1 AS monthName, temp1, temp2 FROM
+    (SELECT monthName AS monthName1, temperatureC AS temp1 FROM dataWithMonths WHERE year = '${year1}') AS t1,
+    (SELECT monthName AS monthName2, temperatureC AS temp2 FROM dataWithMonths WHERE year = '${year2}') AS t2
+  WHERE t1.monthName1 = t2.monthName2
+`);
 
-  // Create and draw the chart
-  let chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-  chart.draw(data, options);
-}
+tableFromData({
+  data: dataForTable,
+  columnNames: ['Månad', `Medeltemperatur (°C) ${year1}`, `Medeltemperatur (°C) ${year2}`]
+});
