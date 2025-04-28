@@ -1,78 +1,22 @@
-// Hämta arbetslöshet för bara de kommunerna
-dbQuery.use("arbetsloshet");
+addMdToPage("# Här är ett histogram ");
 
-let data = await dbQuery('SELECT Region, Arbetsloshet_2022 FROM arbetsloshet');
+dbQuery.use('arbetsloshet');
 
-// Kommuner i Blekinge län
-const blekingeKommuner = [
-  "Karlskrona", "Karlshamn", "Ronneby", "Sölvesborg", "Olofström", "Rödeby", "Växjö"
-];
+let county = await dbQuery("SELECT Region, Arbetsloshet_2022 FROM arbetsloshet");
 
-// Kommuner i Norrbottens län
-const norrbottensKommuner = [
-  "Luleå", "Piteå", "Kiruna", "Haparanda", "Kalix", "Boden", "Arjeplog", "Arvidsjaur", "Överkalix", "Jokkmokk", "Gällivare"
-];
+// Sortera efter lägst arbetslöshet (minst till störst)
+county.sort((a, b) => a.Arbetsloshet_2022 - b.Arbetsloshet_2022);
 
-// Steg 2: Beräkna medelarbetslösheten för varje län
-let arbetsloshetPerLan = {
-  "Blekinge": { total: 0, count: 0 },
-  "Norrbotten": { total: 0, count: 0 }
-};
-
-// Filtrera data och summera arbetslösheten för varje län
-data.forEach(row => {
-  let region = row.Region;
-  let arbetsloshet = row.Arbetsloshet_2022;
-
-  // Kontrollera om kommunen är i Blekinge län
-  if (blekingeKommuner.includes(region)) {
-    arbetsloshetPerLan["Blekinge"].total += arbetsloshet;
-    arbetsloshetPerLan["Blekinge"].count += 1;
-  }
-
-  // Kontrollera om kommunen är i Norrbottens län
-  if (norrbottensKommuner.includes(region)) {
-    arbetsloshetPerLan["Norrbotten"].total += arbetsloshet;
-    arbetsloshetPerLan["Norrbotten"].count += 1;
-  }
-});
-
-// Beräkna medelarbetslösheten per län
-let medelArbetsloshetPerLan = {
-  "Blekinge": arbetsloshetPerLan["Blekinge"].total / arbetsloshetPerLan["Blekinge"].count,
-  "Norrbotten": arbetsloshetPerLan["Norrbotten"].total / arbetsloshetPerLan["Norrbotten"].count
-};
-
-// Skapa en container för diagrammet dynamiskt i JavaScript
-let chartContainer = document.createElement('div');
-chartContainer.id = 'chart_div'; // ge den ett ID
-document.body.appendChild(chartContainer); // lägg till den i body eller annan förälder
+// Välj de 10 med lägst arbetslöshet
+county = county.slice(0, 10);
 
 // Rita diagrammet
-google.charts.load('current', {'packages':['corechart', 'bar']});
-google.charts.setOnLoadCallback(function () {
-  // Omvandla data till ett format som Google Charts kan använda
-  let chartData = new google.visualization.DataTable();
-  chartData.addColumn('string', 'Region');
-  chartData.addColumn('number', 'Arbetslöshet 2022');
-
-  chartData.addRows([
-    ['Blekinge', medelArbetsloshetPerLan['Blekinge']],
-    ['Norrbotten', medelArbetsloshetPerLan['Norrbotten']]
-  ]);
-
-  var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-
-  chart.draw(chartData, {
-    title: 'Medel Arbetslöshet per Län (2022)',
+drawGoogleChart({
+  type: 'ColumnChart',
+  data: makeChartFriendly(county, "Region", "Arbetsloshet_2022"),
+  options: {
+    title: 'Topp 10 kommuner med lägst arbetslöshet',
     height: 800,
-    chartArea: { left: "10%" },
-    hAxis: {
-      title: 'Medel Arbetslöshet (%)',
-      minValue: 0
-    },
-    vAxis: {
-      title: 'Län'
-    }
-  });
+    chartArea: { left: "10%" }
+  }
 });

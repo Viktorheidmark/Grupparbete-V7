@@ -13,13 +13,6 @@ createMenu('SQLITE UNDERSÖKNING', [
   ]
   },
   {
-    name: 'valresultat?', sub: [
-      { name: 'valresultat_tabell', script: 'valresultat.js' },
-      { name: 'diagram_3_valstatiskik', script: 'diagram_3_valstatistik.js' },
-      { name: 'test', script: 'test.js' },
-  ]
-  },
-  {
     name: 'Undersökning med kommuner', sub: [
       { name: 'Tabell_2018', script: 'tabell_2018.js' },
       { name: 'Tabell_2022', script: 'tabell_2022.js' },
@@ -27,7 +20,6 @@ createMenu('SQLITE UNDERSÖKNING', [
       { name: 'piechart andel', script: 'piechart_andel.js' },
       { name: 'histogram med kommuner och årval', script: 'histogram_kommuner_arval.js' },
       { name: 'totala röster', script: 'totala_roster.js' },
-      { name: 't-test', script: 't-test.js' },
   ]
   },
   
@@ -35,11 +27,13 @@ createMenu('SQLITE UNDERSÖKNING', [
   {
     name: 'arbetsloshet', sub: [
       { name: 'arbetsloshet_tabell', script: 'arbetsloshet.js' },
-      { name: 'arbetsloshet_histogram', script: 'arbetsloshet_histogram.js' },
+      { name: 'arbetsloshet_histogram_top_10', script: 'arbetsloshet_histogram.js' },
       { name: 'arbetsloshet2', script: 'arbetsloshet2.js' },
       { name: 'arbetsloshet3', script: 'arbetsloshet3.js' },
-      { name: 'arbetsloshet_jämförelse', script:'arbetsloshet4.js'}
+      { name: 'arbetsloshet_jämförelse_sista_10', script:'arbetsloshet4.js'}
   ]
   },  
+    { name: 'ny', script:'ny.js'}
+
  
 ]);
