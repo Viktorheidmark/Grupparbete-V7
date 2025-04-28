@@ -91,3 +91,41 @@ tableFromData({
 // Här skapar vi en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022
 let years = [2018, 2022];
 let partier = [...new Set(electionResultsForWork.map(x => x.parti))].sort();
+
+
+// Funktion som hämtar röster för valt parti och år
+function hamtaRosterForPartiOchAr(valtParti, valtAr) {
+  // Filtrera fram rätt parti
+  let dataForParti = electionResultsForWork.filter(x => x.parti === valtParti);
+
+  // Mappa ut röster beroende på valt år
+  let rosterLista = dataForParti.map(x => valtAr === 2018 ? x.roster2018 : x.roster2022);
+
+  // Summera ihop alla röster
+  let totalRoster = rosterLista.reduce((sum, r) => sum + (r || 0), 0);
+
+  return totalRoster;
+}
+
+
+// Hämta det valda året och partiet från dropdowns (exempel, du måste ha rätt ID på dropdowns!)
+let valtAr = Number(document.getElementById('year-dropdown').value);
+let valtParti = document.getElementById('party-dropdown').value;
+
+// Hämta röster för valt parti och år
+let totalRoster = hamtaRosterForPartiOchAr(valtParti, valtAr);
+
+// Hämta alla röster totalt (för procentberäkning)
+let totalRosterAlla = electionResultsForWork
+  .map(x => valtAr === 2018 ? x.roster2018 : x.roster2022)
+  .reduce((sum, r) => sum + (r || 0), 0);
+
+// Räkna andel röster i procent
+let procent = (totalRosterAlla === 0) ? 0 : (totalRoster / totalRosterAlla * 100).toFixed(2);
+
+// Visa på sidan
+addToPage(`
+  <h2>${valtParti}, år ${valtAr}</h2>
+  <p>Totalt antal röster: <b>${totalRoster}</b></p>
+  <p>Andel av alla röster: <b>${procent}%</b></p>
+`);

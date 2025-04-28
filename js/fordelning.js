@@ -6,14 +6,12 @@ dbQuery.use('riksdagsval-neo4j');
 let electionResultsForWork = await dbQuery('MATCH (n:Partiresultat) RETURN n');
 console.log('electionResultsForWork', electionResultsForWork);
 
-// 2. Filtrera data
-const selectedCommunes = [
-    'Göteborg', 'Malmö', 'Stockholm', 'Umeå', 'Helsingborg',
-    'Ystad', 'Landskrona', 'Piteå', 'Karlskrona', 'Skellefteå'
-];
-const selectedParties = [
-    'Vänsterpartiet', 'Socialdemokraterna', 'Miljöpartiet de gröna',
-    'Centerpartiet', 'Liberalerna ', 'Kristdemokraterna', 'Moderaterna', 'Sverigedemokraterna'
+
+// Kommunlista att inkludera
+const selectedCommunes = ['Flen', 'Perstorp', 'Eskilstuna', 'Malmö', 'Fagersta', 'Sandviken', 'Ronneby', 'Filipstad', 'Södertälje', 'Söderhamn',
+    'Pajala', 'Kiruna', 'Kungsbacka', 'Tjörn', 'Öckerö', 'Krokom', 'Sotenäs', 'Gällivare', 'Habo', 'Mörbylånga']
+
+const selectedParties = ['Moderaterna', 'Sverigedemokraterna', 'Miljöpartiet de gröna', 'Liberalerna ',
 ];
 
 electionResultsForWork = electionResultsForWork.filter(r =>
@@ -193,7 +191,6 @@ addMdToPage(`
         ? "Fördelningen verkar inte vara normalfördelad"
         : "Fördelningen verkar vara normalfördelad"}
 `);
-
 
 
 
