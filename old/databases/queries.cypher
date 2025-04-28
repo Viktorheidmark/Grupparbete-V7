@@ -1,7 +1,0 @@
-MATCH (n)
-RETURN n
-LIMIT 10
-
-MATCH (n:Partiresultat)
-RETURN n
-LIMIT 10;
