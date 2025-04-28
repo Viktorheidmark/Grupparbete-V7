@@ -337,3 +337,15 @@ medelArbetsloshetPerLan.sort((a, b) => b[1] - a[1]);
 
 // Visa tabellen
 tableFromData({ data: medelArbetsloshetPerLan });
+
+
+// Rita diagrammet
+drawGoogleChart({
+  type: 'ColumnChart',
+  data: makeChartFriendly(medelArbetsloshetPerLan, "Region", "Arbetsloshet_2022"),
+  options: {
+    title: 'medelarbetslöshet per län',
+    height: 800,
+    chartArea: { left: "10%" }
+  }
+});
