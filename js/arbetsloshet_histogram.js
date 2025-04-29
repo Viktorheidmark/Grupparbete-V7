@@ -1,4 +1,4 @@
-addMdToPage("# Här är ett histogram ")
+addMdToPage("### Detta visar ett histogram över de 10 kommuner i Sverige som hade högst arbetslöshet år 2022")
 
 dbQuery.use('arbetsloshet');
 
