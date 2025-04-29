@@ -4,7 +4,7 @@ let valdata = ['val_2018', 'val_2022'];
 let currentage = addDropdown('Valår', valdata);
 
 addMdToPage(`
-  ## Röster per parti och kön (${currentage})
+  ## Röster per parti och kön (${currentage})  
 `);
 
 let dataForChart = await dbQuery(`
