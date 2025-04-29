@@ -335,8 +335,7 @@ for (let lan in arbetsloshetPerLan) {
 medelArbetsloshetPerLan.sort((a, b) => b[1] - a[1]);
 // sorterar så att högsta arbetslösheten kommer först
 
-// Visa tabellen
-tableFromData({ data: medelArbetsloshetPerLan });
+
 
 
 // Rita diagrammet
