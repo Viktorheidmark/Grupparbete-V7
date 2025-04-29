@@ -2,14 +2,24 @@
 async function fetchAndVisualizeData() {
     dbQuery.use('riksdagsval-neo4j');
     let electionResults = await dbQuery('MATCH (n:Partiresultat) RETURN n ORDER BY n.roster2018 DESC');
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 9bbfc454238669ac6f6cd28ed0afd457eb8a1737
     if (!Array.isArray(electionResults) || electionResults.length === 0) {
         console.error('Inga valresultat hittades eller datan är inte en array:', electionResults);
         return;
     }
+<<<<<<< HEAD
 
     let allCommmunNames = [...new Set(electionResults.map(({ kommun }) => kommun))];
 
+=======
+ 
+    let allCommmunNames = [...new Set(electionResults.map(({ kommun }) => kommun))];
+ 
+>>>>>>> 9bbfc454238669ac6f6cd28ed0afd457eb8a1737
     let votesPerCommun = allCommmunNames.map(kommun => ({
         kommun,
         votes2018_V: electionResults.find(x => x.parti === 'Vänsterpartiet' && x.kommun === kommun)?.roster2018 || 0,
@@ -21,11 +31,16 @@ async function fetchAndVisualizeData() {
         votes2018_M: electionResults.find(x => x.parti === 'Moderaterna' && x.kommun === kommun)?.roster2018 || 0,
         votes2018_SD: electionResults.find(x => x.parti === 'Sverigedemokraterna' && x.kommun === kommun)?.roster2018 || 0
     }));
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 9bbfc454238669ac6f6cd28ed0afd457eb8a1737
     const selectedCommunes = [
         'Flen', 'Perstorp', 'Eskilstuna', 'Malmö', 'Fagersta', 'Sandviken', 'Ronneby', 'Filipstad', 'Södertälje', 'Söderhamn',
         'Pajala', 'Kiruna', 'Kungsbacka', 'Tjörn', 'Öckerö', 'Krokom', 'Sotenäs', 'Gällivare', 'Habo', 'Mörbylånga'
     ];
+<<<<<<< HEAD
 
     const högarbetslöshetCommunes = ['Flen', 'Perstorp', 'Malmö', 'Eskilstuna', 'Fagersta', 'Sandviken', 'Ronneby', 'Filipstad', 'Södertälje', 'Söderhamn'];
     const lågarbetslöshetCommunes = ['Pajala', 'Kiruna', 'Kungsbacka', 'Tjörn', 'Öckerö', 'Krokom', 'Sotenäs', 'Gällivare', 'Habo', 'Mörbylånga'];
@@ -35,6 +50,17 @@ async function fetchAndVisualizeData() {
     let högArbetsloshetKommuner = filteredResults.filter(x => högarbetslöshetCommunes.includes(x.kommun));
     let lågArbetsloshetKommuner = filteredResults.filter(x => lågarbetslöshetCommunes.includes(x.kommun));
 
+=======
+ 
+    const högarbetslöshetCommunes = ['Flen', 'Perstorp', 'Malmö', 'Eskilstuna', 'Fagersta', 'Sandviken', 'Ronneby', 'Filipstad', 'Södertälje', 'Söderhamn'];
+    const lågarbetslöshetCommunes = ['Pajala', 'Kiruna', 'Kungsbacka', 'Tjörn', 'Öckerö', 'Krokom', 'Sotenäs', 'Gällivare', 'Habo', 'Mörbylånga'];
+ 
+    let filteredResults = votesPerCommun.filter(({ kommun }) => selectedCommunes.includes(kommun));
+ 
+    let högArbetsloshetKommuner = filteredResults.filter(x => högarbetslöshetCommunes.includes(x.kommun));
+    let lågArbetsloshetKommuner = filteredResults.filter(x => lågarbetslöshetCommunes.includes(x.kommun));
+ 
+>>>>>>> 9bbfc454238669ac6f6cd28ed0afd457eb8a1737
     drawGoogleChart({
         type: 'ColumnChart',
         data: makeChartFriendly(högArbetsloshetKommuner),
@@ -47,7 +73,11 @@ async function fetchAndVisualizeData() {
             legend: { position: 'none' }
         }
     });
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 9bbfc454238669ac6f6cd28ed0afd457eb8a1737
     drawGoogleChart({
         type: 'ColumnChart',
         data: makeChartFriendly(lågArbetsloshetKommuner),
@@ -60,7 +90,11 @@ async function fetchAndVisualizeData() {
             legend: { position: 'none' }
         }
     });
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 9bbfc454238669ac6f6cd28ed0afd457eb8a1737
     drawGoogleChart({
         type: 'PieChart',
         data: makeChartFriendly(högArbetsloshetKommuner),
@@ -72,7 +106,11 @@ async function fetchAndVisualizeData() {
             legend: { position: 'right' }
         }
     });
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 9bbfc454238669ac6f6cd28ed0afd457eb8a1737
     drawGoogleChart({
         type: 'PieChart',
         data: makeChartFriendly(lågArbetsloshetKommuner),
@@ -85,5 +123,10 @@ async function fetchAndVisualizeData() {
         }
     });
 }
+<<<<<<< HEAD
 
 fetchAndVisualizeData();
+=======
+ 
+fetchAndVisualizeData();
+>>>>>>> 9bbfc454238669ac6f6cd28ed0afd457eb8a1737

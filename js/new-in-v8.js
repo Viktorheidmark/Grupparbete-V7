@@ -1,15 +1,57 @@
+
+  addMdToPage(`
+  ### Databaser och collections
+  * Nedan data från 4 olika databaser (varav de två sista är olika collections hämtade från MongoDB). Detta är datan vi har tillgång till.
+  `);
+ 
+  addMdToPage(`
+  ### Valresultat från riksdagsvalen 2018 och 2022 uppdelade efter kommuner
+  (Endast de 20 första av många poster.)
+  `);
+  dbQuery.use('riksdagsval-neo4j');
+  let electionResults = await dbQuery('MATCH (n:Partiresultat) RETURN n LIMIT 20');
+  tableFromData({
+    data: electionResults
+      // egenskaper/kolumner kommer i lite konstig ordning från Neo - mappa i trevligare ordning
+      .map(({ ids, kommun, roster2018, parti, roster2022, labels }) => ({ ids: ids.identity, kommun, roster2018, parti, roster2022, labels }))
+  });
+  console.log('electionResults from neo4j', electionResults);
+ 
 addMdToPage(`
-  ### I version 8 av mallen har vi fixat följande
-  * Vissa Neo4j-frågor fungerade inte, p.g.a. av ett fel med hur mallen använde databasdrivern för Neo4j. Detta är åtgärdat!
-  * När man la till mer på en sida, efter ett diagram så slutade diagrammet vara interaktivt. Nu fungerar detta - diagrammet går fortfrarande att peka på för att se detaljinfo även när mer data läggs till!
-
-  ### I övrigt samma som version 7 - vi kan ha många databaser inkopplade!
-  Läs mer om hur databaser kopplas in [i den inbyggda dokumentationen](/docs/#mappen-databases). Nu kan du ha hur många databaser inkopplade som helst (nästan)!
-
-  #### Visste du det här om våra län?
-  Den här datan kommer från SQLite-databasen **counties**, medan annan data (på andra sidor) kommer från SQLite-databasen **smhi-temp-and-rainfall-malmo**. Men vi hade absolut kunnat blanda data från flera databaser på en sida!
-`);
-
+  ### Info, från SQlite
+  Info om våra 21 svenska län, bland annat hur tätbefolkade de är!
+  `);
 dbQuery.use('counties-sqlite');
 let countyInfo = await dbQuery('SELECT * FROM countyInfo');
 tableFromData({ data: countyInfo });
+console.log('countyInfo', countyInfo);
+ 
+ 
+addMdToPage(`
+  ### Geografisk info, från MySQL
+  Var alla svenska tätorter finns på kartan. (Endast de 20 första av många poster.)
+  `);
+dbQuery.use('geo-mysql');
+let geoData = await dbQuery('SELECT * FROM geoData  ORDER BY latitude LIMIT 20');
+tableFromData({ data: geoData.map(x => ({ ...x, position: JSON.stringify(x.position) })) });
+console.log('geoData from mysql', geoData);
+ 
+ 
+addMdToPage(`
+  ### Medel- och medianårsinkomst i tusentals kronor, per kommun, från MongoDB
+ 
+  `);
+dbQuery.use('kommun-info-mongodb');
+let income = await dbQuery.collection('incomeByKommun').find({});
+tableFromData({ data: income });
+console.log('income from mongodb', income);
+ 
+addMdToPage(`
+  ### Medelålder, per kommun, från MongoDB
+ 
+  `);
+dbQuery.use('kommun-info-mongodb');
+let ages = await dbQuery.collection('ageByKommun').find({});
+tableFromData({ data: ages });
+console.log('ages from mongodb', ages);
+ 
