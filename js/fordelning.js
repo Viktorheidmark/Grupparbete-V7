@@ -1,6 +1,30 @@
-
+// 🧾 Sammanfattning
+ 
+ 
+// Hämtar data
+// Filtrerar och organiserar per kommun
+// Identifierar vinnare och partibyten
+// Visualiserar data i diagram(cirkeldiagram, histogram, stapeldiagram)
+// Analyserar koppling mellan valresultat och inkomst
+// Undersöker om resultaten är normalfördelade
+// Redovisar blockfördelning och geografiska trender
+ 
 // Vi jämför valresultat mellan 2018 och 2022 för att se om det har skett några förändringar i kommunerna.
 dbQuery.use('riksdagsval-neo4j');
+ 
+addToPage(` Sammanfattning
+ 
+ 
+### Hämtar data
+### Filtrerar och organiserar per kommun
+### Identifierar vinnare och partibyten
+### Visualiserar data i diagram(cirkeldiagram, histogram, stapeldiagram)
+### Analyserar koppling mellan valresultat och inkomst
+### Undersöker om resultaten är normalfördelade
+### Redovisar blockfördelning och geografiska trender
+ 
+### Vi jämför valresultat mellan 2018 och 2022 för att se om det har skett några förändringar i kommunerna.`);
+ 
 
 // Detta är en del av koden som används för att hämta och visualisera valresultat från riksdagsvalen 2018 och 2022.
 let electionResultsForWork = await dbQuery('MATCH (n:Partiresultat) RETURN n');
