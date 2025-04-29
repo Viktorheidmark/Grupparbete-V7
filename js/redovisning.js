@@ -1,0 +1,1 @@
+addMdToPage('# Berättelse')
