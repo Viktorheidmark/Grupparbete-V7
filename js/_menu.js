@@ -1,5 +1,5 @@
 
-createMenu('SQLITE UNDERSÖKNING', [
+createMenu('En berättelse om Sverige och våra senaste två riksdagsval', [
   { name: 'Intro', script: 'new-in-v8.js' },
   {
     name: 'Counties', sub: [
