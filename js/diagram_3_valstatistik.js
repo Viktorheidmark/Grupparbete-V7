@@ -1,13 +1,23 @@
-// Använd rätt databas
-dbQuery.use('undersokning_2018');
+// Steg 0: Lägg till dropdown för att välja år
+let valAren = ['2018', '2022'];
+let valtAr = addDropdown('Valår', valAren);
 
-// Steg 1: Hämta data
-let rows = await dbQuery('SELECT Omrade, M, C, L, KD, S, V, MP, SD FROM roster_2018');
+addMdToPage(`### Populäraste partiet per område – Valåret ${valtAr}`);
+
+// Steg 1: Välj rätt databas baserat på år
+if (valtAr === '2018') {
+  dbQuery.use('undersokning_2018');
+} else if (valtAr === '2022') {
+  dbQuery.use('undersokning_2022');
+}
+
+// Steg 2: Hämta data
+let rows = await dbQuery('SELECT Omrade, M, C, L, KD, S, V, MP, SD FROM roster_' + valtAr);
 
 // Lista över partier vi vill jämföra
 let partier = ['M', 'C', 'L', 'KD', 'S', 'V', 'MP', 'SD'];
 
-// Steg 2: Färgkarta för partier
+// Steg 3: Färgkarta för partier
 const partifarger = {
   'M': '#1f78b4',
   'C': '#33a02c',
@@ -19,13 +29,11 @@ const partifarger = {
   'SD': '#ffcc00'
 };
 
-// Steg 3: Förbered data för diagram
-let chartData = [['Område', 'Röster', { role: 'style' }, { role: 'annotation' }]];
+// Steg 4: Samla data
+let data = [];
 
 for (let row of rows) {
   let omrade = row.Omrade;
-
-  // Hitta populäraste parti i området
   let maxParti = partier[0];
   let maxRöster = row[maxParti];
 
@@ -36,11 +44,24 @@ for (let row of rows) {
     }
   }
 
-  let färg = partifarger[maxParti] || '#999';
-  chartData.push([omrade, maxRöster, färg, maxParti]);
+  data.push({
+    omrade: omrade,
+    roster: maxRöster,
+    parti: maxParti,
+    farg: partifarger[maxParti] || '#999'
+  });
 }
 
-// Steg 4: Rita diagrammet
+// Steg 5: Sortera i fallande ordning efter röster
+data.sort((a, b) => b.roster - a.roster);
+
+// Steg 6: Förbered chartData
+let chartData = [['Område', 'Röster', { role: 'style' }, { role: 'annotation' }]];
+for (let d of data) {
+  chartData.push([d.omrade, d.roster, d.farg, d.parti]);
+}
+
+// Steg 7: Rita diagram
 drawGoogleChart({
   type: 'BarChart',
   data: chartData,
