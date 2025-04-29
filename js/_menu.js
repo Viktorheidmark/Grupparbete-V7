@@ -1,6 +1,6 @@
 
 createMenu('SQLITE UNDERSÖKNING', [
-  { name: 'Nytt i version 8', script: 'new-in-v8.js' },
+  { name: 'Intro', script: 'new-in-v8.js' },
   {
     name: 'Counties', sub: [
       { name: 'Counties_tabell', script: 'counties.js' },
