@@ -1,6 +1,6 @@
 body {
   font-size: 18px !important;
-  background-color: #e4adea !important;
+  background-color: #efe9d3 !important;
 }
 
 body.bigBottomPad {
@@ -43,7 +43,7 @@ td.right:nth-child(1) {
 }
 
 table {
-  border: 1px solid #67a8e1;
+  border: 1px solid #000;
 }
 
 label.dropdown+label.dropdown {

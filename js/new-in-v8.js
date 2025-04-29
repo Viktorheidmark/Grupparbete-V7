@@ -1,8 +1,9 @@
 addMdToPage(`
-  ### I version 7 av mallen har databashanteringen utökats!
+  ### I version 8 av mallen har vi fixat följande
+  * Vissa Neo4j-frågor fungerade inte, p.g.a. av ett fel med hur mallen använde databasdrivern för Neo4j. Detta är åtgärdat!
+  * När man la till mer på en sida, efter ett diagram så slutade diagrammet vara interaktivt. Nu fungerar detta - diagrammet går fortfrarande att peka på för att se detaljinfo även när mer data läggs till!
 
-  **Viktigt**: En "breaking change" mellan version 6 och 7 är att mappen *sqlite-databases* inte längre finns, istället finns det en mapp som heter *databases* - och nu stöds SQLite, MySQL, MongoDB och Neo4j.
-
+  ### I övrigt samma som version 7 - vi kan ha många databaser inkopplade!
   Läs mer om hur databaser kopplas in [i den inbyggda dokumentationen](/docs/#mappen-databases). Nu kan du ha hur många databaser inkopplade som helst (nästan)!
 
   #### Visste du det här om våra län?
