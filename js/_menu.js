@@ -32,8 +32,6 @@ createMenu('SQLITE UNDERSÖKNING', [
       { name: 'arbetsloshet3', script: 'arbetsloshet3.js' },
       { name: 'arbetsloshet_jämförelse_sista_10', script:'arbetsloshet4.js'}
   ]
-  },  
-    { name: 'ny', script:'ny.js'}
-
+  }
  
 ]);
