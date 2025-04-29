@@ -1,20 +1,11 @@
-<<<<<<< HEAD
-createMenu('Statistics Template JS', [
-  { name: 'Nytt i version 7', script: 'new-in-v7.js' },
-  { name: 'Visa ett år', script: 'one-year.js' },
-  { name: 'Histogram', script: 'compare-two-years.js' },
-  { name: 'Hitta trender', script: 'trends.js' },
-  { name: 'test', script: 'test.js' },
-  { name: 'mongoDB', script: 'kommun-query.mongodb' },
-  { name: "Jämförelse av två år", script: "jamforelse-av-tva-ar.js" },
-]);
-=======
+
 createMenu('SQLITE UNDERSÖKNING', [
   { name: 'Nytt i version 8', script: 'new-in-v8.js' },
-  { name: 'Counties', sub: [
+  {
+    name: 'Counties', sub: [
       { name: 'Counties_tabell', script: 'counties.js' },
       { name: 'histogram_counties', script: 'histogram_counties.js' },
-  ]
+    ]
   },
   {
     name: 'Undersökning med kommuner', sub: [
@@ -26,51 +17,44 @@ createMenu('SQLITE UNDERSÖKNING', [
       { name: 'histogram_valstatiskik', script: 'histogram_valstatistik.js' },
       { name: 'diagram_valstatiskik', script: 'diagram_valstatistik.js' },
       { name: 'diagram_2_valstatiskik', script: 'diagram_2_valstatistik.js' },
-  ]
+    ]
   },
-  
+
 
   {
     name: 'arbetsloshet', sub: [
       { name: 'arbetsloshet_tabell', script: 'arbetsloshet.js' },
       { name: 'arbetsloshet_histogram_top_10', script: 'arbetsloshet_histogram.js' },
       { name: 'arbetsloshet_län_histogram', script: 'arbetsloshet3.js' },
-      { name: 'arbetsloshet_jämförelse_sista_10', script:'arbetsloshet4.js'}
-  ]
+      { name: 'arbetsloshet_jämförelse_sista_10', script: 'arbetsloshet4.js' }
+    ]
   },
 
 
-    {
+  {
     name: "Tannaz", sub: [
       { name: 'Här visar vi tabell', script: 'tabell_tannaz.js' },
       { name: 'Här visar vi topp 10 kommuner', script: 'arbetsloshetT.js' },
       { name: 'Medelinkomst', script: 'testT.js' },
-  ]
+    ]
   },
-    
-    {
+
+  {
     name: "Mila", sub: [
       { name: 'diagram', script: 'Miladiagram.js' },
       { name: 'Tabeller jämförelse-2018-2022', script: 'Tabell.js' }
-  ]
+    ]
   },
-    
-    {
+
+  {
     name: "Benereta", sub: [
       {
         name: 'Fördelning av röster per parti', script: 'fordelning.js'
       },
       { name: "Jämförelse av valet", script: "jamforelse-av-tva-ar.js" },
- 
-<<<<<<< HEAD
-]);
->>>>>>> 67044f228e4f910efd38c1ac603a4431989baf6e
-=======
+
       { name: " Hur kmmuner roster i 2018", script: "visualisering.js" },
- 
- 
- 
+
     ]
   }
 ]);
->>>>>>> 9bbfc454238669ac6f6cd28ed0afd457eb8a1737
