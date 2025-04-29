@@ -54,7 +54,7 @@ drawGoogleChart({
 });
 
 
-addMdToPage("### Detta visar ett histogram över de 10 kommuner i Sverige som hade högst arbetslöshet år 2022")
+addMdToPage("### Detta visar ett histogram över de 10 kommuner i Sverige som hade högst arbetslöshet år 2022 med personer mellan 16-64")
 
 dbQuery.use('arbetsloshet');
 
@@ -79,7 +79,7 @@ drawGoogleChart({
 
 
 
-addMdToPage("### Detta visar ett histogram över de 10 kommuner i Sverige som hade lägst arbetslöshet år 2022")
+addMdToPage("### Detta visar ett histogram över de 10 kommuner i Sverige som hade lägst arbetslöshet år 2022 med personer mellan 16-64")
 
 dbQuery.use('arbetsloshet');
 
