@@ -1,5 +1,5 @@
 createMenu('SQLITE UNDERSÖKNING', [
-  { name: 'Nytt i version 7', script: 'new-in-v7.js' },
+  { name: 'Nytt i version 8', script: 'new-in-v8.js' },
   { name: 'Counties', sub: [
       { name: 'Counties_tabell', script: 'counties.js' },
       { name: 'histogram_counties', script: 'histogram_counties.js' },
@@ -26,6 +26,35 @@ createMenu('SQLITE UNDERSÖKNING', [
       { name: 'arbetsloshet_län_histogram', script: 'arbetsloshet3.js' },
       { name: 'arbetsloshet_jämförelse_sista_10', script:'arbetsloshet4.js'}
   ]
-  }
+  },
+
+
+    {
+    name: "Tannaz", sub: [
+      { name: 'Här visar vi tabell', script: 'tabell_tannaz.js' },
+      { name: 'Här visar vi topp 10 kommuner', script: 'arbetsloshetT.js' },
+      { name: 'Medelinkomst', script: 'testT.js' },
+  ]
+  },
+    
+    {
+    name: "Mila", sub: [
+      { name: 'diagram', script: 'Miladiagram.js' },
+      { name: 'Tabeller jämförelse-2018-2022', script: 'Tabell.js' }
+  ]
+  },
+    
+    {
+    name: "Benereta", sub: [
+      {
+        name: 'Fördelning av röster per parti', script: 'fordelning.js'
+      },
+      { name: "Jämförelse av valet", script: "jamforelse-av-tva-ar.js" },
  
+      { name: " Hur kmmuner roster i 2018", script: "visualisering.js" },
+ 
+ 
+ 
+    ]
+  }
 ]);
