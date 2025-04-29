@@ -3,7 +3,7 @@ dbQuery.use('kommun-info-mongodb');
 
 let year = addDropdown('År', ['2018', '2022',],);
 let gender = addDropdown('kön', ['totalt', 'män', 'kvinnor'])
-let chartType = addDropdown('Diagramtyp', ['Histogram', 'Linjediagram',]);
+let chartType = addDropdown('Diagramtyp', ['Histogram', 'Linjediagram', 'Tårtdiagram']);
 
 addMdToPage(`
   ## Jämförelse av medelinkomst per kommun (${year})
@@ -13,7 +13,7 @@ Under perioden 2018 till 2022 har medelinkomsterna i flera svenska kommuner visa
 `);
 
 
-//inkomstdata per kommun (topp 25)
+//inkomstdata per kommun (topp 50)
 let income = await dbQuery.collection('incomeByKommun').find({});
 
 
@@ -35,40 +35,42 @@ income.forEach(row => {
 chartData = chartData.slice(0, 51);
 
 
+let googleChartType = chartType === 'Linjediagram' ? 'LineChart' : (chartType === 'Tårtdiagram' ? 'PieChart' : 'ColumnChart');
 
+// Rita diagram baserat på dropdownval
+if (googleChartType === 'LineChart' || googleChartType === 'ColumnChart') {
+  // Rita Linjediagram eller Kolumndiagram
+  drawGoogleChart({
+    type: googleChartType,
+    data: chartData,
+    options: {
+      title: `Medelinkomst per kommun (${year}), topp 50`,
+      height: 600,
+      width: 1000,
+      chartArea: { left: "15%", top: "10%" },
+      hAxis: { title: 'Kommun', slantedText: true, slantedTextAngle: 45 },
+      vAxis: { title: 'Medelinkomst (tusen kr)' },
+      legend: { position: 'none' },
+      bar: { groupWidth: '80%' },
+      colors: ['#1E88E5'], // Dark blue color
+    }
+  });
+} else if (googleChartType === 'PieChart') {
+  // Rita 3D Tårtdiagram (PieChart)
+  let pieChartData = [['Kommun', 'Medelinkomst ' + year]];
+  income.slice(0, 10).forEach(row => {  // Endast topp 10 för tårtdiagram
+    pieChartData.push([row.kommun, parseFloat(row['medelInkomst' + year]) || 0]);
+  });
 
-let googleChartType = chartType === 'Linjediagram' ? 'LineChart' : 'ColumnChart';
-
-
-drawGoogleChart({
-  type: googleChartType,
-  data: chartData,
-  options: {
-    title: `Medelinkomst per kommun (${year}), topp 50)`,
-    height: 600,
-    width: 1000,
-    chartArea: { left: "15%", top: "10%" },
-    hAxis: { title: 'Kommun', slantedText: true, slantedTextAngle: 45 },
-    vAxis: { title: 'Medelinkomst (tusen kr)' },
-    legend: { position: 'none' },
-    bar: { groupWidth: '80%' },
-  }
-});
-
-
-
-
-drawGoogleChart({
-  type: 'ColumnChart',
-  data: chartData,
-  options: {
-    title: `Medelinkomst per kommun (${year}), topp 25)`,
-    height: 600,
-    width: 1000,
-    chartArea: { left: "15%", top: "10%" },
-    hAxis: { title: 'Kommun', slantedText: true, slantedTextAngle: 45 },
-    vAxis: { title: 'Medelinkomst (tusen kr)' },
-    legend: { position: 'none' },
-    bar: { groupWidth: '80%' }
-  }
-});
+  drawGoogleChart({
+    type: 'PieChart',
+    data: pieChartData,
+    options: {
+      title: `Topp 10 kommuner efter medelinkomst (${year})`,
+      height: 600,
+      width: 1000,
+      is3D: true,  // Aktiverar 3D-effekt för tårtdiagrammet
+      legend: { position: 'labeled' },
+    }
+  });
+}
