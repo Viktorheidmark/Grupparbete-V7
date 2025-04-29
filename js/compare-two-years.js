@@ -1,12 +1,12 @@
 let years = (await dbQuery(
-  'SELECT DISTINCT year FROM dataWithMonths'
+  'SELECT DISTINCT year FROM  '
 )).map(x => x.year);
 
-let year1 = addDropdown('År 1', years, 1964);
-let year2 = addDropdown('År 2', years, 2024);
+let year1 = addDropdown('År 1', years, 2018);
+let year2 = addDropdown('År 2', years, 2022);
 
 addMdToPage(`
-  ## Medeltemperaturer i Malmö, jämförelse mellan år ${year1} och år ${year2}
+  ## Riksdagsval ${year1} och år ${year2}
 `);
 
 // in order to get the two years to compare
