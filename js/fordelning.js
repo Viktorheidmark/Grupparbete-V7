@@ -11,7 +11,7 @@ console.log('electionResultsForWork', electionResultsForWork);
 const selectedCommunes = ['Flen', 'Perstorp', 'Eskilstuna', 'Malmö', 'Fagersta', 'Sandviken', 'Ronneby', 'Filipstad', 'Södertälje', 'Söderhamn',
     'Pajala', 'Kiruna', 'Kungsbacka', 'Tjörn', 'Öckerö', 'Krokom', 'Sotenäs', 'Gällivare', 'Habo', 'Mörbylånga']
 
-const selectedParties = ['Moderaterna', 'Sverigedemokraterna', 'Miljöpartiet de gröna', 'Liberalerna ',
+const selectedParties = ['Sverigedemokraterna', 'Arbetarepartiet-Socialdemokraterna', 'Liberalerna ', 'Moderaterna', 'Miljöpartiet de gröna',
 ];
 
 electionResultsForWork = electionResultsForWork.filter(r =>

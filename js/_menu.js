@@ -1,9 +1,8 @@
 createMenu('Statistics Template JS', [
   { name: 'Alla tabeller från 4 olika data', script: 'startpage.js' },
-  { name: 'Instuktioner', script: 'instruktions.js' },
+
   {
     name: "Benereta", sub: [
-
       {
         name: 'Fördelning av röster per parti', script: 'fordelning.js'
       },
