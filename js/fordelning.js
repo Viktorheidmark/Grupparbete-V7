@@ -20,7 +20,7 @@ let electionResultsForWork = await dbQuery('MATCH (n:Partiresultat) RETURN n');
 const selectedCommunes = ['Flen', 'Perstorp', 'Eskilstuna', 'Malmö', 'Fagersta', 'Sandviken', 'Ronneby', 'Filipstad', 'Södertälje', 'Söderhamn',
     'Pajala', 'Kiruna', 'Kungsbacka', 'Tjörn', 'Öckerö', 'Krokom', 'Sotenäs', 'Gällivare', 'Habo', 'Mörbylånga'];
 
-const selectedParties = ['Sverigedemokraterna', 'Arbetarepartiet-Socialdemokraterna'];
+const selectedParties = ['Arbetarepartiet-Socialdemokraterna', 'Moderaterna', 'Sverigedemokraterna',];
 
 electionResultsForWork = electionResultsForWork.filter(r =>
     selectedCommunes.includes(r.kommun) && selectedParties.includes(r.parti)
@@ -78,27 +78,17 @@ let partyVotes = s.sum(
 
 let percent = ((partyVotes / totalVotes) * 100).toFixed(1);
 
-// Resultatsammanfattning + Diagram 
-addToPage(`
-<div style="display: flex; justify-content: space-between; gap: 30px; align-items: flex-start; margin-top: 20px;">
-  <div style="flex: 1;">
-    <h3 style="margin-bottom: 0.5rem;">${chosenParti}, år ${year}</h3>
-    <p>Vann i <strong>${antalKommunerMedVinst}</strong> av de analyserade kommunerna.</p>
-    <p>Totalt antal röster: <strong>${partyVotes.toLocaleString('sv-SE')}</strong></p>
-    <p>Andel av alla röster: <strong>${percent}%</strong></p>
-  </div>
-
-  <div id="pieChartContainer" style="flex: 1;"></div>
-</div>
-`);
 
 // Färginställningar 
+// Färginställningar 
 let partyColorMap = {
-    'Sverigedemokraterna': '#FFD700',
-    'Arbetarepartiet-Socialdemokraterna': '#D52D2D'
+    'Arbetarepartiet-Socialdemokraterna': '#ed1b34',
+    'Moderaterna': '#52bdec',
+    'Sverigedemokraterna': '#ffed00'
 };
-let chosenColor = partyColorMap[chosenParti] || '#42f5e0';
-let otherColor = '#B0B0B0';
+
+let chosenColor = partyColorMap[chosenParti] || '#888888'; // fallbackfärg om partiet saknas
+let otherColor = '#cccccc'; // färg för "övriga"
 
 //  Diagram: Barchart 
 drawGoogleChart({
@@ -118,9 +108,6 @@ drawGoogleChart({
         isStacked: false
     }
 });
-
-
-
 
 
 
