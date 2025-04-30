@@ -1,12 +1,3 @@
-// 🧾 Sammanfattning
-
-
-// Hämtar data
-// Filtrerar och organiserar per kommun
-// Identifierar vinnare och partibyten
-// Visualiserar data i diagram(cirkeldiagram, histogram, stapeldiagram)
-// Analyserar koppling mellan valresultat och inkomst
-// Undersöker om resultaten är normalfördelade
 // === Konfiguration ===
 dbQuery.use('riksdagsval-neo4j');
 
@@ -19,7 +10,7 @@ addToPage(`
 - Visualiserar resultat med diagram
 - Kopplar resultat till inkomst
 - Testar om röstandelar är normalfördelade
-- Undersöker geografiska trender
+
 `);
 
 // === Hämtar valresultat ===
@@ -29,7 +20,7 @@ let electionResultsForWork = await dbQuery('MATCH (n:Partiresultat) RETURN n');
 const selectedCommunes = ['Flen', 'Perstorp', 'Eskilstuna', 'Malmö', 'Fagersta', 'Sandviken', 'Ronneby', 'Filipstad', 'Södertälje', 'Söderhamn',
     'Pajala', 'Kiruna', 'Kungsbacka', 'Tjörn', 'Öckerö', 'Krokom', 'Sotenäs', 'Gällivare', 'Habo', 'Mörbylånga'];
 
-const selectedParties = ['Sverigedemokraterna', 'Arbetarepartiet-Socialdemokraterna'];
+const selectedParties = ['Arbetarepartiet-Socialdemokraterna', 'Moderaterna', 'Sverigedemokraterna',];
 
 electionResultsForWork = electionResultsForWork.filter(r =>
     selectedCommunes.includes(r.kommun) && selectedParties.includes(r.parti)
@@ -61,13 +52,15 @@ let sammanstallning = Object.entries(grupperadElectionResultsForWork).map(([komm
     };
 });
 
-// === Dropdowns för val av år och parti ===
+
+
+// Dropdowns för val av år och parti 
 let years = [2018, 2022];
 let partier = [...new Set(electionResultsForWork.map(x => x.parti))].sort();
 let year = addDropdown('Välj år', years, 2022);
 let chosenParti = addDropdown('Välj parti', selectedParties);
 
-// === Statistisk sammanställning ===
+// Statistisk sammanställning
 let antalKommunerMedVinst = sammanstallning.filter(row =>
     (year == 2018 && row.vinnare2018 === chosenParti) ||
     (year == 2022 && row.vinnare2022 === chosenParti)
@@ -85,29 +78,19 @@ let partyVotes = s.sum(
 
 let percent = ((partyVotes / totalVotes) * 100).toFixed(1);
 
-// === Layout: Resultatsammanfattning + Diagram ===
-addToPage(`
-<div style="display: flex; justify-content: space-between; gap: 30px; align-items: flex-start; margin-top: 20px;">
-  <div style="flex: 1;">
-    <h3 style="margin-bottom: 0.5rem;">${chosenParti}, år ${year}</h3>
-    <p>Vann i <strong>${antalKommunerMedVinst}</strong> av de analyserade kommunerna.</p>
-    <p>Totalt antal röster: <strong>${partyVotes.toLocaleString('sv-SE')}</strong></p>
-    <p>Andel av alla röster: <strong>${percent}%</strong></p>
-  </div>
 
-  <div id="pieChartContainer" style="flex: 1;"></div>
-</div>
-`);
-
-// === Färginställningar ===
+// Färginställningar 
+// Färginställningar 
 let partyColorMap = {
-    'Sverigedemokraterna': '#FFD700',
-    'Arbetarepartiet-Socialdemokraterna': '#D52D2D'
+    'Arbetarepartiet-Socialdemokraterna': '#ed1b34',
+    'Moderaterna': '#52bdec',
+    'Sverigedemokraterna': '#ffed00'
 };
-let chosenColor = partyColorMap[chosenParti] || '#42f5e0';
-let otherColor = '#B0B0B0';
 
-// === Diagram: Barchart ===
+let chosenColor = partyColorMap[chosenParti] || '#888888'; // fallbackfärg om partiet saknas
+let otherColor = '#cccccc'; // färg för "övriga"
+
+//  Diagram: Barchart 
 drawGoogleChart({
     type: 'BarChart',
     elementId: 'pieChartContainer',
@@ -125,8 +108,6 @@ drawGoogleChart({
         isStacked: false
     }
 });
-
-
 
 
 
