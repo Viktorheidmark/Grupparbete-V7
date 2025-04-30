@@ -1,6 +1,6 @@
 createMenu('Statistics Template JS', [
   { name: 'Alla tabeller från 4 olika data', script: 'startpage.js' },
-
+  { name: 'Redovisning av vår arbete', script: 'redovisning.js' },
   {
     name: "Benereta", sub: [
       {
