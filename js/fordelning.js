@@ -7,40 +7,35 @@
 // Visualiserar data i diagram(cirkeldiagram, histogram, stapeldiagram)
 // Analyserar koppling mellan valresultat och inkomst
 // Undersöker om resultaten är normalfördelade
-// Redovisar blockfördelning och geografiska trender
-
-// Vi jämför valresultat mellan 2018 och 2022 för att se om det har skett några förändringar i kommunerna.
+// === Konfiguration ===
 dbQuery.use('riksdagsval-neo4j');
 
-addToPage(`// 🧾 Sammanfattning
+addToPage(`
+## Sammanfattning av analys
 
+- Jämför valresultat mellan 2018 och 2022
+- Analyserar på kommunnivå
+- Identifierar partibyten
+- Visualiserar resultat med diagram
+- Kopplar resultat till inkomst
+- Testar om röstandelar är normalfördelade
+- Undersöker geografiska trender
+`);
 
-###  ✅ Hämtar data
-###  ✅ Filtrerar och organiserar per kommun
-###  ✅ Identifierar vinnare och partibyten
-###  ✅ Visualiserar data i diagram(cirkeldiagram, histogram, stapeldiagram)
-###  ✅ Analyserar koppling mellan valresultat och inkomst
-###  ✅ Undersöker om resultaten är normalfördelade
-###  ✅ Redovisar blockfördelning och geografiska trender
-
-### Vi jämför valresultat mellan 2018 och 2022 för att se om det har skett några förändringar i kommunerna.`);
-
-// Detta är en del av koden som används för att hämta och visualisera valresultat från riksdagsvalen 2018 och 2022.
+// === Hämtar valresultat ===
 let electionResultsForWork = await dbQuery('MATCH (n:Partiresultat) RETURN n');
 
-
-// Kommunlista att inkludera
+// === Kommuner och partier att inkludera ===
 const selectedCommunes = ['Flen', 'Perstorp', 'Eskilstuna', 'Malmö', 'Fagersta', 'Sandviken', 'Ronneby', 'Filipstad', 'Södertälje', 'Söderhamn',
-    'Pajala', 'Kiruna', 'Kungsbacka', 'Tjörn', 'Öckerö', 'Krokom', 'Sotenäs', 'Gällivare', 'Habo', 'Mörbylånga']
+    'Pajala', 'Kiruna', 'Kungsbacka', 'Tjörn', 'Öckerö', 'Krokom', 'Sotenäs', 'Gällivare', 'Habo', 'Mörbylånga'];
 
-const selectedParties = ['Sverigedemokraterna', 'Arbetarepartiet-Socialdemokraterna', 'Liberalerna ', 'Moderaterna', 'Miljöpartiet de gröna',
-];
+const selectedParties = ['Sverigedemokraterna', 'Arbetarepartiet-Socialdemokraterna'];
 
 electionResultsForWork = electionResultsForWork.filter(r =>
     selectedCommunes.includes(r.kommun) && selectedParties.includes(r.parti)
 );
 
-// Detta gruppar valresultaten efter kommuner och skapar en lista med vinnande partier för varje kommun.
+// === Grupperar valresultat per kommun ===
 let grupperadElectionResultsForWork = {};
 for (let item of electionResultsForWork) {
     const { kommun, parti, roster2018, roster2022 } = item;
@@ -50,7 +45,7 @@ for (let item of electionResultsForWork) {
     grupperadElectionResultsForWork[kommun].push({ parti, roster2018, roster2022 });
 }
 
-// Nu skapar vi en sammanställning av valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018
+// === Sammanställer per kommun ===
 let sammanstallning = Object.entries(grupperadElectionResultsForWork).map(([kommun, list]) => {
     let vinnare2018 = list.reduce((max, curr) => curr.roster2018 > max.roster2018 ? curr : max);
     let vinnare2022 = list.reduce((max, curr) => curr.roster2022 > max.roster2022 ? curr : max);
@@ -62,28 +57,17 @@ let sammanstallning = Object.entries(grupperadElectionResultsForWork).map(([komm
         roster2018: vinnare2018.roster2018,
         vinnare2022: vinnare2022.parti,
         roster2022: vinnare2022.roster2022,
-        byte: byttParti ? "!!! Ja!!!" : "-"
+        byte: byttParti ? "Ja" : "-"
     };
 });
 
-// Kommuner där vinnande parti har ändrats (2018 → 2022)
-let kommunerMedByte = sammanstallning
-    .filter(r => r.byte === "!!! Ja!!!")
-    .map(r => r.kommun);
-
-// Kommuner där samma parti vann både 2018 och 2022
-let stabilaKommuner = sammanstallning
-    .filter(r => r.byte === "-")
-    .map(r => r.kommun);
-
-
-// Här skapar vi en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022
+// === Dropdowns för val av år och parti ===
 let years = [2018, 2022];
 let partier = [...new Set(electionResultsForWork.map(x => x.parti))].sort();
 let year = addDropdown('Välj år', years, 2022);
 let chosenParti = addDropdown('Välj parti', selectedParties);
 
-// Nu skapar vi en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022
+// === Statistisk sammanställning ===
 let antalKommunerMedVinst = sammanstallning.filter(row =>
     (year == 2018 && row.vinnare2018 === chosenParti) ||
     (year == 2022 && row.vinnare2022 === chosenParti)
@@ -101,41 +85,44 @@ let partyVotes = s.sum(
 
 let percent = ((partyVotes / totalVotes) * 100).toFixed(1);
 
-// Vi skapar en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022
-/*
-addMdToPage(`### Partiet *${chosenParti}* år ${year} von i ${antalKommunerMedVinst} kommun`);
-addMdToPage(`Totalt antal röster: **${partyVotes.toLocaleString('sv-SE')}** i landet för valt år. 
-Andel av alla röster: **${percent}%**`);
-*/
+// === Layout: Resultatsammanfattning + Diagram ===
 addToPage(`
-  <div style="display: flex; justify-content: space-between; gap: 30px; align-items: flex-start;">
-    
-    <div style="flex: 1;">
-      <h3>${chosenParti}, år ${year}</h3>
-      <p>Partiet <strong>${chosenParti}</strong> vann i <strong>${antalKommunerMedVinst}</strong> kommuner.</p>
-      <p>Totalt antal röster: <strong>${partyVotes.toLocaleString('sv-SE')}</strong> i landet för valt år.</p>
-      <p>Andel av alla röster: <strong>${percent}%</strong></p>
-    </div>
-
-    <div id="pieChartContainer" style="flex: 1;"></div>
-
+<div style="display: flex; justify-content: space-between; gap: 30px; align-items: flex-start; margin-top: 20px;">
+  <div style="flex: 1;">
+    <h3 style="margin-bottom: 0.5rem;">${chosenParti}, år ${year}</h3>
+    <p>Vann i <strong>${antalKommunerMedVinst}</strong> av de analyserade kommunerna.</p>
+    <p>Totalt antal röster: <strong>${partyVotes.toLocaleString('sv-SE')}</strong></p>
+    <p>Andel av alla röster: <strong>${percent}%</strong></p>
   </div>
+
+  <div id="pieChartContainer" style="flex: 1;"></div>
+</div>
 `);
 
-// Vi skapar en cirkeldiagram för att visa andelen röster för det valda partiet och året
+// === Färginställningar ===
+let partyColorMap = {
+    'Sverigedemokraterna': '#FFD700',
+    'Arbetarepartiet-Socialdemokraterna': '#D52D2D'
+};
+let chosenColor = partyColorMap[chosenParti] || '#42f5e0';
+let otherColor = '#B0B0B0';
+
+// === Diagram: Barchart ===
 drawGoogleChart({
-    type: 'PieChart',
+    type: 'BarChart',
     elementId: 'pieChartContainer',
     data: [
-        ['Parti', 'Röster'],
-        [chosenParti, partyVotes],
-        ['Övriga', totalVotes - partyVotes]
+        ['Parti', chosenParti, 'Övriga'],
+        ['Röster', partyVotes, totalVotes - partyVotes]
     ],
     options: {
-        title: `Andel av röster, år ${year}`,
+        title: `Andel av röster för ${chosenParti} (${year})`,
         height: 300,
-        pieHole: 0.4,
-        colors: ['#42f5e0', '#f59942']
+        colors: [chosenColor, otherColor],
+        legend: { position: 'top' },
+        hAxis: { title: 'Röster' },
+        vAxis: { title: 'Parti' },
+        isStacked: false
     }
 });
 
@@ -143,7 +130,57 @@ drawGoogleChart({
 
 
 
-// Vi skapar en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022
+
+
+
+// === Generera unika färger ===
+function generateColor(index) {
+    const hue = (index * 37) % 360;
+    return `hsl(${hue}, 65%, 60%)`;
+}
+
+// === Bygg Bubble Chart-data med unik färg per kommun ===
+let bubbleData = [['Kommun', 'Röstandel (%)', 'Röster', 'Färg']];
+
+let i = 0;
+for (let kommun in grupperadElectionResultsForWork) {
+    let lista = grupperadElectionResultsForWork[kommun];
+    let total = s.sum(lista.map(r => +r[`roster${year}`]));
+    let partiRad = lista.find(r => r.parti === chosenParti);
+    if (!partiRad || total === 0) continue;
+
+    let partiroster = +partiRad[`roster${year}`];
+    let procent = (partiroster / total) * 100;
+    let färg = generateColor(i++);
+
+    bubbleData.push([kommun, +procent.toFixed(2), partiroster, färg]);
+}
+
+// === Visa titel ===
+addMdToPage(`
+### Bubble Chart med färg per kommun  ${chosenParti} (${year})
+Varje bubbla har en egen färg, storleken baseras på antalet röster.
+`);
+
+// === Rita Bubble Chart ===
+drawGoogleChart({
+    type: 'BubbleChart',
+    data: bubbleData,
+    options: {
+        title: `Stöd för ${chosenParti} per kommun (${year})`,
+        height: 600,
+        bubble: { textStyle: { fontSize: 11 } },
+        hAxis: { title: 'Kommun (etikett)' },
+        vAxis: { title: 'Röstandel (%)' },
+        chartArea: { left: 100, width: '80%' },
+        legend: 'none'
+    }
+});
+
+
+
+
+// === Skapa procentData om det inte redan finns ===
 let procentData = [];
 
 for (let kommun in grupperadElectionResultsForWork) {
@@ -154,44 +191,36 @@ for (let kommun in grupperadElectionResultsForWork) {
 
     let partiroster = +partiRad[`roster${year}`];
     let procent = (partiroster / total) * 100;
-
-    procentData.push({
-        kommun,
-        procent: +procent.toFixed(2)
-    });
+    procentData.push({ kommun, procent: +procent.toFixed(2) });
 }
 
+// === Statistik + enkel normalitetsbedömning ===
+let values = procentData.map(x => x.procent);
 
-drawGoogleChart({
-    type: 'Histogram',
-    data: [
-        ['Procent röster'],
-        ...procentData.map(x => [x.procent])
-    ],
-    options: {
-        title: `Andel röster för ${chosenParti} i varje kommun (${year})`,
-        height: 400,
-        colors: ['#42f5e0', '#f59942'],
-        histogram: { bucketSize: 2 },
-        hAxis: { title: 'Procent röster' },
-        vAxis: { title: 'Antal kommuner' }
-    }
-});
+let min = Math.min(...values);
+let max = Math.max(...values);
+let sum = values.reduce((a, b) => a + b, 0);
+let mean = sum / values.length;
+let sorted = [...values].sort((a, b) => a - b);
+let median = sorted[Math.floor(values.length / 2)];
 
-let median = s.median(procentData.map(x => x.procent));
-let max = s.max(procentData.map(x => x.procent));
-let min = s.min(procentData.map(x => x.procent));
+// Enkel normalitetsbedömning: jämför medel och median
+let normalbedömning = Math.abs(mean - median) < 2
+    ? "Data ser ut att vara ungefär normalfördelad (medel ≈ median)."
+    : "Data verkar inte vara normalfördelad (medel och median skiljer sig mycket).";
 
 addMdToPage(`
-### Statistik: ${chosenParti} (${year})
-- Medianandel per kommun: **${median.toFixed(1)}%**
-- Högsta andel: **${max.toFixed(1)}%**
+### Statistik för ${chosenParti} (${year})
+- Medelvärde: **${mean.toFixed(1)}%**
+- Median: **${median.toFixed(1)}%**
 - Lägsta andel: **${min.toFixed(1)}%**
+- Högsta andel: **${max.toFixed(1)}%**
+
+**Normalitetsbedömning:** ${normalbedömning}
 `);
 
 
-let values = procentData.map(x => x.procent);
-let result = stdLib.stats.shapiroWilkTest(values);
+
 
 
 
