@@ -3,6 +3,13 @@ async function fetchAndVisualizeData() {
     dbQuery.use('riksdagsval-neo4j');
     let electionResults = await dbQuery('MATCH (n:Partiresultat) RETURN n ORDER BY n.roster2018 DESC');
 
+
+    addMdToPage(`
+  ## Påverkar arbetslöshet hur man röstar?
+  * Jag har valt 10 kommuner med högsta arbetslöshet och 10 med lågarbetslöshet.
+  * Undersöker valet för alla partier i valet av 2018. 
+`);
+
     if (!Array.isArray(electionResults) || electionResults.length === 0) {
         console.error('Inga valresultat hittades eller datan är inte en array:', electionResults);
         return;
@@ -35,6 +42,12 @@ async function fetchAndVisualizeData() {
     let högArbetsloshetKommuner = filteredResults.filter(x => högarbetslöshetCommunes.includes(x.kommun));
     let lågArbetsloshetKommuner = filteredResults.filter(x => lågarbetslöshetCommunes.includes(x.kommun));
 
+
+    addMdToPage(`
+  ## Kommuner med hög arbetslöshet 2018.
+
+`);
+
     drawGoogleChart({
         type: 'ColumnChart',
         data: makeChartFriendly(högArbetsloshetKommuner),
@@ -48,6 +61,11 @@ async function fetchAndVisualizeData() {
         }
     });
 
+
+    addMdToPage(`
+  ## Kommuner med låg arbetslöshet 2018.
+
+`);
     drawGoogleChart({
         type: 'ColumnChart',
         data: makeChartFriendly(lågArbetsloshetKommuner),
@@ -61,25 +79,34 @@ async function fetchAndVisualizeData() {
         }
     });
 
+
+    addMdToPage(`
+  ## Andel röster i kommuner med hög arbetslöshet 2018 i procent.
+
+`);
     drawGoogleChart({
         type: 'PieChart',
         data: makeChartFriendly(högArbetsloshetKommuner),
         options: {
             title: 'Andel röster i kommuner med hög arbetslöshet',
-            height: 500,
-            width: 800,
+            height: 600,
+            width: 1200,
             is3D: true,
             legend: { position: 'right' }
         }
     });
 
+    addMdToPage(`
+  ## Andel röster i kommuner med låg arbetslöshet 2018 i procent.
+
+`);
     drawGoogleChart({
         type: 'PieChart',
         data: makeChartFriendly(lågArbetsloshetKommuner),
         options: {
             title: 'Andel röster i kommuner med låg arbetslöshet',
-            height: 500,
-            width: 800,
+            height: 600,
+            width: 1200,
             is3D: true,
             legend: { position: 'right' }
         }
