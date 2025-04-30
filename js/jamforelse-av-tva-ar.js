@@ -2,6 +2,9 @@
 dbQuery.use('riksdagsval-neo4j');
 // Hämta valresultat
 let electionResultsForWork = await dbQuery('MATCH (n:Partiresultat) RETURN n');
+addMdToPage(`
+  ## Tabeler som visar kommuner, röster och vinnare per respektive år, och diferens röster för parti.
+`);
 
 // Lista med kommuner baserat på arbetslöshetsnivå
 const högarbetslöshetCommunes = ['Flen', 'Perstorp', 'Malmö', 'Eskilstuna', 'Fagersta', 'Sandviken', 'Ronneby', 'Filipstad', 'Södertälje', 'Söderhamn'];
@@ -41,8 +44,10 @@ function skapaSammanstallning(filteredData) {
 let sammanstallningHog = skapaSammanstallning(filteredHog);
 let sammanstallningLag = skapaSammanstallning(filteredLag);
 
+
+
 // Tabell för kommuner med hög arbetslöshet
-addMdToPage("### Kommuner med hög arbetslöshet");
+addMdToPage("### Kommuner med hög arbetslöshet för att ta reda på hur mycket diferens det finns i valet av 2022 jamfört med 2018.");
 
 sammanstallningHog = [...sammanstallningHog].sort((a, b) => {
   if (a.byte === "Ja" && b.byte !== "Ja") return -1;
@@ -61,14 +66,16 @@ tableFromData({
   }))
 });
 
+
 // Tabell för kommuner med låg arbetslöshet
-addMdToPage("### Kommuner med låg arbetslöshet");
+addMdToPage("### Kommuner med låg arbetslöshet för att ta reda på hur mycket diferens det finns i valet av 2022 jamfört med 2018.");
 
 sammanstallningLag = [...sammanstallningLag].sort((a, b) => {
   if (a.byte === "Ja" && b.byte !== "Ja") return -1;
   if (a.byte !== "Ja" && b.byte === "Ja") return 1;
   return 0;
 });
+
 tableFromData({
   data: sammanstallningLag.map(row => ({
     kommun: row.kommun,
@@ -83,7 +90,7 @@ tableFromData({
 
 
 // Tabell för Sverigedemokraternas röster i de valda kommunerna
-addMdToPage("### Sverigedemokraternas röster i valda kommuner");
+addMdToPage("### Sverigedemokraternas röster i valda kommuner för att ta reda på hur mycket diferens det finns i valet av 2022 jamfört med 2018.");
 
 // Kombinera filtrerade data (hög + låg arbetslöshet)
 let combinedFiltered = [...filteredHog, ...filteredLag];
@@ -106,8 +113,6 @@ for (let item of sdData) {
 tableFromData({
   data: Object.values(sdSammanstallning)
 });
-
-
 
 
 
@@ -135,6 +140,8 @@ function skapaFullSammanstallning(data) {
     };
   });
 }
+
+
 // Skapa och sortera sammanställningen för hela landet
 let sammanstallningAllaKommuner = skapaFullSammanstallning(electionResultsForWork).sort((a, b) => {
   if (a.byte === "Ja" && b.byte !== "Ja") return -1;
@@ -143,7 +150,7 @@ let sammanstallningAllaKommuner = skapaFullSammanstallning(electionResultsForWor
 });
 
 // Tabell för alla kommuner i Sverige
-addMdToPage("### Alla kommuner i Sverige – sorterade efter partibyte");
+addMdToPage("### Alla kommuner i Sverige sorterade efter partibyte i valet 2022.");
 
 tableFromData({
   data: sammanstallningAllaKommuner.map(row => ({
