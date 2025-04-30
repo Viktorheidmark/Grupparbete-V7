@@ -17,7 +17,6 @@ addToPage(` Sammanfattning
 
 // Detta är en del av koden som används för att hämta och visualisera valresultat från riksdagsvalen 2018 och 2022.
 let electionResultsForWork = await dbQuery('MATCH (n:Partiresultat) RETURN n');
-console.log('electionResultsForWork', electionResultsForWork);
 
 
 // Kommunlista att inkludera
@@ -30,12 +29,9 @@ const selectedParties = ['Sverigedemokraterna', 'Arbetarepartiet-Socialdemokrate
 electionResultsForWork = electionResultsForWork.filter(r =>
     selectedCommunes.includes(r.kommun) && selectedParties.includes(r.parti)
 );
-console.log('electionResultsForWork', electionResultsForWork);
 
 // Detta gruppar valresultaten efter kommuner och skapar en lista med vinnande partier för varje kommun.
 let grupperadElectionResultsForWork = {};
-
-// Vi grupperar valresultaten efter kommuner och skapar en lista med vinnande partier för varje kommun.
 for (let item of electionResultsForWork) {
     const { kommun, parti, roster2018, roster2022 } = item;
     if (!grupperadElectionResultsForWork[kommun]) {
@@ -47,8 +43,6 @@ for (let item of electionResultsForWork) {
 let sammanstallning = Object.entries(grupperadElectionResultsForWork).map(([kommun, list]) => {
     let vinnare2018 = list.reduce((max, curr) => curr.roster2018 > max.roster2018 ? curr : max);
     let vinnare2022 = list.reduce((max, curr) => curr.roster2022 > max.roster2022 ? curr : max);
-
-    // Vi kontrollerar om vinnande parti har ändrats mellan 2018 och 2022
     const byttParti = vinnare2018.parti !== vinnare2022.parti;
 
     return {
@@ -60,21 +54,11 @@ let sammanstallning = Object.entries(grupperadElectionResultsForWork).map(([komm
         byte: byttParti ? "!!! Ja!!!" : "-"
     };
 });
-// Kommuner där vinnande parti har ändrats (2018 → 2022)
-let kommunerMedByte = sammanstallning
-    .filter(r => r.byte === "!!! Ja!!!")
-    .map(r => r.kommun);
-// Kommuner där samma parti vann både 2018 och 2022
-let stabilaKommuner = sammanstallning
-    .filter(r => r.byte === "-")
-    .map(r => r.kommun);
 
 
 // Här skapar vi en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022
 let years = [2018, 2022];
 let partier = [...new Set(electionResultsForWork.map(x => x.parti))].sort();
-
-// Och nu skapar vi en dropdown för att välja år och parti
 let year = addDropdown('Välj år', years, 2022);
 let chosenParti = addDropdown('Välj parti', selectedParties);
 
@@ -94,7 +78,6 @@ let partyVotes = s.sum(
         .map(x => year === 2018 ? +x.roster2018 : +x.roster2022)
 );
 
-// Vi beräknar andelen röster för det valda partiet och året
 let percent = ((partyVotes / totalVotes) * 100).toFixed(1);
 
 // Vi skapar en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022
@@ -139,12 +122,9 @@ drawGoogleChart({
 
 
 
-// Vi skapar en tabell med valresultaten för varje kommun, inklusive vinnande partier och röster för både 2018 och 2022
-let procentData = [];
 
 for (let kommun in grupperadElectionResultsForWork) {
     let lista = grupperadElectionResultsForWork[kommun];
-
     let total = s.sum(lista.map(r => +r[`roster${year}`]));
     let partiRad = lista.find(r => r.parti === chosenParti);
     if (!partiRad) continue;
@@ -157,8 +137,6 @@ for (let kommun in grupperadElectionResultsForWork) {
         procent: +procent.toFixed(2)
     });
 }
-addMdToPage(`Totalt antal kommuner i analysen: **${procentData.length}**`);
-
 
 
 drawGoogleChart({
@@ -185,12 +163,8 @@ addMdToPage(`
 ### Statistik: ${chosenParti} (${year})
 - Medianandel per kommun: **${median.toFixed(1)}%**
 - Högsta andel: **${max.toFixed(1)}%**
-- Lägsta andel: **${min.toFixed(1)}%**
 `);
 
-
-let values = procentData.map(x => x.procent);
-let result = stdLib.stats.shapiroWilkTest(values);
 
 addMdToPage(`
 ###Shapiro-Wilk normalitetstest
