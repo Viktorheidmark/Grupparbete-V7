@@ -1,43 +1,31 @@
-addMdToPage(`
-  ### Topp 25 kommuner efter medelinkomst (2018 & 2022), från MongoDB
-`);
- 
-dbQuery.use('kommun-info-mongodb');
-let income = await dbQuery.collection('incomeByKommun').find({});
- 
-// Filtrera bort poster som saknar data för både 2018 och 2022
-income = income.filter(x => x.medelInkomst2018 && x.medelInkomst2022);
- 
-// Sortera efter högst medelinkomst 2022
-income.sort((a, b) => b.medelInkomst2022 - a.medelInkomst2022);
- 
-// Begränsa till topp 25
-income = income.slice(0, 25);
- 
-// Visa tabell
+// Visa tabeller för kommuner med hög och låg arbetslöshet
+addMdToPage(
+  ### Valresultat från riksdagsvalen 2018 och 2022 uppdelade efter kommuner med hög arbetslöshet
+);
+dbQuery.use('riksdagsval-neo4j');
+let electionResultsHigh = await dbQuery('MATCH (n:Partiresultat) WHERE n.kommun IN ["Flen", "Perstorp", "Malmö", "Eskilstuna", "Fagersta", "Sandviken", "Ronneby", "Filipstad", "Södertälje", "Söderhamn"] RETURN n');
 tableFromData({
-  data: income.map(x => ({
-    Kommun: x.kommun,
-    'Medelinkomst 2018': x.medelInkomst2018,
-    'Medelinkomst 2022': x.medelInkomst2022,
-    'Skillnad (kr)': Math.round(x.medelInkomst2022 - x.medelInkomst2018),
-    'Skillnad (%)': ((x.medelInkomst2022 - x.medelInkomst2018) / x.medelInkomst2018 * 100).toFixed(1) + '%'
+  data: electionResultsHigh.map(({ ids, kommun, roster2018, parti, roster2022, labels }) => ({
+    ids: ids.identity,
+    kommun,
+    parti,
+    roster2018,
+    roster2022,
+    labels
   }))
 });
- 
-addMdToPage(`
-  ### Topp 25 kommuner efter medelålder, från MongoDB
-`);
- 
-let ages = await dbQuery.collection('ageByKommun').find({});
- 
-// Sortera efter högst medelålder
-ages.sort((a, b) => b.medelAlder - a.medelAlder);
- 
-// Begränsa till topp 25
-ages = ages.slice(0, 25);
- 
-// Visa tabell
-tableFromData({ data: ages });
- 
- 
+
+addMdToPage(
+  ### Valresultat från riksdagsvalen 2018 och 2022 uppdelade efter kommuner med låg arbetslöshet
+);
+let electionResultsLow = await dbQuery('MATCH (n:Partiresultat) WHERE n.kommun IN ["Pajala", "Kiruna", "Kungsbacka", "Tjörn", "Öckerö", "Krokom", "Sotenäs", "Gällivare", "Habo", "Mörbylånga"] RETURN n');
+tableFromData({
+  data: electionResultsLow.map(({ ids, kommun, roster2018, parti, roster2022, labels }) => ({
+    ids: ids.identity,
+    kommun,
+    parti,
+    roster2018,
+    roster2022,
+    labels
+  }))
+});

@@ -44,7 +44,7 @@ createMenu('En berättelse om Sverige och våra senaste två riksdagsval', [
   {
     name: "Mila", sub: [
       { name: 'diagram', script: 'Miladiagram.js' },
-      { name: 'Tabeller jämförelse-2018-2022', script: 'Tabell.js' }
+      { name: 'Tabell jämförelse-2018-2022', script: 'Tabell.js' }
     ]
   },
 
