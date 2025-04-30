@@ -1,5 +1,5 @@
 
-createMenu('SQLITE UNDERSÖKNING', [
+createMenu('En berättelse om Sverige och våra senaste två riksdagsval', [
   { name: 'Intro', script: 'new-in-v8.js' },
   {
     name: 'Counties', sub: [
@@ -17,6 +17,8 @@ createMenu('SQLITE UNDERSÖKNING', [
       { name: 'histogram_valstatiskik', script: 'histogram_valstatistik.js' },
       { name: 'diagram_valstatiskik', script: 'diagram_valstatistik.js' },
       { name: 'diagram_2_valstatiskik', script: 'diagram_2_valstatistik.js' },
+      { name: 'diagram_3_valstatiskik', script: 'diagram_3_valstatistik.js' }
+
     ]
   },
 
