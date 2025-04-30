@@ -10,7 +10,7 @@ addToPage(`
 - Visualiserar resultat med diagram
 - Kopplar resultat till inkomst
 - Testar om röstandelar är normalfördelade
-- Undersöker geografiska trender
+
 `);
 
 // === Hämtar valresultat ===
@@ -52,13 +52,15 @@ let sammanstallning = Object.entries(grupperadElectionResultsForWork).map(([komm
     };
 });
 
-// === Dropdowns för val av år och parti ===
+
+
+// Dropdowns för val av år och parti 
 let years = [2018, 2022];
 let partier = [...new Set(electionResultsForWork.map(x => x.parti))].sort();
 let year = addDropdown('Välj år', years, 2022);
 let chosenParti = addDropdown('Välj parti', selectedParties);
 
-// === Statistisk sammanställning ===
+// Statistisk sammanställning
 let antalKommunerMedVinst = sammanstallning.filter(row =>
     (year == 2018 && row.vinnare2018 === chosenParti) ||
     (year == 2022 && row.vinnare2022 === chosenParti)
@@ -76,7 +78,7 @@ let partyVotes = s.sum(
 
 let percent = ((partyVotes / totalVotes) * 100).toFixed(1);
 
-// === Layout: Resultatsammanfattning + Diagram ===
+// Resultatsammanfattning + Diagram 
 addToPage(`
 <div style="display: flex; justify-content: space-between; gap: 30px; align-items: flex-start; margin-top: 20px;">
   <div style="flex: 1;">
@@ -90,7 +92,7 @@ addToPage(`
 </div>
 `);
 
-// === Färginställningar ===
+// Färginställningar 
 let partyColorMap = {
     'Sverigedemokraterna': '#FFD700',
     'Arbetarepartiet-Socialdemokraterna': '#D52D2D'
@@ -98,7 +100,7 @@ let partyColorMap = {
 let chosenColor = partyColorMap[chosenParti] || '#42f5e0';
 let otherColor = '#B0B0B0';
 
-// === Diagram: Barchart ===
+//  Diagram: Barchart 
 drawGoogleChart({
     type: 'BarChart',
     elementId: 'pieChartContainer',
@@ -116,6 +118,7 @@ drawGoogleChart({
         isStacked: false
     }
 });
+
 
 
 
