@@ -1,15 +1,34 @@
+// Vi gör en droppdown för att kunna välja år
+let yearDropdown = addDropdown('Välj år', [2018, 2022], 2018);
+
 // Hämta data från Neo4j och skapa Google Charts
 async function fetchAndVisualizeData() {
     dbQuery.use('riksdagsval-neo4j');
+
     let electionResults = await dbQuery('MATCH (n:Partiresultat) RETURN n ORDER BY n.roster2018 DESC');
 
+
+
+    // Läger en text till min sida
     addMdToPage(`
         ## Hypotes
-  ## När jag kollade på siffrorna såg att både Socialdemokraterna och Sverigedemokraterna har stigt i röster.
+  ## När jag kollade på siffrorna såg att både Socialdemokraterna och Sverigedemokraterna och Moderaterna har stigt i röster.
   ## Påverkar arbetslöshet hur man röstar?
   * Jag har valt 10 kommuner med högsta arbetslöshet och 10 med lägst arbetslöshet.
   * Undersöker valresultatet 2018 för alla riksdagspartier.
   
+`);
+
+    addMdToPage(`## Slutsatser:
+
+## Efter hela min undersökning så märkte jag att:
+* Socialdemokraternas röstandel är jämnt fördelad över kommunerna. Det innebär att deras röster är normalfördelat,
+ utan extremt höga eller låga resultat i någon särskild grupp. Partiet har en bred och jämn väljare över landet.
+* Sverigedemokraterna röstandel är ojämnt fördelad. Stödet varierar mycket mellan kommunerna, och vissa kommuner 
+har väldigt höga siffror medan andra har lågt stöd. Sverigedemokraternas stöd verkar vara starkt knutet till lokala 
+förutsättningar än geografiskt som arbetslöshet.
+ Stödet varierar kraftigt beroende på kommuntyp - partiet är starkt i vissa mindre kommuner men har svagare stöd i storstäder.
+
 `);
 
     if (!Array.isArray(electionResults) || electionResults.length === 0) {
@@ -30,7 +49,7 @@ async function fetchAndVisualizeData() {
 
     };
 
-    const colorOrder = ['S', 'M', 'SD', 'V', 'S', 'MP', 'C', 'L', 'KD'];
+    const colorOrder = ['S', 'M', 'SD', 'V', 'MP', 'C', 'L', 'KD'];
     const partifärger = colorOrder.map(kod => partyColorMap[kod]);
 
     const selectedCommunes = [
@@ -138,17 +157,8 @@ async function fetchAndVisualizeData() {
 
 
 
-addMdToPage(`## Slutsatser:
-
-## Efter hela min undersökning så märkte jag att:
-* Socialdemokraternas röstandel är jämnt fördelad över kommunerna. Det innebär att deras röster är normalfördelat,
- utan extremt höga eller låga resultat i någon särskild grupp. Partiet har en bred och jämn väljare över landet.
-* Sverigedemokraterna röstandel är ojämnt fördelad. Stödet varierar mycket mellan kommunerna, och vissa kommuner 
-har väldigt höga siffror medan andra har lågt stöd. Sverigedemokraternas stöd verkar vara starkt knutet till lokala 
-förutsättningar än geografiskt som arbetslöshet.
- Stödet varierar kraftigt beroende på kommuntyp - partiet är starkt i vissa mindre kommuner men har svagare stöd i storstäder.
-
-`);
-
+// Initial rendering och dropdown-lyssnare
+fetchAndVisualizeData(2018);
+yearDropdown.on('change', newYear => fetchAndVisualizeData(newYear));
 
 
