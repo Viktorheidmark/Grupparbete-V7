@@ -1,16 +1,12 @@
-// === Konfiguration ===
+// Datan vi använder  ===
 dbQuery.use('riksdagsval-neo4j');
 
 addToPage(`
-## Sammanfattning av analys
+## Jämför valresultat mellan 2018 och 2022
 
-- Jämför valresultat mellan 2018 och 2022
-- Analyserar på kommunnivå
-- Identifierar partibyten
-- Visualiserar resultat med diagram
-- Kopplar resultat till inkomst
-- Testar om röstandelar är normalfördelade
-
+    ## Hypotes:
+    I valet 2022 förväntas vi se ett kraftigt ökande stöd för Sverigedemokraterna (SD), Socialdemokraterna (S), och Moderaterna i jämförelse med valet 2018. 
+    Vi antar att **inkomst** och **arbetslöshet** har påverkat väljarnas beslut i valet 2022, särskilt för dessa partier.
 `);
 
 // === Hämtar valresultat ===
@@ -80,7 +76,6 @@ let percent = ((partyVotes / totalVotes) * 100).toFixed(1);
 
 
 // Färginställningar 
-// Färginställningar 
 let partyColorMap = {
     'Arbetarepartiet-Socialdemokraterna': '#ed1b34',
     'Moderaterna': '#52bdec',
@@ -109,7 +104,14 @@ drawGoogleChart({
     }
 });
 
+// Kommentar - Första diagrammet 
 
+addToPage(`
+    ### Diagrammet - Andel av röster för ${chosenParti}(år ${year}):
+    Detta diagram visar hur stor andel av rösterna som ${chosenParti} har fått för det valda året. 
+    Vi har undersökt om ** inkomstnivåer ** har haft någon påverkan på valresultatet för ${chosenParti}. 
+    Det här kan ge oss insikter om hur ekonomiska faktorer spelar roll i väljarnas beslut.
+   `);
 
 
 
@@ -158,7 +160,12 @@ drawGoogleChart({
     }
 });
 
-
+// === Förklaring ===
+addMdToPage(`
+    ### Bubble Chart med arbetslöshet(Hög vs Låg)
+    Diagrammet visar stöd för ${chosenParti} i 20 kommuner: 10 med hög arbetslöshet och 10 med låg arbetslöshet. 
+    Varje bubbla representerar en kommun, och storleken är relaterad till antalet röster.
+    `);
 
 
 // === Skapa procentData om det inte redan finns ===
@@ -271,3 +278,21 @@ let percentVanster2018 = (totalVanster2018 / total2018 * 100).toFixed(1);
 let percentVanster2022 = (totalVanster2022 / total2022 * 100).toFixed(1);
 let percentHoger2018 = (totalHoger2018 / total2018 * 100).toFixed(1);
 let percentHoger2022 = (totalHoger2022 / total2022 * 100).toFixed(1);
+
+
+// === Slutsats  av analys med datan ===
+addMdToPage(`
+    ### Slutsats:
+    Baserat på analysen och visualiseringarna ser vi att:
+    - ** SD, S, och Moderaterna ** har ökat kraftigt i valet 2022 i jämförelse med 2018, vilket bekräftar hypotesen om ett förändrat
+     politiskt landskap.
+    - ** Inkomst ** har en viss inverkan på valet.Kommuner med högre genomsnittsinkomst verkar ofta ge mer stöd till Moderaterna
+     och S, medan de med lägre inkomst ger mer stöd till SD.
+    - ** Arbetslöshet ** spelar också en viktig roll.I kommuner med hög arbetslöshet tenderar SD att få mer stöd, medan de med låg
+     arbetslöshet ger större stöd till Moderaterna och Socialdemokraterna.
+    - ** Pearson - korrelationen ** mellan inkomst och röstandel visar ett måttligt samband, vilket tyder på att inkomstnivåer har en
+     viss inverkan på valet av parti, särskilt för SD.
+    
+    Sammanfattningsvis bekräftar resultaten vår hypotes om att SD, S och Moderaterna har ökat i valet 2022 jämfört med 2018.
+     Vidare verkar både inkomst och arbetslöshet påverka väljarnas beslut.
+    `);
