@@ -58,17 +58,5 @@ createMenu('En berättelse om Sverige och de senaste riksdagsval', [
       { name: 'diagram', script: 'Miladiagram.js' },
       { name: 'Tabeller jämförelse-2018-2022', script: 'Tabell.js' }
     ]
-  },
-
-
-  {
-    name: "REDOVISNING", sub: [
-      { name: 'intro_redovisning', script: 'redovisning.js' },
-      { name: 'Tannaz', script: 'redovisning2.js' },
-      { name: 'Viktor', script: 'redovisning3.js' },
-      { name: 'Isse', script: 'redovisning4.js' }
-
-
-    ]
   }
 ]);
