@@ -1,6 +1,6 @@
 dbQuery.use('kommun-info-mongodb');
 addMdToPage(`
-  ### Jämförelse av medelinkomst i procent (2022) - Hög och Låg medelinkomst.
+  ### Jämförelse av medelinkomst i procent (2022) - Hög och Låg arbetslöshet.
 `);
  
  
@@ -41,7 +41,7 @@ drawGoogleChart({
   type: 'ColumnChart',
   data: chartDataHÖG,
   options: {
-    title: `Medelinkomst i kommuner med hög medelinkomst (2022)`,
+    title: `Medelinkomst i kommuner med hög arbetslöshet (2022)`,
     height: 500,
     width: 1000,
     chartArea: { left: "15%", top: "10%" },
@@ -84,7 +84,7 @@ drawGoogleChart({
   type: 'ColumnChart',
   data: chartDataLÅG,
   options: {
-    title: `Medelinkomst i kommuner med låg medelinkomst (2022)`,
+    title: `Medelinkomst i kommuner med låg arbetslöshet (2022)`,
     height: 500,
     width: 1000,
     chartArea: { left: "15%", top: "10%" },

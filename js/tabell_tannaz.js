@@ -1,3 +1,4 @@
+addMdToPage("##  Detta är en lista över datakällan som används")
 
 
 addMdToPage(`
@@ -8,7 +9,7 @@ addMdToPage(`
 
 dbQuery.use('kommun-info-mongodb');
 
-let income = await dbQuery.collection('incomeByKommun').find({});
+let income = await dbQuery.collection('incomeByKommun').find({}).limit(10)
 
 tableFromData({ data: income });
 
@@ -22,7 +23,7 @@ addMdToPage(`
 
 dbQuery.use('kommun-info-mongodb');
 
-let ages = await dbQuery.collection('ageByKommun').find({});
+let ages = await dbQuery.collection('ageByKommun').find({}).limit(10)
 
 tableFromData({ data: ages });
 

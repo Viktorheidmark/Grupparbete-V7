@@ -19,7 +19,7 @@ else {
   (Endast de 20 första av många poster.)
   `);
   dbQuery.use('riksdagsval-neo4j');
-  let electionResults = await dbQuery('MATCH (n:Partiresultat) RETURN n LIMIT 20');
+  let electionResults = await dbQuery('MATCH (n:Partiresultat) RETURN n LIMIT 10');
   tableFromData({
     data: electionResults
       // egenskaper/kolumner kommer i lite konstig ordning från Neo - mappa i trevligare ordning
@@ -33,7 +33,7 @@ addMdToPage(`
   Info om våra 21 svenska län, bland annat hur tätbefolkade de är!
   `);
 dbQuery.use('counties-sqlite');
-let countyInfo = await dbQuery('SELECT * FROM countyInfo');
+let countyInfo = await dbQuery('SELECT * FROM countyInfo LIMIT 10 ');
 tableFromData({ data: countyInfo });
 console.log('countyInfo', countyInfo);
 
