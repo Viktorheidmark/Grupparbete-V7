@@ -8,7 +8,7 @@ createMenu('En berättelse om Sverige och de senaste riksdagsval', [
     ]
   },
   {
-    name: 'Undersökning med kommuner', sub: [
+    name: 'Undersökning med län', sub: [
       { name: 'Tabell_2018', script: 'tabell_2018.js' },
       { name: 'Tabell_2022', script: 'tabell_2022.js' },
       { name: 'valstatistik_tabell', script: 'valstatistik.js' },
