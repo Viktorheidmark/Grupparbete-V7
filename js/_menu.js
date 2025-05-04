@@ -49,7 +49,7 @@ createMenu('En berättelse om Sverige och våra senaste två riksdagsval', [
   },
 
   {
-    name: "neo4j", sub: [
+    name: "Normalfördelning och t-test", sub: [
       {
         name: 'Fördelning av röster per parti', script: 'fordelning.js'
       },
