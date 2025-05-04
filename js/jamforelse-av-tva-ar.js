@@ -1,6 +1,16 @@
 // === Konfiguration ===
 dbQuery.use('riksdagsval-neo4j');
 
+
+addMdToPage(`
+## Hypotes:
+Jag misstänker att det finns ett samband mellan arbetslöshet och partisympatier i olika kommuner.
+ Specifikt tror jag att partier som Sverigedemokraterna (SD) och Moderaterna (M) kommer att ha högre 
+ stödnivåer i kommuner med hög arbetslöshet, medan Socialdemokraterna (S) och Vänsterpartiet (V) kan ha
+  högre stöd i kommuner med lägre arbetslöshet. Detta skulle kunna indikera att socioekonomiska faktorer,
+   som arbetslöshet, påverkar valresultaten på kommunnivå.
+`);
+
 addMdToPage(`
 ## Sammanfattning av analys
 
@@ -171,3 +181,4 @@ förutsättningar än geografiskt som arbetslöshet.
  Stödet varierar kraftigt beroende på kommuntyp - partiet är starkt i vissa mindre kommuner men har svagare stöd i storstäder.
 
 `);
+
