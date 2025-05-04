@@ -34,6 +34,18 @@ createMenu('En berättelse om Sverige och de senaste riksdagsval', [
 
 
   {
+    name: "Normalfördelning och t-test", sub: [
+      {
+        name: 'Fördelning av röster per parti', script: 'fordelning.js'
+      },
+      { name: "Jämförelse av valet", script: "jamforelse-av-tva-ar.js" },
+
+      { name: " Hur kmmuner roster i 2018", script: "visualisering.js" },
+
+    ]
+  },
+
+  {
     name: "MongoDB", sub: [
       { name: 'Här visar vi tabell', script: 'tabell_tannaz.js' },
       { name: 'Här visar vi topp 10 kommuner', script: 'arbetsloshetT.js' },
@@ -48,17 +60,6 @@ createMenu('En berättelse om Sverige och de senaste riksdagsval', [
     ]
   },
 
-  {
-    name: "Normalfördelning och t-test", sub: [
-      {
-        name: 'Fördelning av röster per parti', script: 'fordelning.js'
-      },
-      { name: "Jämförelse av valet", script: "jamforelse-av-tva-ar.js" },
-
-      { name: " Hur kmmuner roster i 2018", script: "visualisering.js" },
-
-    ]
-  },
 
   {
     name: "REDOVISNING", sub: [
