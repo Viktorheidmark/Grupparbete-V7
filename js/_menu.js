@@ -34,7 +34,7 @@ createMenu('En berättelse om Sverige och våra senaste två riksdagsval', [
 
 
   {
-    name: "Tannaz", sub: [
+    name: "MongoDB", sub: [
       { name: 'Här visar vi tabell', script: 'tabell_tannaz.js' },
       { name: 'Här visar vi topp 10 kommuner', script: 'arbetsloshetT.js' },
       { name: 'Medelinkomst', script: 'testT.js' },
@@ -42,14 +42,14 @@ createMenu('En berättelse om Sverige och våra senaste två riksdagsval', [
   },
 
   {
-    name: "Mila", sub: [
+    name: "neo4j", sub: [
       { name: 'diagram', script: 'Miladiagram.js' },
       { name: 'Tabeller jämförelse-2018-2022', script: 'Tabell.js' }
     ]
   },
 
   {
-    name: "Benereta", sub: [
+    name: "neo4j", sub: [
       {
         name: 'Fördelning av röster per parti', script: 'fordelning.js'
       },
