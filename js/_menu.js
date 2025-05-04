@@ -63,12 +63,9 @@ createMenu('En berättelse om Sverige och våra senaste två riksdagsval', [
   {
     name: "REDOVISNING", sub: [
       { name: 'intro_redovisning', script: 'redovisning.js' },
-      { name: 'Mila', script: 'redovisning1.js' },
       { name: 'Tannaz', script: 'redovisning2.js' },
       { name: 'Viktor', script: 'redovisning3.js' },
-      { name: 'Isse', script: 'redovisning4.js' },
-      { name: 'Beneretta', script: 'redovisning5.js' }
-
+      { name: 'Isse', script: 'redovisning4.js' }
 
 
     ]
