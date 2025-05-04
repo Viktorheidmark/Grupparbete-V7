@@ -32,14 +32,14 @@ Dessa faktorer skapade en miljö där väljare började söka tydliga och kraftf
 
 Vi analyserade också medelinkomst och arbetslöshet i 20 kommuner (10 med hög och 10 med låg arbetslöshet). Här såg vi tydliga mönster:
 Inkomstnivåer:
-Kommuner med låg arbetslöshet (t.ex. Kungsbacka, Tjörn, Öckerö) hade generellt höga medelinkomster. Kungsbacka sticker särskilt ut med en medelinkomst på 480 300 kr – hela 60,4 % högre än Sotenäs, och mer än 90 % högre än Flen, som har den lägsta inkomsten i jämförelsen.
+Kommuner med låg arbetslöshet (t.ex. Kungsbacka, Tjörn, Öckerö) hade generellt höga medelinkomster. Kungsbacka sticker särskilt ut med en medelinkomst på 480 300 kr hela 60,4 % högre än Sotenäs, och mer än 90 % högre än Flen, som har den lägsta inkomsten i jämförelsen.
 Kommuner med hög arbetslöshet (Flen, Filipstad, Ronneby) hade betydligt lägre inkomster. Flen ligger i botten med 252 800 kr, vilket är upp till 112 900 kr (44,7 %) lägre än kommuner som Sandviken. Även kommuner som Södertälje och Eskilstuna visar en tydlig inkomstskillnad gentemot Flen på över 30 %.
-Det tyder på att arbetslöshet och låg inkomst ofta hänger samman, vilket i sin tur påverkar väljarnas politiska prioriteringar – exempelvis en önskan om trygghet, jobb och tydliga åtgärder.
+Det tyder på att arbetslöshet och låg inkomst ofta hänger samman, vilket i sin tur påverkar väljarnas politiska prioriteringar exempelvis en önskan om trygghet, jobb och tydliga åtgärder.
 
 
 ### arbetslöshet
 
-Vår dataanalys visar att SD ökade i nästan alla undersökta kommuner – oavsett om de hade låg eller hög arbetslöshet. I vissa kommuner var ökningen dramatisk, t.ex.:
+Vår dataanalys visar att SD ökade i nästan alla undersökta kommuner oavsett om de hade låg eller hög arbetslöshet. I vissa kommuner var ökningen dramatisk, t.ex.:
 * +2 169 röster i Kungsbacka
 * +1 950 röster i Eskilstuna
 * +637 röster i Gällivare
@@ -47,7 +47,6 @@ Vår dataanalys visar att SD ökade i nästan alla undersökta kommuner – oavs
 
 Enda undantaget var Malmö, där SD tappade drygt 1 000 röster, en stad där Socialdemokraterna fortsatt dominerar, troligen på grund av dess storlek, mångfald och starka vänsterprofil.
 Denna utveckling tyder på att SD inte längre är ett missnöjesparti, utan har blivit ett nationellt alternativ, särskilt i kommuner med låg till medelhög inkomst och arbetslöshetsproblem. Samtidigt är deras stöd ojämnt fördelat över landet, vilket vi också kan se i den statistiska analysen.
-Med ett nationellt alternativ menas här att SD nu har väljare i både norr och söder, i mindre orter och större kommuner, och att partiet blivit ett påtagligt alternativ för många väljare oavsett geografisk plats. Samtidigt är deras stöd ojämnt fördelat över landet, vilket vi också kan se i den statistiska analysen.
  
 I vår analys av 20 kommuner ser vi att SD:s stöd varierar kraftigt. I kommuner med hög arbetslöshet som Perstorp (41,6 %), Ronneby (35,9 %) och Eskilstuna (32,7 %) har SD mycket starkt stöd.
 I kommuner med låg arbetslöshet som Lund (14,6 %), Habo (18,4 %) och Öckerö (18,9 %) ligger stödet under 20 %. Det visar att SD:s framgångar är tydligast i kommuner där arbetslösheten är hög och den ekonomiska situationen svagare. 
