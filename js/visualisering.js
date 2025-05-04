@@ -1,35 +1,19 @@
-// Vi gör en droppdown för att kunna välja år
-let yearDropdown = addDropdown('Välj år', [2018, 2022], 2018);
 
 // Hämta data från Neo4j och skapa Google Charts
-async function fetchAndVisualizeData() {
+async function fetchAndVisualizeData(year) {
     dbQuery.use('riksdagsval-neo4j');
 
-    let electionResults = await dbQuery('MATCH (n:Partiresultat) RETURN n ORDER BY n.roster2018 DESC');
+    let electionResults = await dbQuery(`MATCH (n:Partiresultat) RETURN n ORDER BY n.roster${year} DESC`);
 
-
-
-    // Läger en text till min sida
+    // Lägger en text till min sida
     addMdToPage(`
-        ## Hypotes
-  ## När jag kollade på siffrorna såg att både Socialdemokraterna och Sverigedemokraterna och Moderaterna har stigt i röster.
-  ## Påverkar arbetslöshet hur man röstar?
-  * Jag har valt 10 kommuner med högsta arbetslöshet och 10 med lägst arbetslöshet.
-  * Undersöker valresultatet 2018 för alla riksdagspartier.
-  
-`);
-
-    addMdToPage(`## Slutsatser:
-
-## Efter hela min undersökning så märkte jag att:
-* Socialdemokraternas röstandel är jämnt fördelad över kommunerna. Det innebär att deras röster är normalfördelat,
- utan extremt höga eller låga resultat i någon särskild grupp. Partiet har en bred och jämn väljare över landet.
-* Sverigedemokraterna röstandel är ojämnt fördelad. Stödet varierar mycket mellan kommunerna, och vissa kommuner 
-har väldigt höga siffror medan andra har lågt stöd. Sverigedemokraternas stöd verkar vara starkt knutet till lokala 
-förutsättningar än geografiskt som arbetslöshet.
- Stödet varierar kraftigt beroende på kommuntyp - partiet är starkt i vissa mindre kommuner men har svagare stöd i storstäder.
-
-`);
+        ## Hypotes:
+        När jag kollade på siffrorna såg att de största partier Socialdemokraterna, Sverigedemokraterna 
+        och Moderaterna har stigit i röster.
+        ## Vill veta påverkar arbetslöshet och inkomst hur man röstar?
+        * Jag har valt 10 kommuner med högsta arbetslöshet och 10 med lägst arbetslöshet.
+        * Undersöker valresultatet ${year} för alla riksdagspartier.
+    `);
 
     if (!Array.isArray(electionResults) || electionResults.length === 0) {
         console.error('Inga valresultat hittades eller datan är inte en array:', electionResults);
@@ -46,7 +30,6 @@ förutsättningar än geografiskt som arbetslöshet.
         C: '#009933',
         L: '#006ab6',
         KD: '#1b365d',
-
     };
 
     const colorOrder = ['S', 'M', 'SD', 'V', 'MP', 'C', 'L', 'KD'];
@@ -73,16 +56,14 @@ förutsättningar än geografiskt som arbetslöshet.
 
     let votesPerCommun = allCommmunNames.map(kommun => ({
         kommun,
-        S: electionResults.find(x => x.parti === 'Arbetarepartiet-Socialdemokraterna' && x.kommun === kommun)?.roster2018 || 0,
-        M: electionResults.find(x => x.parti === 'Moderaterna' && x.kommun === kommun)?.roster2018 || 0,
-        SD: electionResults.find(x => x.parti === 'Sverigedemokraterna' && x.kommun === kommun)?.roster2018 || 0,
-        V: electionResults.find(x => x.parti === 'Vänsterpartiet' && x.kommun === kommun)?.roster2018 || 0,
-
-        MP: electionResults.find(x => x.parti === 'Miljöpartiet de gröna' && x.kommun === kommun)?.roster2018 || 0,
-        C: electionResults.find(x => x.parti === 'Centerpartiet' && x.kommun === kommun)?.roster2018 || 0,
-        L: electionResults.find(x => x.parti === 'Liberalerna ' && x.kommun === kommun)?.roster2018 || 0,
-        KD: electionResults.find(x => x.parti === 'Kristdemokraterna' && x.kommun === kommun)?.roster2018 || 0,
-
+        S: electionResults.find(x => x.parti === 'Arbetarepartiet-Socialdemokraterna' && x.kommun === kommun)?.[`roster${year}`] || 0,
+        M: electionResults.find(x => x.parti === 'Moderaterna' && x.kommun === kommun)?.[`roster${year}`] || 0,
+        SD: electionResults.find(x => x.parti === 'Sverigedemokraterna' && x.kommun === kommun)?.[`roster${year}`] || 0,
+        V: electionResults.find(x => x.parti === 'Vänsterpartiet' && x.kommun === kommun)?.[`roster${year}`] || 0,
+        MP: electionResults.find(x => x.parti === 'Miljöpartiet de gröna' && x.kommun === kommun)?.[`roster${year}`] || 0,
+        C: electionResults.find(x => x.parti === 'Centerpartiet' && x.kommun === kommun)?.[`roster${year}`] || 0,
+        L: electionResults.find(x => x.parti === 'Liberalerna ' && x.kommun === kommun)?.[`roster${year}`] || 0,
+        KD: electionResults.find(x => x.parti === 'Kristdemokraterna' && x.kommun === kommun)?.[`roster${year}`] || 0,
     }));
 
     let filteredResults = votesPerCommun.filter(({ kommun }) => selectedCommunes.includes(kommun));
@@ -91,12 +72,12 @@ förutsättningar än geografiskt som arbetslöshet.
     let lågArbetsloshetKommuner = filteredResults.filter(x => lågarbetslöshetCommunes.includes(x.kommun));
 
     // === Diagram: Kolumner hög arbetslöshet ===
-    addMdToPage(`## Kommuner med hög arbetslöshet (2018)`);
+    addMdToPage(`## Kommuner med hög arbetslöshet (${year})`);
     drawGoogleChart({
         type: 'ColumnChart',
         data: makeChartFriendly(högArbetsloshetKommuner),
         options: {
-            title: 'Partiröster i kommuner med hög arbetslöshet',
+            title: `Partiröster i kommuner med hög arbetslöshet (${year})`,
             height: 600,
             width: 1200,
             hAxis: { title: 'Kommun' },
@@ -106,13 +87,19 @@ förutsättningar än geografiskt som arbetslöshet.
         }
     });
 
+    addMdToPage(`
+        ## Vi ser att kommuner med hög arbetslöshet har tendens att rösta på 'S', 'M', 'SD' 
+        med en stor diferens med de andra partier.
+    `);
+
+
     // === Diagram: Kolumner låg arbetslöshet ===
-    addMdToPage(`## Kommuner med låg arbetslöshet (2018)`);
+    addMdToPage(`## Kommuner med låg arbetslöshet (${year})`);
     drawGoogleChart({
         type: 'ColumnChart',
         data: makeChartFriendly(lågArbetsloshetKommuner),
         options: {
-            title: 'Partiröster i kommuner med låg arbetslöshet',
+            title: `Partiröster i kommuner med låg arbetslöshet (${year})`,
             height: 600,
             width: 1200,
             hAxis: { title: 'Kommun' },
@@ -121,6 +108,12 @@ förutsättningar än geografiskt som arbetslöshet.
             colors: partifärger
         }
     });
+
+    addMdToPage(`
+        ## Vi ser att kommuner med låg arbetslöshet också har tendens att rösta på 'S', 'M', 'SD'
+         med en stor diferens med de andra partier.
+    `);
+
 
     // === Sammanlagd fördelning som PieChart ===
     const sumVotes = (data, key) => data.reduce((sum, row) => sum + (row[key] || 0), 0);
@@ -128,12 +121,12 @@ förutsättningar än geografiskt som arbetslöshet.
     const pieDataHög = [['Parti', 'Röster'], ...colorOrder.map(p => [p, sumVotes(högArbetsloshetKommuner, p)])];
     const pieDataLåg = [['Parti', 'Röster'], ...colorOrder.map(p => [p, sumVotes(lågArbetsloshetKommuner, p)])];
 
-    addMdToPage(`## Andel röster i kommuner med hög arbetslöshet (2018)`);
+    addMdToPage(`## Andel röster i kommuner med hög arbetslöshet (${year})`);
     drawGoogleChart({
         type: 'PieChart',
         data: pieDataHög,
         options: {
-            title: 'Röstfördelning i högarbetslösa kommuner',
+            title: `Röstfördelning i högarbetslösa kommuner (${year})`,
             height: 500,
             width: 1200,
             is3D: true,
@@ -141,24 +134,52 @@ förutsättningar än geografiskt som arbetslöshet.
         }
     });
 
-    addMdToPage(`## Andel röster i kommuner med låg arbetslöshet (2018)`);
+
+    addMdToPage(`
+        ## Även när vi kollar med % ser att kommuner med hög arbetslöshet har tendens att 
+        rösta på 'S' =31.9% 'M'=18.2% 'SD'=21.2% med en stor diferens med de andra partier.
+    `);
+
+
+    addMdToPage(`## Andel röster i kommuner med låg arbetslöshet (${year})`);
     drawGoogleChart({
         type: 'PieChart',
         data: pieDataLåg,
         options: {
-            title: 'Röstfördelning i lågarbetslösa kommuner',
+            title: `Röstfördelning i lågarbetslösa kommuner (${year})`,
             height: 500,
             width: 1200,
             is3D: true,
             colors: partifärger
         }
     });
+
+    addMdToPage(`
+        ## Även när vi kollar med % ser att kommuner med låg arbetslöshet har tendens att 
+        rösta på 'S' =27.8% 'M'=22% 'SD'=23.3% med en stor diferens med de andra partier.
+    `);
+
+
+    // === Slutsatser ===
+    addMdToPage(`
+        ## Slutsatser:
+Efter att ha analyserat valresultaten för riksdagspartierna i kommuner med både hög och låg arbetslöshet under valet ${year},
+ framträder några tydliga mönster:
+
+Socialdemokraterna (S) har ett jämnt och stabilt väljarstöd över olika kommuntyper, oavsett arbetslöshetsnivå. 
+Detta tyder på att partiet har en bred förankring i hela landet, med relativt liten variation mellan olika regioner. 
+Deras väljarbas verkar inte vara starkt beroende av lokala socioekonomiska faktorer.
+
+Sverigedemokraterna (SD) uppvisar däremot en mer ojämn fördelning. Deras väljarstöd varierar kraftigt mellan olika kommuner. 
+I vissa kommuner med hög arbetslöshet har partiet mycket starkt stöd, medan det i andra är betydligt svagare. 
+Detta kan tyda på att SD:s stöd är mer känsligt för lokala förutsättningar, särskilt kopplat till faktorer
+ som arbetslöshet och kanske även utbildningsnivå eller befolkningstäthet.
+
+Moderaterna (M) har också ett stabilt stöd men tenderar att få något starkare resultat i kommuner med lägre arbetslöshet.
+ Det kan antyda att deras väljare i högre grad återfinns i ekonomiskt starkare kommuner.
+
+ `);
 }
 
-
-
 // Initial rendering och dropdown-lyssnare
-fetchAndVisualizeData(2018);
-yearDropdown.on('change', newYear => fetchAndVisualizeData(newYear));
-
-
+fetchAndVisualizeData(2022);
